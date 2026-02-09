@@ -1,0 +1,14 @@
+{
+  "name": "talk-to-figma-mcp-docs",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Documentation site for Talk to Figma MCP Plugin",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node watch.mjs",
+    "setup": "bash setup-symlinks.sh"
+  },
+  "devDependencies": {
+    "marked": "^15.0.0"
+  }
+}

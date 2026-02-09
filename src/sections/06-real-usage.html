@@ -1,0 +1,45 @@
+<section class="section" id="sec6">
+  <h2><span class="num">6</span> วิธีใช้งานจริง</h2>
+  <p class="section-subtitle">สั่ง AI ทำงานใน Figma</p>
+
+  <h3>6.1 — พื้นฐาน: สั่ง Claude สร้าง Design</h3>
+  <p>เมื่อเชื่อมต่อเสร็จแล้ว สามารถสั่งงาน Claude ด้วย<strong>ภาษาธรรมชาติ</strong>:</p>
+  <table>
+    <thead><tr><th>พิมพ์</th><th>Claude จะทำ</th></tr></thead>
+    <tbody>
+      <tr><td>"สร้าง frame ขนาด iPhone 15 Pro"</td><td>สร้าง frame 393×852 px</td></tr>
+      <tr><td>"สร้างปุ่ม Login สีน้ำเงิน"</td><td>สร้าง frame + text + สี + radius</td></tr>
+      <tr><td>"ดูว่าตอนนี้เลือกอะไรอยู่"</td><td>อ่าน selection แล้วบอก</td></tr>
+      <tr><td>"เปลี่ยนสีพื้นหลังเป็น #F5F5F5"</td><td>set fill color ให้ element ที่เลือก</td></tr>
+      <tr><td>"จัด auto layout แนวตั้ง spacing 16"</td><td>ตั้ง auto layout ให้ frame ที่เลือก</td></tr>
+    </tbody>
+  </table>
+
+  <h3>6.2 — สร้างหน้าจอจาก Spec</h3>
+  <p>สามารถบอก Claude ให้ออกแบบหน้าจอทั้งหน้าได้:</p>
+  <pre style="background:#f0e6ff; color:#1a1a2e; border-left:4px solid #a259ff;"><code>สร้างหน้า Login สำหรับ iOS ใน Figma ให้หน่อย ประกอบด้วย:
+- Logo ด้านบน
+- Text field สำหรับ Email
+- Text field สำหรับ Password
+- ปุ่ม Log In สีน้ำเงิน
+- ลิงก์ "Forgot Password?"
+- ปุ่ม Sign Up ด้านล่าง</code></pre>
+  <p>Claude จะ:</p>
+  <ol>
+    <li>สร้าง main frame ขนาด iPhone</li>
+    <li>สร้างแต่ละ component ทีละชิ้น</li>
+    <li>จัด layout ด้วย auto layout</li>
+    <li>ตั้งสี, font, spacing ให้เหมาะสม</li>
+  </ol>
+
+  <h3>6.3 — แก้ไข Design ที่มีอยู่</h3>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>ดู element ที่เลือกอยู่ แล้วเปลี่ยนสีเป็น #007AFF</code></pre>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>เพิ่ม corner radius 16 ให้ frame ที่เลือก</code></pre>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>เปลี่ยน text ของปุ่มจาก "Submit" เป็น "ส่งข้อมูล"</code></pre>
+
+  <h3>6.4 — ใช้งานร่วมกับ Figma Remote MCP</h3>
+  <p>ถ้าตั้งค่า Figma Remote MCP ไว้แล้ว (Step 4.6) สามารถส่ง Figma URL ให้ Claude อ่าน design ได้:</p>
+  <pre style="background:#e6f9f0; color:#1a1a2e; border-left:4px solid #1bc47d;"><code>ดู design จากลิงก์นี้แล้วสร้างให้เหมือนกัน:
+https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
+</section>
+

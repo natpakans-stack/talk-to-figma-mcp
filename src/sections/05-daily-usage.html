@@ -1,0 +1,109 @@
+<section class="section" id="sec5">
+  <h2><span class="num">5</span> ขั้นตอนใช้งานรายวัน</h2>
+  <p class="section-subtitle">ทำทุกครั้งที่เปิดเครื่องใหม่ หรือทุกครั้งที่ต้องการเชื่อมต่อ</p>
+
+  <!-- 5.1 -->
+  <div class="step-card green" data-step="STEP 5.1">
+    <h4>เปิด WebSocket Server</h4>
+    <ol>
+      <li>เปิด <strong>Terminal</strong> (หน้าต่างใหม่ แยกจาก VS Code ก็ได้)</li>
+      <li>รันคำสั่ง:</li>
+    </ol>
+    <pre><code><span class="fn">bunx</span> cursor-talk-to-figma-socket</code></pre>
+    <p>3. จะเห็นข้อความแบบนี้:</p>
+    <pre><code>WebSocket server is running on ws://localhost:3055</code></pre>
+    <div class="info-box danger">
+      <span class="icon">🚨</span>
+      <div><strong>ปล่อยหน้าต่างนี้เปิดค้างไว้ ห้ามปิด!</strong><br>
+      นี่คือตัวส่งข้อความระหว่าง Claude กับ Figma — เหมือนเปิดวิทยุสื่อสารทิ้งไว้ ถ้าปิดก็คุยกันไม่ได้</div>
+    </div>
+  </div>
+
+  <!-- 5.2 -->
+  <div class="step-card blue" data-step="STEP 5.2">
+    <h4>เปิด Figma Plugin แล้วจด Channel ID</h4>
+    <ol>
+      <li>เปิด <strong>Figma Desktop</strong></li>
+      <li>เปิดไฟล์ที่จะทำงาน</li>
+      <li>คลิกขวาที่ canvas → <strong>Plugins</strong> → <strong>Cursor Talk To Figma</strong></li>
+      <li>Plugin จะเปิดขึ้นมา แสดง <strong>Channel ID</strong>:</li>
+    </ol>
+    <pre style="background:#f8f9fb; color:#1a1a2e; border:2px dashed #a259ff; text-align:center; font-size:15px;">
+  ┌──────────────────────────────┐
+  │  Cursor Talk To Figma        │
+  │                              │
+  │  Channel: <strong style="color:#a259ff">abc123xyz</strong>          │  ← นี่คือ Channel ID
+  │                              │
+  │  Status: Connected ✓         │
+  └──────────────────────────────┘</pre>
+    <p>5. <strong>Copy Channel ID</strong> นี้ไว้ (เช่น <code>abc123xyz</code>)</p>
+    <div class="info-box warn">
+      <span class="icon">⚠️</span>
+      <div><strong>สำคัญ:</strong> Channel ID จะเปลี่ยนทุกครั้งที่เปิด plugin ใหม่!</div>
+    </div>
+  </div>
+
+  <!-- 5.3 -->
+  <div class="step-card orange" data-step="STEP 5.3">
+    <h4>อัปเดต Channel ID ให้ Claude</h4>
+    <p>เปิด <strong>Terminal อีกหน้าต่างหนึ่ง</strong> (ไม่ใช่หน้าต่างที่รัน WebSocket) แล้วรัน 2 คำสั่งนี้:</p>
+    <pre><code><span class="cm"># 1. ลบ config เก่า</span>
+<span class="fn">claude</span> mcp remove TalkToFigma
+
+<span class="cm"># 2. เพิ่ม config ใหม่ด้วย Channel ID ใหม่</span>
+<span class="fn">claude</span> mcp add TalkToFigma <span class="flag">--</span> bunx cursor-talk-to-figma-mcp@latest <span class="flag">--channel=</span><span class="str">abc123xyz</span></code></pre>
+    <div class="info-box warn">
+      <span class="icon">✏️</span>
+      <div>เปลี่ยน <code>abc123xyz</code> เป็น <strong>Channel ID จริง</strong>ที่ copy มา!</div>
+    </div>
+  </div>
+
+  <!-- 5.4 -->
+  <div class="step-card" data-step="STEP 5.4">
+    <h4>เปิด Claude แล้วเริ่มใช้งาน</h4>
+    <ol>
+      <li>เปิด <strong>VS Code</strong></li>
+      <li>เปิด <strong>Claude Code panel</strong> (icon Claude ที่แถบซ้าย)</li>
+      <li>ทดสอบว่าเชื่อมต่อได้ โดยพิมพ์:</li>
+    </ol>
+    <pre style="background:#e6f9f0; color:#1a1a2e; border-left:4px solid #1bc47d;"><code>ช่วยดูข้อมูล document ใน Figma ให้หน่อย</code></pre>
+    <p>4. ถ้าเชื่อมต่อสำเร็จ Claude จะแสดงข้อมูล document กลับมา 🎉</p>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="quick-ref">
+    <h4>📋 สรุปขั้นตอนรายวัน (Quick Reference)</h4>
+    <ul class="quick-ref-steps">
+      <li>
+        <span class="qr-num">1</span>
+        <div class="qr-content">
+          <div class="qr-label">Terminal #1 — ปล่อยเปิดค้าง</div>
+          <span class="qr-cmd">bunx cursor-talk-to-figma-socket</span>
+        </div>
+      </li>
+      <li>
+        <span class="qr-num">2</span>
+        <div class="qr-content">
+          <div class="qr-label">Figma Desktop</div>
+          <span class="qr-cmd">เปิด Plugin → จด Channel ID</span>
+        </div>
+      </li>
+      <li>
+        <span class="qr-num">3</span>
+        <div class="qr-content">
+          <div class="qr-label">Terminal #2 — อัปเดต Channel ID</div>
+          <span class="qr-cmd">claude mcp remove TalkToFigma</span><br>
+          <span class="qr-cmd">claude mcp add TalkToFigma -- bunx cursor-talk-to-figma-mcp@latest --channel=&lt;ID&gt;</span>
+        </div>
+      </li>
+      <li>
+        <span class="qr-num">4</span>
+        <div class="qr-content">
+          <div class="qr-label">VS Code</div>
+          <span class="qr-cmd">เปิด Claude → ใช้งานได้เลย!</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+

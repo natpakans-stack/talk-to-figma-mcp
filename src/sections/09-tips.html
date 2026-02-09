@@ -1,0 +1,41 @@
+<section class="section" id="sec9">
+  <h2><span class="num">9</span> Tips &amp; Best Practices</h2>
+  <p class="section-subtitle">เคล็ดลับสำหรับ Designer</p>
+
+  <h3>สำหรับ Designer</h3>
+  <ol>
+    <li><strong>เลือก element ก่อนสั่ง</strong> — ถ้าอยากแก้ไข element ที่มีอยู่ ให้เลือก (click) element นั้นใน Figma ก่อน แล้วค่อยสั่ง Claude</li>
+    <li><strong>บอก Claude ให้ละเอียด</strong> — ยิ่งบอกละเอียด ยิ่งได้ผลลัพธ์ตรงใจ</li>
+    <li><strong>ใช้ชื่อสีเป็น hex</strong> — บอก <code>#007AFF</code> ดีกว่าบอก "สีน้ำเงิน"</li>
+    <li><strong>บอกขนาดเป็นตัวเลข</strong> — บอก "width 393 height 852" ดีกว่า "ขนาด iPhone"</li>
+    <li><strong>ทำทีละ step</strong> — สร้าง frame ก่อน → ใส่ element → จัด layout → ตั้งสี</li>
+  </ol>
+
+  <h3>Workflow แนะนำ</h3>
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin:16px 0;">
+    <span style="background:var(--accent-light); color:var(--accent-dark); padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">1. ร่าง concept</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--blue-light); color:#0066cc; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">2. Claude สร้าง structure</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--green-light); color:#0a7a4a; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">3. Claude ใส่ content</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--orange-light); color:#b35c00; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">4. Review & feedback</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--red-light); color:#c43020; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">5. Fine-tune ด้วยมือ</span>
+  </div>
+
+  <h3>สิ่งที่ควรทำเองใน Figma (MCP ทำไม่ได้ / ทำได้ไม่ดี)</h3>
+  <ul class="limit-list">
+    <li>วาง Image / Illustration</li>
+    <li>สร้าง Complex Vector / Icon (มีเฉพาะ rectangle — ไม่มี ellipse, polygon, star)</li>
+    <li>ตั้ง Prototype &amp; Interaction</li>
+    <li>Fine-tune pixel-perfect alignment</li>
+    <li>สร้าง Complex Gradient / Shadow / Blur (ไม่มี set_effects)</li>
+    <li>สร้าง/ลบ/เปลี่ยนชื่อ Page</li>
+    <li>Group/Ungroup nodes</li>
+    <li>แก้ font family/style หลังสร้าง text (ต้องตั้ง fontSize/fontWeight/fontColor ตอน create_text)</li>
+    <li>ตั้ง line height, letter spacing, text decoration</li>
+    <li>Rename node</li>
+  </ul>
+</section>
+

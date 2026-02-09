@@ -1,0 +1,114 @@
+<section class="section" id="sec4">
+  <h2><span class="num">4</span> ขั้นตอนติดตั้ง</h2>
+  <p class="section-subtitle">ทำครั้งเดียว ไม่ต้องทำซ้ำ (ยกเว้นมีบอกไว้)</p>
+
+  <!-- 4.1 -->
+  <div class="step-card" data-step="STEP 4.1">
+    <h4>ติดตั้ง VS Code</h4>
+    <ol>
+      <li>ดาวน์โหลด VS Code จาก <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></li>
+      <li>ติดตั้งตามปกติ (macOS: ลาก .app เข้า Applications)</li>
+      <li>เปิด VS Code ทดสอบว่าใช้ได้</li>
+    </ol>
+  </div>
+
+  <!-- 4.2 -->
+  <div class="step-card green" data-step="STEP 4.2">
+    <h4>ติดตั้ง Node.js</h4>
+    <ol>
+      <li>ดาวน์โหลด Node.js จาก <a href="https://nodejs.org" target="_blank">nodejs.org</a> (เลือกปุ่ม <strong>LTS</strong>)</li>
+      <li>ติดตั้งตามปกติ</li>
+      <li>เปิด <strong>Terminal</strong> (กด <code>Cmd + Space</code> พิมพ์ "Terminal")</li>
+      <li>พิมพ์คำสั่งเพื่อเช็คว่าติดตั้งสำเร็จ:</li>
+    </ol>
+    <pre><code><span class="fn">node</span> <span class="flag">--version</span></code></pre>
+    <p>ต้องได้ผลลัพธ์แบบนี้ (เลข version อาจต่างกัน):</p>
+    <pre><code>v22.x.x</code></pre>
+
+    <p>5. ติดตั้ง <strong>bun</strong> (package manager ที่เร็วกว่า npm):</p>
+    <pre><code><span class="fn">npm</span> install <span class="flag">-g</span> bun</code></pre>
+
+    <div class="info-box warn">
+      <span class="icon">⚠️</span>
+      <div>ถ้าเจอ error <code>permission denied</code> ให้เติม <code>sudo</code> ข้างหน้า:<br>
+      <code>sudo npm install -g bun</code> แล้วใส่ password เครื่อง</div>
+    </div>
+  </div>
+
+  <!-- 4.3 -->
+  <div class="step-card blue" data-step="STEP 4.3">
+    <h4>ติดตั้ง Claude Code Extension ใน VS Code</h4>
+    <ol>
+      <li>เปิด VS Code</li>
+      <li>กดที่ไอคอน <strong>Extensions</strong> (แถบซ้าย รูปสี่เหลี่ยม 4 ชิ้น) หรือกด <code>Cmd + Shift + X</code></li>
+      <li>ค้นหา <strong>"Claude Code"</strong></li>
+      <li>กด <strong>Install</strong> ที่ extension ของ <strong>Anthropic</strong></li>
+      <li>หลัง install เสร็จ จะมี icon Claude ขึ้นที่แถบซ้าย</li>
+      <li>กดเปิด Claude panel แล้ว <strong>Login</strong> ด้วย Anthropic Account</li>
+    </ol>
+
+    <div class="info-box note">
+      <span class="icon">💡</span>
+      <div><strong>ทางเลือก: ติดตั้ง Claude Code CLI แทน</strong><br>
+      ถ้าชอบใช้ Terminal มากกว่า:<br>
+      <code>npm install -g @anthropic-ai/claude-code</code><br>
+      แล้วพิมพ์ <code>claude</code> ใน Terminal เพื่อเริ่มใช้งาน</div>
+    </div>
+  </div>
+
+  <!-- 4.4 -->
+  <div class="step-card orange" data-step="STEP 4.4">
+    <h4>ติดตั้ง Figma Plugin "Talk to Figma"</h4>
+    <p style="margin-bottom:12px;">
+      <a href="https://www.figma.com/community/plugin/1485687494525374295" target="_blank" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:linear-gradient(135deg,#ff8c00,#e67700); color:white; text-decoration:none; border-radius:10px; font-weight:700; font-size:14px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        เปิดหน้า Plugin บน Figma Community
+      </a>
+    </p>
+    <ol>
+      <li>กดลิงก์ด้านบน หรือเปิด <strong>Figma Desktop</strong> แล้วค้นหา plugin เอง</li>
+      <li>ในหน้า Figma Community กด <strong>"Open in..."</strong> → เลือก Figma Desktop</li>
+      <li>กด <strong>Install</strong> (หรือ Save)</li>
+      <li>ตอนนี้ plugin พร้อมใช้แล้ว (ยังไม่ต้องเปิด)</li>
+    </ol>
+    <div class="info-box tip">
+      <span class="icon">⚡</span>
+      <div><strong>วิธีค้นหาเร็วใน Figma:</strong> กด <code>Cmd + /</code> (Quick Actions) แล้วพิมพ์ "Cursor Talk To Figma"</div>
+    </div>
+  </div>
+
+  <!-- 4.5 -->
+  <div class="step-card" data-step="STEP 4.5">
+    <h4>ตั้งค่า MCP Server (ครั้งแรก)</h4>
+    <div class="info-box note">
+      <span class="icon">ℹ️</span>
+      <div><strong>MCP = Model Context Protocol</strong> — มาตรฐานการเชื่อมต่อ AI กับ tools ภายนอก</div>
+    </div>
+    <p>เปิด <strong>Terminal</strong> ใน VS Code (กด <code>Ctrl + `</code>) แล้วรันคำสั่งนี้:</p>
+    <pre><code><span class="fn">claude</span> mcp add TalkToFigma <span class="flag">--</span> bunx cursor-talk-to-figma-mcp@latest <span class="flag">--channel=</span><span class="str">CHANNEL_ID_ตรงนี้</span></code></pre>
+    <div class="info-box warn">
+      <span class="icon">⏸️</span>
+      <div><strong>ยังไม่ต้องรันตอนนี้!</strong> — เราจะได้ Channel ID จริงในขั้นตอนที่ 5 (ขั้นตอนรายวัน)</div>
+    </div>
+  </div>
+
+  <!-- 4.6 -->
+  <div class="step-card green" data-step="STEP 4.6 — OPTIONAL">
+    <h4>ตั้งค่า Figma Remote MCP (แนะนำ)</h4>
+    <div class="info-box note">
+      <span class="icon">🔍</span>
+      <div><strong>Figma Remote MCP</strong> ทำให้ Claude อ่าน Design จาก Figma URL ได้ (ดึง specs, screenshot)<br>
+      ต่างจาก Talk to Figma ที่เป็นการ "สร้าง/แก้ไข" design</div>
+    </div>
+    <ol>
+      <li>เปิด Terminal แล้วรัน:</li>
+    </ol>
+    <pre><code><span class="fn">claude</span> mcp add figma <span class="flag">--transport</span> sse <span class="flag">--url</span> <span class="str">https://modelcontextprotocol.servers.figma.com/sse</span></code></pre>
+    <ol start="2">
+      <li>Claude จะเปิด browser ให้ Login กับ Figma</li>
+      <li>กด <strong>Allow</strong> เพื่ออนุญาตการเข้าถึง</li>
+      <li>Login ครั้งเดียว ไม่ต้องทำซ้ำ</li>
+    </ol>
+  </div>
+</section>
+

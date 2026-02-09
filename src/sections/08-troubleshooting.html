@@ -1,0 +1,68 @@
+<section class="section" id="sec8">
+  <h2><span class="num">8</span> Troubleshooting</h2>
+  <p class="section-subtitle">แก้ปัญหาที่พบบ่อย</p>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 1: Claude ไม่ตอบ / ไม่เห็น Figma</div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> สั่งให้ทำอะไรใน Figma แล้ว Claude ไม่ทำ หรือบอกว่าเชื่อมต่อไม่ได้</p>
+      <p><strong>วิธีแก้:</strong></p>
+      <ol>
+        <li>เช็คว่า <strong>WebSocket Server</strong> ยังรันอยู่ไหม (Terminal ต้องแสดง <code>running on ws://localhost:3055</code>)</li>
+        <li>เช็คว่า <strong>Figma Plugin</strong> เปิดอยู่ไหม (ต้องแสดง "Connected")</li>
+        <li>เช็คว่า <strong>Channel ID</strong> ตรงกันไหม — ถ้าไม่แน่ใจ ทำ Step 5.2-5.3 ใหม่</li>
+        <li>ลอง <strong>ปิดแล้วเปิด Claude Code ใหม่</strong> ใน VS Code</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 2: <code>bunx: command not found</code></div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> พิมพ์ <code>bunx</code> แล้ว Terminal บอกว่าหาคำสั่งไม่เจอ</p>
+      <p><strong>วิธีแก้:</strong></p>
+      <pre><code><span class="fn">npm</span> install <span class="flag">-g</span> bun</code></pre>
+      <p>ถ้ายังไม่ได้ ลองใช้ <code>npx</code> แทน <code>bunx</code>:</p>
+      <pre><code><span class="fn">npx</span> cursor-talk-to-figma-socket</code></pre>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 3: Port 3055 ถูกใช้อยู่แล้ว</div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> รัน WebSocket Server แล้วได้ error <code>EADDRINUSE</code></p>
+      <p><strong>วิธีแก้:</strong></p>
+      <pre><code><span class="cm"># หา process ที่ใช้ port 3055</span>
+<span class="fn">lsof</span> <span class="flag">-i</span> :3055
+
+<span class="cm"># Kill process นั้น (แทนที่ PID ด้วยเลขที่เจอ)</span>
+<span class="fn">kill</span> <span class="flag">-9</span> PID</code></pre>
+      <p>แล้วรัน <code>bunx cursor-talk-to-figma-socket</code> ใหม่</p>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 4: Figma Plugin แสดง "Disconnected"</div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> Plugin เปิดอยู่ แต่สถานะเป็น Disconnected</p>
+      <p><strong>วิธีแก้:</strong></p>
+      <ol>
+        <li>ปิด Plugin (กดปุ่ม X)</li>
+        <li>เช็คว่า WebSocket Server ยังรันอยู่</li>
+        <li>เปิด Plugin ใหม่ (คลิกขวา → Plugins → Cursor Talk To Figma)</li>
+        <li>จด Channel ID ใหม่ แล้วอัปเดตให้ Claude (Step 5.3)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 5: <code>claude: command not found</code></div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> พิมพ์ <code>claude</code> แล้ว Terminal ไม่รู้จักคำสั่ง</p>
+      <p><strong>วิธีแก้:</strong></p>
+      <pre><code><span class="fn">npm</span> install <span class="flag">-g</span> @anthropic-ai/claude-code</code></pre>
+      <p>หลังติดตั้ง ปิดแล้วเปิด Terminal ใหม่ แล้วพิมพ์ <code>claude --version</code> เพื่อเช็ค</p>
+    </div>
+  </div>
+</section>
+

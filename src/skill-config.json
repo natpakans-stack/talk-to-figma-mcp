@@ -1,0 +1,123 @@
+{
+  "references": [
+    {
+      "filename": "ux-principles.md",
+      "icon": "\ud83d\udcd7",
+      "color": "var(--green)",
+      "title": "UX Principles (Nielsen's + Laws of UX + Gestalt)",
+      "installPath": "~/.claude/commands/references/ux-principles.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "hig.md",
+      "icon": "\ud83d\udcd8",
+      "color": "var(--blue)",
+      "title": "Apple Human Interface Guidelines",
+      "installPath": "~/.claude/commands/references/hig.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "material-design.md",
+      "icon": "\ud83d\udcd7",
+      "color": "var(--green)",
+      "title": "Material Design 3 (M3)",
+      "installPath": "~/.claude/commands/references/material-design.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "design-tokens.md",
+      "icon": "\ud83d\udcd9",
+      "color": "var(--orange)",
+      "title": "Design Tokens Reference",
+      "installPath": "~/.claude/commands/references/design-tokens.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "fontawesome-icons.md",
+      "icon": "\ud83d\udcd7",
+      "color": "#1bc47d",
+      "title": "FontAwesome Icons Reference",
+      "installPath": "~/.claude/commands/references/fontawesome-icons.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "figma-mcp-commands.md",
+      "icon": "\ud83d\udcd5",
+      "color": "var(--red)",
+      "title": "Figma MCP Commands Reference",
+      "installPath": "~/.claude/commands/references/figma-mcp-commands.md",
+      "badge": "UPDATED",
+      "badgeColor": "#f24822"
+    }
+  ],
+  "skills": [
+    {
+      "filename": "figma-ui-design-spec.md",
+      "icon": "\u26a1",
+      "color": "var(--accent)",
+      "title": "Skill File (\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e25\u0e31\u0e01)",
+      "installPath": "~/.claude/commands/figma-ui-design-spec.md",
+      "badge": "UPDATED",
+      "badgeColor": "#a259ff"
+    },
+    {
+      "filename": "figma-design-critique.md",
+      "icon": "\ud83d\udd0d",
+      "color": "var(--green)",
+      "title": "Design Critique / Review Skill",
+      "installPath": "~/.claude/commands/figma-design-critique.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "figma-user-flow.md",
+      "icon": "\ud83d\udd00",
+      "color": "var(--blue)",
+      "title": "User Flow / IA Skill",
+      "installPath": "~/.claude/commands/figma-user-flow.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "figma-accessibility-audit.md",
+      "icon": "\u267f",
+      "color": "var(--orange)",
+      "title": "Accessibility Audit Skill",
+      "installPath": "~/.claude/commands/figma-accessibility-audit.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "figma-design-system.md",
+      "icon": "\ud83c\udfa8",
+      "color": "var(--accent)",
+      "title": "Design System Creation Skill",
+      "installPath": "~/.claude/commands/figma-design-system.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "figma-responsive-design.md",
+      "icon": "\ud83d\udcf1",
+      "color": "var(--blue)",
+      "title": "Responsive Design Skill",
+      "installPath": "~/.claude/commands/figma-responsive-design.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "figma-ux-writer.md",
+      "icon": "\u270d\ufe0f",
+      "color": "var(--accent)",
+      "title": "UX Writer Skill (TH + EN)",
+      "installPath": "~/.claude/commands/figma-ux-writer.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    }
+  ]
+}

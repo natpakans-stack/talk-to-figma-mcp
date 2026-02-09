@@ -1,0 +1,561 @@
+<!-- ════════════════════ 10. SKILL & INSTALL ════════════════════ -->
+<section class="section" id="sec10">
+  <h2><span class="num" style="background:#0d99ff;">10</span> Skill &amp; วิธีติดตั้งให้ทีม</h2>
+  <p class="section-subtitle">Claude Custom Skill สำหรับออกแบบ UI ใน Figma</p>
+
+  <h3>Skill คืออะไร?</h3>
+  <p><strong>Skill</strong> (หรือ Custom Slash Command) คือไฟล์ <code>.md</code> ที่สอน Claude ให้ทำงานเฉพาะทาง ไม่ต้องอธิบายทุกครั้ง แค่พิมพ์ <code>/figma-ui-design-spec</code> แล้ว Claude จะรู้เลยว่าต้องทำอะไร</p>
+
+  <h3>Skill ที่มี: <code>figma-ui-design-spec</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-ui-design-spec.md</div>
+  <p>Skill นี้สั่งให้ Claude สร้าง <strong>UI Design Specification</strong> ที่ครบถ้วน อ้างอิงหลักการออกแบบมาตรฐาน พร้อม preview และสร้างหน้าจอจริงใน Figma ได้</p>
+
+  <!-- Flow -->
+  <h4>Flow การทำงานของ Skill</h4>
+  <div class="flow-row">
+    <div class="flow-step">1. Requirements<br><small>รวบรวมความต้องการ</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Design Principles<br><small>อ่าน references</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Preview<br><small>สร้าง React preview</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Iterate<br><small>แก้จนพอใจ</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Build in Figma<br><small>สร้างจริงผ่าน MCP</small></div>
+  </div>
+
+  <!-- Skill detail -->
+  <details>
+    <summary>📋 รายละเอียด Skill ทั้งหมด</summary>
+    <div class="details-body">
+      <h4>Step 1: รวบรวม Requirements</h4>
+      <p>Claude จะถามข้อมูลเหล่านี้ (ถ้ายังไม่ได้ระบุ):</p>
+      <ul>
+        <li><strong>Platform</strong>: Mobile (iOS/Android), Web, Desktop, หรือ Cross-platform?</li>
+        <li><strong>Screen/Component</strong>: จะออกแบบหน้าจอหรือ component อะไร?</li>
+        <li><strong>User Goal</strong>: ผู้ใช้ต้องการทำอะไรบนหน้าจอนี้?</li>
+        <li><strong>Detail Level</strong>: ต้องการ Wireframe (Lo-fi) หรือ Hi-fi UI spec?</li>
+        <li><strong>Design System</strong>: ใช้ Material Design, HIG, หรือ custom design system?</li>
+        <li><strong>Constraints</strong>: มี brand guidelines, สี, font ที่กำหนดไว้ไหม?</li>
+        <li><strong>Reference Design</strong>: มี Figma URL ที่อยากให้ดูเป็น reference ไหม? (ใช้ get_screenshot/get_design_context อ่านได้)</li>
+      </ul>
+
+      <h4>Step 2: อ่าน Design Principles</h4>
+      <p>Claude จะอ่าน reference files ตาม platform ที่เลือก:</p>
+      <table>
+        <thead><tr><th>ไฟล์</th><th>เมื่อไหร่</th></tr></thead>
+        <tbody>
+          <tr><td><code>ux-principles.md</code></td><td>อ่านเสมอทุกครั้ง (Nielsen's + Laws of UX + Gestalt)</td></tr>
+          <tr><td><code>material-design.md</code></td><td>Android / Web (Material Design 3)</td></tr>
+          <tr><td><code>hig.md</code></td><td>iOS / macOS (Apple HIG)</td></tr>
+          <tr><td><code>design-tokens.md</code></td><td>Custom Design System</td></tr>
+          <tr><td><code>figma-mcp-commands.md</code></td><td>Step 5 — สร้างใน Figma</td></tr>
+          <tr><td><code>fontawesome-icons.md</code></td><td>Icon mapping — placeholder → FontAwesome <span style="background:#1bc47d;color:#fff;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;">NEW</span></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Step 3: สร้าง Interactive Preview (React .jsx)</h4>
+      <p>Claude สร้างไฟล์ <code>.jsx</code> ที่ render หน้าจอจริงได้ทันที เพื่อให้ดูหน้าตาก่อนสร้างใน Figma</p>
+      <p><strong>Preview ต้องมี:</strong></p>
+      <ol>
+        <li>iPhone/Android frame จำลอง (เช่น 393×852 สำหรับ iPhone 15 Pro)</li>
+        <li>Status bar จำลอง (เวลา, battery, signal)</li>
+        <li>ทุก component ตาม spec — สี, ขนาด, spacing ถูกต้อง</li>
+        <li>Light/Dark mode toggle สลับ theme ได้</li>
+        <li>State switcher — ปุ่มเปลี่ยน state (empty, filled, error, loading, success)</li>
+        <li>Interactive elements — กรอก input, กดปุ่ม ดู state จริง</li>
+        <li>Spec info panel — แสดงค่าสำคัญ (frame size, font, spacing, colors)</li>
+      </ol>
+
+      <h4>Step 4: Iterate จนพอใจ</h4>
+      <ul>
+        <li>ดู preview แล้วขอแก้ไข</li>
+        <li>แก้ไข .jsx แล้วให้ดูใหม่</li>
+        <li>วนจนกว่าพอใจ</li>
+        <li>เมื่อพอใจแล้ว Claude จะถาม: "พร้อมจะสร้างใน Figma ไหมครับ?"</li>
+      </ul>
+
+      <h4>Step 5: สร้างใน Figma ผ่าน MCP</h4>
+      <p><strong>ลำดับการสร้าง (สำคัญมาก):</strong></p>
+      <ol>
+        <li>สร้าง Main Frame ด้วย <code>create_frame</code> (พร้อม auto layout + สี + parentId ในคำสั่งเดียว)</li>
+        <li>สร้าง child elements จากบนลงล่าง (ใช้ <code>parentId</code> ใส่เข้า parent ได้เลย)</li>
+        <li>แต่ละ element: สร้าง → <code>set_corner_radius</code> (ถ้าต้องการ)</li>
+        <li>ตั้ง auto layout แยก ถ้าต้องปรับทีหลัง (<code>set_layout_mode</code> + <code>set_padding</code> + <code>set_axis_align</code> + <code>set_layout_sizing</code> + <code>set_item_spacing</code>)</li>
+      </ol>
+      <div class="info-box warn" style="margin:12px 0;">
+        <span class="icon">⚠️</span>
+        <div><strong>สำคัญ:</strong> ไม่มีคำสั่ง <code>insert_child</code> — ใช้ <code>parentId</code> ตอนสร้างแทน / ไม่มี <code>set_auto_layout</code> รวม — ต้องแยก 5 คำสั่ง / แก้ font หลังสร้าง text ไม่ได้ — ตั้ง fontSize/fontWeight/fontColor ตอน <code>create_text</code> เท่านั้น</div>
+      </div>
+
+      <h4>Step 5.5: Annotate (Optional)</h4>
+      <p>ถ้าต้องการ spec annotations บน Figma ใช้ <code>set_multiple_annotations</code> เพิ่มหมายเหตุให้แต่ละ element ได้</p>
+
+      <h4>Output Files</h4>
+      <table>
+        <thead><tr><th>Step</th><th>Output</th><th>Format</th></tr></thead>
+        <tbody>
+          <tr><td>3</td><td>Interactive Preview</td><td><code>.jsx</code> (React)</td></tr>
+          <tr><td>3</td><td>Design Spec Document</td><td><code>.md</code> (optional)</td></tr>
+          <tr><td>5</td><td>Figma Design</td><td>สร้างตรงใน Figma ผ่าน MCP</td></tr>
+          <tr><td>5.5</td><td>Figma Annotations</td><td>Annotations บน Figma nodes</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Design Spec Templates</h4>
+      <h5>Wireframe (Lo-fi) Template</h5>
+      <pre><code>## 1. Overview
+## 2. Layout Structure (with ASCII wireframe)
+## 3. Component List (table)
+## 4. Navigation Flow
+## 5. UX Principles Applied (table with principle + rationale)
+## 6. Notes for Figma Implementation</code></pre>
+
+      <h5>Hi-fi Template (เพิ่มจาก Lo-fi)</h5>
+      <pre><code>## 7. Visual Design (Colors, Typography, Spacing, Elevation)
+## 8. Design Tokens (ถ้าใช้ custom design system)
+## 9. Component Specifications (ทุก state)
+## 10. Accessibility (contrast, touch targets, labels)
+## 11. Responsive Behavior
+## 12. Motion &amp; Haptic (iOS)</code></pre>
+
+      <h4>หลักการสำคัญ 10 ข้อ</h4>
+      <ol>
+        <li><strong>เจาะจงและวัดผลได้</strong>: ระบุตัวเลขเสมอ (px, dp, pt, hex color)</li>
+        <li><strong>อ้างอิง Design Principle</strong>: ทุกการตัดสินใจต้องมีเหตุผลหลักการ</li>
+        <li><strong>Edge Cases</strong>: empty, loading, error, long text, no data</li>
+        <li><strong>Accessibility First</strong>: contrast ratio, touch target, screen reader</li>
+        <li><strong>WCAG Contrast Verified</strong>: ทุกคู่สี text/bg ต้องผ่าน WCAG AA ขั้นต่ำ พร้อมระบุค่า ratio</li>
+        <li><strong>Platform-Aware</strong>: เคารพ platform conventions</li>
+        <li><strong>Preview First</strong>: ให้ดู preview ก่อนสร้างจริงเสมอ</li>
+        <li><strong>Figma-Ready</strong>: element names, auto layout, proper layer structure</li>
+        <li><strong>Use parentId</strong>: ใส่ elements เข้า parent ตอนสร้างได้เลย ไม่ต้อง insert_child แยก</li>
+        <li><strong>Font ตั้งตอนสร้าง</strong>: fontSize, fontWeight, fontColor ตั้งได้ตอน create_text เท่านั้น</li>
+      </ol>
+
+      <h4>WCAG Color Contrast Checker (บังคับ)</h4>
+      <p>ทุกครั้งที่เลือกสี <strong>ต้องตรวจสอบ WCAG Color Contrast</strong> ก่อนใช้งาน:</p>
+      <table>
+        <thead><tr><th>ประเภท</th><th>AA (ขั้นต่ำ)</th><th>AAA (แนะนำ)</th></tr></thead>
+        <tbody>
+          <tr><td>Normal text (&lt; 18pt)</td><td>4.5:1</td><td>7:1</td></tr>
+          <tr><td>Large text (&ge; 18pt bold / &ge; 24pt regular)</td><td>3:1</td><td>4.5:1</td></tr>
+          <tr><td>UI components &amp; icons</td><td>3:1</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px;"><strong>ขั้นตอน:</strong></p>
+      <ol>
+        <li>ก่อนเลือกสี: คำนวณ contrast ratio ระหว่าง text color กับ background color</li>
+        <li>ระบุค่า contrast ratio ใน spec เสมอ เช่น: <code>#F0E8FF on #0D0A14 → 15.2:1 ✅ AAA</code></li>
+        <li>ถ้าไม่ผ่าน AA: ปรับสีให้ผ่านก่อนใช้ — ห้ามใช้สีที่ไม่ผ่านเกณฑ์</li>
+        <li>สรุปตาราง contrast ไว้ใน preview spec info panel</li>
+      </ol>
+      <pre><code>✅ ผ่าน:
+  #F0E8FF on #0D0A14 → 15.2:1 (AAA) — primary text on dark bg
+  #4ADE80 on #0D2818 → 6.8:1 (AA)  — positive text on green bg
+
+❌ ไม่ผ่าน:
+  #7E6E98 on #1E1830 → 2.8:1 (FAIL) — ต้องปรับให้สว่างขึ้น</code></pre>
+    </div>
+  </details>
+
+  <!-- ═══ Skill 2: Design Critique ═══ -->
+  <h3>Skill 2: <code>figma-design-critique</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-design-critique.md</div>
+  <p>วิเคราะห์และ review design ที่มีอยู่แล้ว — ให้คะแนน 8 มิติ, ระบุจุดแข็ง/จุดอ่อน, เสนอ improvement พร้อม action items</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Capture<br><small>รับ design</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Principles<br><small>อ่าน references</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Analyze<br><small>วิเคราะห์ 8 มิติ</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Score<br><small>ให้คะแนน</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Report<br><small>สรุปผล</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Design Critique Skill</summary>
+    <div class="details-body">
+      <h4>8 มิติที่วิเคราะห์</h4>
+      <table>
+        <thead><tr><th>มิติ</th><th>Weight</th><th>ตรวจอะไร</th></tr></thead>
+        <tbody>
+          <tr><td>Visual Hierarchy &amp; Layout</td><td>15%</td><td>Information hierarchy, alignment, white space, Gestalt</td></tr>
+          <tr><td>Typography</td><td>10%</td><td>Type scale, weight contrast, readability, font families</td></tr>
+          <tr><td>Color &amp; Contrast</td><td>15%</td><td>WCAG contrast, palette consistency, semantic colors</td></tr>
+          <tr><td>Component Design</td><td>15%</td><td>Platform conventions, button hierarchy, input states</td></tr>
+          <tr><td>Spacing &amp; Consistency</td><td>10%</td><td>Spacing system, padding/margin consistency</td></tr>
+          <tr><td>UX Heuristics</td><td>20%</td><td>Nielsen's 10 Heuristics ทุกข้อ</td></tr>
+          <tr><td>Accessibility</td><td>10%</td><td>Touch targets, color independence, screen reader</td></tr>
+          <tr><td>Edge Cases</td><td>5%</td><td>Empty, loading, error, long text, no data</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Rating Scale</h4>
+      <ul>
+        <li><strong>9-10</strong>: World-class — ไม่ต้องแก้อะไร</li>
+        <li><strong>7-8</strong>: ดี — มี minor improvements</li>
+        <li><strong>5-6</strong>: ปานกลาง — ต้องแก้หลายจุด</li>
+        <li><strong>3-4</strong>: ต้องปรับปรุง — มีปัญหาพื้นฐาน</li>
+        <li><strong>1-2</strong>: ต้อง redesign — ปัญหาร้ายแรง</li>
+      </ul>
+
+      <h4>Output: Design Review Report</h4>
+      <ul>
+        <li>Score breakdown ทุกมิติ + Weighted Total</li>
+        <li>Strengths (จุดแข็ง) + Issues (Critical / Major / Minor)</li>
+        <li>Contrast Audit table ทุกคู่สี</li>
+        <li>Action Items เรียงตาม priority</li>
+        <li>Optional: แก้ไขตรงใน Figma ผ่าน MCP ได้เลย</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ═══ Skill 3: User Flow ═══ -->
+  <h3>Skill 3: <code>figma-user-flow</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-user-flow.md</div>
+  <p>ออกแบบ User Flow, Information Architecture, Task Flow, Screen Map สำหรับ app/web ทั้งระบบ — สร้าง flow diagram ใน FigJam ได้</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Requirements<br><small>เข้าใจ product</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Principles<br><small>Navigation patterns</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Map IA<br><small>Screen hierarchy</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Design Flows<br><small>Happy + error paths</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Diagrams<br><small>FigJam / Figma</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด User Flow Skill</summary>
+    <div class="details-body">
+      <h4>สิ่งที่ Skill สร้างให้</h4>
+      <table>
+        <thead><tr><th>Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Feature Inventory</strong></td><td>จัดกลุ่ม features เป็น Must Have / Should Have / Could Have</td></tr>
+          <tr><td><strong>Content Model</strong></td><td>Entities, attributes, relationships</td></tr>
+          <tr><td><strong>Screen Map</strong></td><td>Hierarchy ของ screens (Level 0-3)</td></tr>
+          <tr><td><strong>Navigation Matrix</strong></td><td>ตาราง From/To ว่าแต่ละหน้าไปไหนได้ด้วย transition แบบไหน</td></tr>
+          <tr><td><strong>User Flows</strong></td><td>Happy path + error/alternative paths + decision points + edge cases</td></tr>
+          <tr><td><strong>Flow Diagrams</strong></td><td>Mermaid.js diagrams ใน FigJam (ผ่าน generate_diagram)</td></tr>
+          <tr><td><strong>Screen Map (Figma)</strong></td><td>Visual screen cards + connections ใน Figma</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Flow Principles ที่ตรวจ</h4>
+      <ul>
+        <li><strong>Hick's Law</strong>: แต่ละ step ตัวเลือกไม่เกิน 5-7</li>
+        <li><strong>Miller's Law</strong>: ข้อมูลต่อหน้าจอไม่เกิน 7±2 chunks</li>
+        <li><strong>H1 Visibility</strong>: ผู้ใช้รู้ว่าอยู่ step ไหน</li>
+        <li><strong>H3 User Control</strong>: ทุก step มีทางกลับ</li>
+        <li><strong>H5 Error Prevention</strong>: ป้องกัน error ก่อน submit</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ═══ Skill 4: Accessibility Audit ═══ -->
+  <h3>Skill 4: <code>figma-accessibility-audit</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-accessibility-audit.md</div>
+  <p>ตรวจสอบ Accessibility อย่างครบถ้วนตาม WCAG 2.1 — ครอบคลุม 7 หมวด ไม่ใช่แค่สี</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Capture<br><small>รับ design</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Guidelines<br><small>WCAG 2.1</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Audit<br><small>ตรวจ 7 หมวด</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Score<br><small>WCAG level</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Report + Fix<br><small>Action items</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Accessibility Audit Skill</summary>
+    <div class="details-body">
+      <h4>7 หมวดที่ตรวจ</h4>
+      <table>
+        <thead><tr><th>หมวด</th><th>Weight</th><th>ตรวจอะไร</th></tr></thead>
+        <tbody>
+          <tr><td>Color Contrast</td><td>25%</td><td>WCAG 1.4.3/1.4.6 — ทุกคู่สี text/bg/icon</td></tr>
+          <tr><td>Touch Targets</td><td>15%</td><td>WCAG 2.5.5/2.5.8 — 44pt iOS / 48dp Android</td></tr>
+          <tr><td>Screen Reader</td><td>20%</td><td>WCAG 1.1.1/4.1.2 — labels, alt text, heading structure, reading order</td></tr>
+          <tr><td>Color Independence</td><td>10%</td><td>WCAG 1.4.1 — สีไม่เป็นตัวบ่งชี้เพียงอย่างเดียว</td></tr>
+          <tr><td>Keyboard Navigation</td><td>10%</td><td>WCAG 2.1.1/2.4.7 — focus order, focus visible, skip links</td></tr>
+          <tr><td>Text &amp; Readability</td><td>10%</td><td>WCAG 1.4.4/1.4.12 — line height, line length, text resize</td></tr>
+          <tr><td>Motion &amp; Cognitive</td><td>10%</td><td>WCAG 2.3.1/2.3.3 — reduce motion, auto-play, cognitive load</td></tr>
+        </tbody>
+      </table>
+
+      <h4>WCAG Compliance Levels</h4>
+      <ul>
+        <li><strong>A</strong>: ขั้นต่ำสุด — must fix</li>
+        <li><strong>AA</strong>: มาตรฐานทั่วไป — target level</li>
+        <li><strong>AAA</strong>: สูงสุด — สำหรับ government/healthcare</li>
+      </ul>
+
+      <h4>Color Blindness Simulation</h4>
+      <p>ตรวจว่า design ใช้งานได้กับ: Protanopia (red-blind), Deuteranopia (green-blind), Tritanopia (blue-blind)</p>
+
+      <h4>Output: Accessibility Audit Report</h4>
+      <ul>
+        <li>Score + WCAG compliance level</li>
+        <li>Detailed findings ทั้ง 7 หมวด</li>
+        <li>WCAG Violations Summary (criterion, level, issue, fix)</li>
+        <li>Priority Action Items (P0-P3)</li>
+        <li>Optional: แก้ไขใน Figma ผ่าน MCP ได้เลย</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ═══ Skill 5: Design System ═══ -->
+  <h3>Skill 5: <code>figma-design-system</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-design-system.md</div>
+  <p>สร้าง Design System ทั้งระบบ — ตั้งแต่ color system, typography scale, tokens จนถึง component library พร้อม documentation</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Requirements<br><small>Brand & scope</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. References<br><small>Token system</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Foundations<br><small>Colors, Type, Spacing</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Components<br><small>Atoms → Organisms</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Build + Doc<br><small>Figma + .md</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Design System Skill</summary>
+    <div class="details-body">
+      <h4>Foundations ที่กำหนด</h4>
+      <table>
+        <thead><tr><th>Foundation</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Color System</strong></td><td>Color scale (50-950) + Semantic colors + Light/Dark mode + WCAG verified</td></tr>
+          <tr><td><strong>Typography Scale</strong></td><td>15 levels (display → label) + font family + weights</td></tr>
+          <tr><td><strong>Spacing System</strong></td><td>4px base unit (space-0 ถึง space-20)</td></tr>
+          <tr><td><strong>Shape</strong></td><td>Corner radius tokens (none → full)</td></tr>
+          <tr><td><strong>Elevation</strong></td><td>Shadow tokens (0-4 levels)</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Component Hierarchy (Atomic Design)</h4>
+      <ul>
+        <li><strong>Atoms</strong>: Button, Text Field, Checkbox, Radio, Toggle, Badge, Chip, Avatar</li>
+        <li><strong>Molecules</strong>: Search Bar, List Item, Form Field, Menu Item, Tab</li>
+        <li><strong>Organisms</strong>: App Bar, Navigation, Card, Dialog, Bottom Sheet, Data Table</li>
+      </ul>
+
+      <h4>Per-Component Spec</h4>
+      <p>ทุก component กำหนด: Anatomy, Variants, Sizes (S/M/L), States (6 states), Accessibility, Spacing Rules</p>
+
+      <h4>Output</h4>
+      <ul>
+        <li>Design Tokens (Markdown tables)</li>
+        <li>Component Specs (variants × states)</li>
+        <li>React Preview (.jsx) — gallery ทั้ง system</li>
+        <li>Figma: Foundations + Components frames</li>
+        <li>Documentation (.md)</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ═══ Skill 6: Responsive Design ═══ -->
+  <h3>Skill 6: <code>figma-responsive-design</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-responsive-design.md</div>
+  <p>ออกแบบ Responsive/Adaptive Design สำหรับหลาย screen size — Mobile, Tablet, Desktop พร้อมสร้างหลาย frames ใน Figma</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Requirements<br><small>Target sizes</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. References<br><small>Grid & breakpoints</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Breakpoints<br><small>Define sizes</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Adaptation<br><small>Layout rules</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Build<br><small>Multi-frame Figma</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Responsive Design Skill</summary>
+    <div class="details-body">
+      <h4>Standard Breakpoints</h4>
+      <table>
+        <thead><tr><th>Breakpoint</th><th>Width</th><th>Device</th><th>Columns</th></tr></thead>
+        <tbody>
+          <tr><td>xs</td><td>&lt; 360px</td><td>Small phone</td><td>4</td></tr>
+          <tr><td>sm</td><td>360-599px</td><td>Phone</td><td>4</td></tr>
+          <tr><td>md</td><td>600-904px</td><td>Tablet portrait</td><td>8</td></tr>
+          <tr><td>lg</td><td>905-1239px</td><td>Tablet landscape / Desktop</td><td>12</td></tr>
+          <tr><td>xl</td><td>1240-1439px</td><td>Desktop</td><td>12</td></tr>
+          <tr><td>2xl</td><td>&ge; 1440px</td><td>Large desktop</td><td>12</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Layout Adaptation Strategies</h4>
+      <table>
+        <thead><tr><th>Strategy</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Reflow</strong></td><td>Cards stack vertical → horizontal</td></tr>
+          <tr><td><strong>Reveal</strong></td><td>Show sidebar ที่ซ่อนบน mobile</td></tr>
+          <tr><td><strong>Hide</strong></td><td>ซ่อน non-essential info บน mobile</td></tr>
+          <tr><td><strong>Resize</strong></td><td>Image full-width → fixed width</td></tr>
+          <tr><td><strong>Transform</strong></td><td>Bottom sheet → side panel</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Navigation Adaptation</h4>
+      <ul>
+        <li><strong>Mobile</strong>: Bottom Tab Bar (3-5 items)</li>
+        <li><strong>Tablet</strong>: Navigation Rail (side icons)</li>
+        <li><strong>Desktop</strong>: Sidebar Navigation (full)</li>
+      </ul>
+
+      <h4>Output</h4>
+      <ul>
+        <li>Breakpoint definitions + adaptation rules</li>
+        <li>Responsive Preview (.jsx) — resize ได้ + side-by-side view</li>
+        <li>Figma: Multiple frames (Mobile + Tablet + Desktop)</li>
+        <li>Annotations อธิบาย adaptation rules</li>
+        <li>Connection lines แสดง element mapping ระหว่าง sizes</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ═══ Skill 7: UX Writer ═══ -->
+  <h3>Skill 7: <code>figma-ux-writer</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-ux-writer.md</div>
+  <p>เขียน UX Copy ระดับมืออาชีพทั้งไทยและอังกฤษ — microcopy, error messages, CTA, empty states, onboarding ทุกจุดสัมผัสกับผู้ใช้ อ่านแล้วเข้าใจทันที ไม่มีข้อสงสัย</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Context<br><small>เข้าใจหน้าจอ + ผู้ใช้</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Voice &amp; Tone<br><small>กำหนด tone</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Write<br><small>TH + EN copy</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Review<br><small>10-point checklist</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Apply<br><small>ใส่ text ใน Figma</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด UX Writer Skill</summary>
+    <div class="details-body">
+      <h4>Voice Attributes (Standard)</h4>
+      <table>
+        <thead><tr><th>Attribute</th><th>คำอธิบาย</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ชัดเจน</strong></td><td>ตรงประเด็น ไม่อ้อมค้อม อ่านรู้เรื่องในครั้งเดียว</td></tr>
+          <tr><td><strong>เป็นมิตร</strong></td><td>เข้าถึงง่าย ไม่เป็นทางการเกินไป</td></tr>
+          <tr><td><strong>ช่วยเหลือ</strong></td><td>บอกสิ่งที่ต้องทำ ไม่ใช่แค่บอกปัญหา</td></tr>
+          <tr><td><strong>เคารพ</strong></td><td>ไม่โทษผู้ใช้ ไม่ใช้ศัพท์เทคนิคโดยไม่จำเป็น</td></tr>
+          <tr><td><strong>มั่นใจ</strong></td><td>สื่อสารอย่างแน่นอน ไม่คลุมเครือ</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Copy Types ที่ครอบคลุม</h4>
+      <ul>
+        <li><strong>Headlines &amp; Titles</strong> — สั้น, บอก value, active voice</li>
+        <li><strong>Buttons &amp; CTAs</strong> — เริ่มด้วยกริยา, เจาะจง, 2-4 คำ</li>
+        <li><strong>Form Labels &amp; Placeholders</strong> — ตัวอย่างจริง, optional marking</li>
+        <li><strong>Error Messages</strong> — สูตร: [สิ่งที่เกิดขึ้น] + [วิธีแก้]</li>
+        <li><strong>Empty States</strong> — สูตร: [สิ่งที่จะอยู่ตรงนี้] + [ทำอย่างไรให้มี]</li>
+        <li><strong>Success &amp; Confirmation</strong> — อบอุ่น, ให้ข้อมูล next step</li>
+        <li><strong>Destructive Confirmations</strong> — ชัดเจน, บอกผลที่เกิด</li>
+        <li><strong>Notifications</strong> — กระชับ, actionable</li>
+        <li><strong>Tooltips &amp; Help Text</strong> — สั้นมาก, ตรงประเด็น</li>
+        <li><strong>Loading &amp; Progress</strong> — บอกว่ากำลังทำอะไร</li>
+        <li><strong>Onboarding</strong> — ตื่นเต้น, บอก value</li>
+      </ul>
+
+      <h4>ภาษาไทย — หลักการเฉพาะ</h4>
+      <ul>
+        <li>ไม่ใช้ "กรุณา" ทุกครั้ง / ไม่ใช้ "ของคุณ" ทุกที่</li>
+        <li>สะกดทับศัพท์ตามราชบัณฑิต: "อีเมล" (ไม่ใช่ อีเมล์)</li>
+        <li>ทับศัพท์ได้ถ้าคนเข้าใจง่ายกว่าคำไทย</li>
+      </ul>
+
+      <h4>ภาษาอังกฤษ — หลักการเฉพาะ</h4>
+      <ul>
+        <li>Sentence case ไม่ใช่ Title Case</li>
+        <li>Use contractions (You're, can't, won't)</li>
+        <li>Active voice, front-load keywords</li>
+      </ul>
+
+      <h4>Output</h4>
+      <ul>
+        <li><strong>Copy Deck Table</strong> — ทุก element + ไทย/EN + tone + max length</li>
+        <li><strong>Terminology Table</strong> — consistency ทั้ง app</li>
+        <li><strong>Content Audit</strong> — review copy ที่มีอยู่ พร้อม fix</li>
+        <li>Optional: ใส่ text เข้า Figma ผ่าน <code>set_multiple_text_contents</code></li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- วิธีใช้ Skill -->
+  <h3>วิธีใช้ Skill</h3>
+  <p>เมื่อติดตั้งเสร็จแล้ว พิมพ์ชื่อ skill ใน Claude หรือพิมพ์ภาษาธรรมชาติ:</p>
+  <table>
+    <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
+    <tbody>
+      <tr><td><code>/figma-ui-design-spec</code></td><td>"ออกแบบหน้า Login"</td><td>สร้าง UI screen/component</td></tr>
+      <tr><td><code>/figma-design-critique</code></td><td>"review design นี้ให้หน่อย"</td><td>วิเคราะห์ + ให้คะแนน design</td></tr>
+      <tr><td><code>/figma-user-flow</code></td><td>"ออกแบบ flow ของ app"</td><td>สร้าง user flow + screen map</td></tr>
+      <tr><td><code>/figma-accessibility-audit</code></td><td>"ตรวจ accessibility"</td><td>WCAG audit 7 หมวด</td></tr>
+      <tr><td><code>/figma-design-system</code></td><td>"สร้าง design system"</td><td>Tokens + components ทั้งระบบ</td></tr>
+      <tr><td><code>/figma-responsive-design</code></td><td>"ออกแบบ responsive"</td><td>Multi-breakpoint design</td></tr>
+      <tr><td><code>/figma-ux-writer</code></td><td>"เขียน copy หน้า Login"</td><td>UX Copy ไทย + EN</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:8px;">Claude จะ trigger skill อัตโนมัติเมื่อเห็นคำที่เกี่ยวข้อง</p>
+
+  <!-- วิธีติดตั้ง -->
+  <h3>วิธีติดตั้ง Skill &amp; References ให้ทีม</h3>
+  <div class="install-box">
+    <h4>📁 โครงสร้างไฟล์ที่ต้องสร้าง</h4>
+    <pre style="background:rgba(255,255,255,0.05); border-radius:8px; padding:16px; margin:12px 0;"><code style="color:#e2e8f0; background:none; border:none;">~/.claude/
+└── commands/
+    ├── figma-ui-design-spec.md          ← Skill 1: สร้าง UI
+    ├── figma-design-critique.md         ← Skill 2: Review design
+    ├── figma-user-flow.md               ← Skill 3: User Flow / IA
+    ├── figma-accessibility-audit.md     ← Skill 4: A11y Audit
+    ├── figma-design-system.md           ← Skill 5: Design System
+    ├── figma-responsive-design.md       ← Skill 6: Responsive
+    ├── figma-ux-writer.md               ← Skill 7: UX Writer (TH+EN)
+    └── references/
+        ├── ux-principles.md             ← UX Principles
+        ├── material-design.md           ← Material Design 3
+        ├── hig.md                       ← Apple HIG
+        ├── design-tokens.md             ← Design Tokens
+        ├── figma-mcp-commands.md        ← Figma MCP Commands
+        └── fontawesome-icons.md         ← FontAwesome Icon Mapping (NEW)</code></pre>
+    <h4>🔧 วิธีสร้าง (copy-paste ใน Terminal)</h4>
+    <ol>
+      <li>สร้างโฟลเดอร์:</li>
+    </ol>
+    <pre style="background:rgba(255,255,255,0.05); border-radius:8px; padding:12px; margin:8px 0;"><code style="color:#a6e3a1; background:none; border:none;">mkdir -p ~/.claude/commands/references</code></pre>
+    <ol start="2">
+      <li>
+        <strong>ดาวน์โหลดไฟล์ Skill ทั้งหมดจาก Google Drive:</strong><br>
+        <a href="https://drive.google.com/file/d/1u-ugwdx8_MehGtaBwIf-HalmIo1DfpJs/view?usp=sharing" target="_blank" style="display:inline-flex; align-items:center; gap:8px; margin:10px 0; padding:12px 20px; background:linear-gradient(135deg,#a259ff,#7b2edd); color:white; text-decoration:none; border-radius:10px; font-weight:700; font-size:14px; transition:opacity 0.15s;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          ดาวน์โหลด Skill Files จาก Google Drive
+        </a><br>
+        <span style="font-size:12.5px; color:rgba(255,255,255,0.5);">ดาวน์โหลดแล้ว unzip → copy ไฟล์ทั้งหมดไปวางใน path ข้างบน</span>
+      </li>
+      <li>หรือสร้างไฟล์เอง โดย copy เนื้อหาจาก <strong>Section 11</strong> ด้านล่าง แล้ว save เป็น <code>.md</code></li>
+    </ol>
+    <div style="margin-top:16px; padding:12px 16px; background:rgba(162,89,255,0.15); border-radius:8px; font-size:13.5px;">
+      <strong>💡 Tip:</strong> ไฟล์เหล่านี้ไม่ต้องแก้บ่อย ติดตั้งครั้งเดียวใช้ได้ตลอด — ทีมสามารถเพิ่ม/แก้ reference ใหม่ได้ตามต้องการ
+    </div>
+  </div>
+</section>

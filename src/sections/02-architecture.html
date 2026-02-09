@@ -1,0 +1,54 @@
+<section class="section" id="sec2">
+  <h2><span class="num">2</span> สถาปัตยกรรม</h2>
+  <p class="section-subtitle">แต่ละชิ้นเชื่อมกันยังไง?</p>
+
+  <h3>แผนผังการเชื่อมต่อ</h3>
+  <div class="arch-diagram">
+    <div class="arch-grid">
+      <div class="arch-box">
+        <div class="arch-icon">💻</div>
+        <div class="arch-title">VS Code + Claude</div>
+        <div class="arch-desc">เราพิมพ์คำสั่ง<br>AI คิดแล้วสั่งงาน</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="arch-icon">🔌</div>
+        <div class="arch-title">MCP Server</div>
+        <div class="arch-desc">ตัวแปลคำสั่ง<br>Claude → Figma</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="arch-icon">📡</div>
+        <div class="arch-title">WebSocket Server</div>
+        <div class="arch-desc">ตัวส่งข้อความ<br>real-time</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="arch-icon">🎨</div>
+        <div class="arch-title">Figma + Plugin</div>
+        <div class="arch-desc">รับคำสั่งแล้ว<br>สร้าง design จริง</div>
+      </div>
+    </div>
+    <div class="arch-subtitle">ทุกอย่างรันอยู่บนเครื่องเรา (localhost)</div>
+  </div>
+
+  <h3>อธิบายแต่ละชิ้น</h3>
+  <table>
+    <thead><tr><th>ชิ้นส่วน</th><th>คืออะไร</th><th>ทำหน้าที่อะไร</th></tr></thead>
+    <tbody>
+      <tr><td><strong>VS Code + Claude Code</strong></td><td>Editor + AI</td><td>เราพิมพ์คำสั่ง, AI คิดแล้วสั่งงาน</td></tr>
+      <tr><td><strong>MCP Server (stdio)</strong></td><td>ตัวแปลภาษา</td><td>แปลคำสั่ง AI เป็นคำสั่ง Figma</td></tr>
+      <tr><td><strong>WebSocket Server</strong></td><td>ตัวส่งข้อความ</td><td>ส่งคำสั่งระหว่าง MCP กับ Figma Plugin</td></tr>
+      <tr><td><strong>Figma Plugin</strong></td><td>หูของ Figma</td><td>รับคำสั่งแล้วทำงานจริงใน Figma</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Channel ID คืออะไร?</h3>
+  <p>Channel ID เปรียบเสมือน <strong>"ห้องแชท"</strong> ที่ Claude กับ Figma Plugin ใช้คุยกัน:</p>
+  <ul>
+    <li>ทุกครั้งที่เปิด Figma Plugin ใหม่ จะได้ <strong>Channel ID ใหม่</strong></li>
+    <li>ต้องบอก Claude ว่า Channel ID คืออะไร เพื่อให้เข้าห้องเดียวกัน</li>
+    <li>ถ้า Channel ID ไม่ตรงกัน = <strong>คุยกันไม่ได้</strong></li>
+  </ul>
+</section>
+
