@@ -10,22 +10,27 @@ description: "สร้าง UI Design Specification document สำหรั�
 ## Overall Flow
 
 ```
-1. Requirements → 2. Read Design Principles → 3. Preview (React) → 4. Iterate → 5. Build in Figma (MCP)
+1. Requirements → 2. Read Design Principles → 3. Preview (HTML) → 4. Iterate (Browser) → 5. Import to Figma (HTML to Figma MCP)
 ```
 
 ทั้ง 5 ขั้นตอนคือ flow หลักของ skill:
 
-1. **Requirements**: รวบรวมความต้องการจากผู้ใช้
+1. **Requirements**: รวบรวมความต้องการจากผู้ใช้ (หรือจาก Jira card ผ่าน jira-req-analysis skill)
 2. **Design Principles**: อ่าน references เพื่อออกแบบตามหลักการ
-3. **Preview**: สร้าง React component (.jsx) ให้ดูหน้าจอจริงก่อนสร้างใน Figma
-4. **Iterate**: แก้ไข preview จนผู้ใช้พอใจ
-5. **Build in Figma**: ใช้ Figma MCP สร้างหน้าจอจริงใน Figma
+3. **Preview**: สร้าง Static HTML file (.html) ให้ดูหน้าจอจริงใน browser ก่อน import เข้า Figma
+4. **Iterate**: User เปิด HTML ใน browser + บอก Claude แก้ไข → refresh ดูผลทันที
+5. **Import to Figma**: ใช้ html-to-design MCP ส่ง HTML ไป Figma โดยตรง (`import_html` / `import_url`)
 
 ---
 
 ## Step 1: รวบรวม Requirements
 
-ถามข้อมูลเหล่านี้ (ถ้ายังไม่ได้ระบุ):
+Requirements อาจมาจาก:
+- **User บอกตรง** → ถามข้อมูลเพิ่มตามรายการด้านล่าง
+- **Jira card analysis** → ถ้า user ผ่าน `jira-req-analysis` skill มาแล้ว จะมี structured data (User Stories, Screen List, State Matrix, Components, User Flow) พร้อมใช้ — ข้ามไป Step 2 ได้เลย
+- **Figma reference design** → ใช้ get_screenshot/get_design_context อ่าน
+
+ถ้ายังไม่มี structured requirements ถามข้อมูลเหล่านี้:
 
 - **Platform**: Mobile (iOS/Android), Web, Desktop, หรือ Cross-platform?
 - **Screen/Component**: จะออกแบบหน้าจอหรือ component อะไร?
@@ -46,7 +51,6 @@ references/ux-principles.md        → อ่านเสมอ (Nielsen's + Law
 references/material-design.md      → สำหรับ Android / Web (Material Design 3)
 references/hig.md                  → สำหรับ iOS / macOS (Apple HIG)
 references/design-tokens.md        → สำหรับ Custom Design System tokens
-references/figma-mcp-commands.md   → สำหรับ Step 5 (สร้างใน Figma)
 ```
 
 อ่าน `references/ux-principles.md` **เสมอทุกครั้ง**
@@ -63,117 +67,239 @@ references/figma-mcp-commands.md   → สำหรับ Step 5 (สร้า�
 
 ---
 
-## Step 3: สร้าง Interactive Preview (React .jsx)
+## Step 3: สร้าง Interactive Preview (Static HTML)
 
-สร้างไฟล์ `.jsx` ที่ render หน้าจอจริงได้ทันทีเพื่อให้ผู้ใช้เห็นหน้าตาก่อนสร้างใน Figma
+สร้างไฟล์ `.html` self-contained ที่เปิดใน browser ได้ทันที เพื่อให้ผู้ใช้เห็นหน้าตาก่อน import เข้า Figma
 
 ### Preview ต้องมี:
 
-1. **iPhone/Android frame** จำลอง (เช่น 393x852 สำหรับ iPhone 15 Pro)
-2. **Status bar** จำลอง (เวลา, battery, signal)
-3. **ทุก component** ตาม spec — สี, ขนาด, spacing ถูกต้อง
-4. **Light/Dark mode toggle** สลับ theme ได้
-5. **State switcher** — ปุ่มเปลี่ยน state (empty, filled, error, loading, success)
-6. **Interactive elements** — กรอก input, กดปุ่ม ดู state จริง
+1. **iPhone/Android frame** จำลอง (เช่น 393x852 สำหรับ iPhone 15 Pro) — CSS-only
+2. **Status bar** จำลอง (เวลา, battery, signal) — HTML+CSS
+3. **ทุก component** ตาม spec — สีจาก Design Tokens (CSS Variables)
+4. **Light/Dark mode toggle** สลับ theme ได้ (vanilla JS)
+5. **State switcher** — ปุ่มเปลี่ยน state: empty, filled, error, loading, success (vanilla JS)
+6. **Interactive elements** — กรอก input, กดปุ่ม ดู state จริง (vanilla JS)
 7. **Spec info panel** — แสดงค่าสำคัญ (frame size, font, spacing, colors)
 
-### Guidelines สำหรับ React Preview:
+### HTML Template:
 
-- ใช้ inline styles (ไม่ใช้ external CSS framework)
-- ใช้ system font stack ที่ใกล้เคียง platform font
-- สีทั้งหมดต้องเป็น object `colors = { light: {...}, dark: {...} }`
-- ทุก interactive element ต้อง functional (input, toggle, button)
-- ใช้ SVG สำหรับ icons (ไม่ import external icon libraries)
-- Animation ใช้ CSS keyframes (ผ่าน `<style>` tag ภายใน component)
+```html
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Screen Name] Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+TH:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Design Tokens — จาก semantic system (references/design-tokens.md) */
+      --primary-fg-high: #EC599D;
+      --primary-fg-low: #FDEFF5;
+      --primary-bg-mid: #EC599D;
+      --primary-bg-low: #FBD5E5;
+      --primary-bg-lowest: #FDEFF5;
+      --secondary-fg-high: #7279FB;
+      --secondary-bg-mid: #7279FB;
+      --secondary-bg-lowest: #EEEFFE;
+      --gray-fg-high: #1B1D22;
+      --gray-fg-mid-on-white: #6A6E83;
+      --gray-fg-mid-on-gray: #3F414E;
+      --gray-fg-low: #9A9DAD;
+      --gray-fg-white: #FFFFFF;
+      --gray-bg-white: #FFFFFF;
+      --gray-bg-lightgray: #F8F8F9;
+      --gray-bg-midgray: #EBECEF;
+      --gray-bg-darkgray: #CFD1D9;
+      --gray-bg-black: #1B1D22;
+      --gray-border-midgray: #EBECEF;
+      --gray-border-darkgray: #CFD1D9;
+      --error-fg-high: #EA244F;
+      --error-bg-lowest: #FDECF0;
+      --warning-fg-high: #F8C135;
+      --warning-bg-lowest: #FEF8E8;
+      --success-fg-high: #559652;
+      --success-bg-lowest: #EEF6EE;
+      --info-fg-high: #0386B3;
+      --info-bg-lowest: #E6F4F9;
 
-### ตั้งชื่อไฟล์: `[screen-name]-preview.jsx`
+      /* Typography — LINE Seed Sans TH */
+      --font-family: 'LINE Seed Sans TH', sans-serif;
+      --heading-1: 800 48px/56px var(--font-family);
+      --heading-2: 700 40px/48px var(--font-family);
+      --heading-3: 700 32px/40px var(--font-family);
+      --label-1: 700 20px/28px var(--font-family);
+      --label-2: 700 18px/24px var(--font-family);
+      --label-3: 700 16px/22px var(--font-family);
+      --label-4: 700 14px/20px var(--font-family);
+      --caption-1: 400 20px/28px var(--font-family);
+      --caption-2: 400 18px/24px var(--font-family);
+      --caption-3: 400 16px/22px var(--font-family);
+      --caption-4: 400 14px/20px var(--font-family);
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 12px;
+      --space-lg: 16px;
+      --space-xl: 20px;
+      --space-2xl: 24px;
+      --space-3xl: 32px;
+
+      /* Shape */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-family); background: #E5E5E5; display: flex; justify-content: center; padding: 20px; }
+
+    /* ใช้ flexbox layout (ไม่ใช้ absolute positioning) */
+    /* ใช้ semantic HTML: header, main, nav, section, footer */
+    /* Class names ตั้งชื่อมีความหมาย (จะกลายเป็น Figma layer names) */
+  </style>
+</head>
+<body>
+  <!-- Phone Frame -->
+  <div class="phone-frame" style="width:393px; min-height:852px; background:var(--gray-bg-white); border-radius:40px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.12); display:flex; flex-direction:column;">
+    <!-- Status Bar -->
+    <div class="status-bar" style="display:flex; justify-content:space-between; align-items:center; padding:12px 24px; font:var(--caption-4); color:var(--gray-fg-high);">
+      <span>9:41</span>
+      <span><!-- signal + wifi + battery icons --></span>
+    </div>
+
+    <!-- Main Content -->
+    <main style="flex:1; display:flex; flex-direction:column; padding:0 var(--space-lg);">
+      <!-- Content here -->
+    </main>
+  </div>
+
+  <!-- Control Panel (outside phone frame) -->
+  <div class="control-panel" style="margin-left:24px; padding:16px; background:white; border-radius:12px; height:fit-content;">
+    <button onclick="toggleTheme()">Light/Dark</button>
+    <button onclick="setState('default')">Default</button>
+    <button onclick="setState('filled')">Filled</button>
+    <button onclick="setState('error')">Error</button>
+    <button onclick="setState('loading')">Loading</button>
+    <button onclick="setState('success')">Success</button>
+    <button onclick="setState('empty')">Empty</button>
+  </div>
+
+  <script>
+    // Vanilla JS สำหรับ toggle, state switch, interactions
+    let currentTheme = 'light';
+    let currentState = 'default';
+
+    function toggleTheme() {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', currentTheme);
+      // Update CSS variables for dark mode
+    }
+
+    function setState(state) {
+      currentState = state;
+      document.querySelectorAll('[data-state]').forEach(el => {
+        el.style.display = el.dataset.state === state ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
+```
+
+### Guidelines สำหรับ HTML Preview:
+
+- ใช้ **CSS Variables** ตาม Design Tokens (`references/design-tokens.md`) — ห้าม hardcode สีตรง
+- ใช้ **flexbox/grid** layout (ไม่ใช้ absolute position) → จะกลายเป็น Auto Layout ใน Figma
+- ตั้ง **class names** ให้มีความหมาย → จะกลายเป็น Figma layer names
+- ใช้ **semantic HTML**: `<header>`, `<main>`, `<nav>`, `<section>`, `<footer>`
+- ใช้ **Google Fonts** (LINE Seed Sans TH) — load ผ่าน `<link>`
+- ใช้ **inline SVG** หรือ placeholder สำหรับ icons/images
+- **ห้ามใช้** external CSS frameworks (Bootstrap, Tailwind) — ใช้ CSS ตรงๆ
+- **ห้ามใช้** React, Vue, หรือ JS framework ใดๆ — ใช้ vanilla JS เท่านั้น
+- Animation ใช้ **CSS keyframes** ใน `<style>` tag
+- Keep DOM structure clean → clean Figma layer hierarchy
+
+### HTML Best Practices สำหรับ HTML to Figma:
+
+| HTML/CSS | Figma Result |
+|----------|-------------|
+| `display: flex` | Auto Layout |
+| `flex-direction: column` | Vertical Auto Layout |
+| `gap: 16px` | Item Spacing = 16 |
+| `padding: 16px` | Padding = 16 |
+| `border-radius: 12px` | Corner Radius = 12 |
+| `width: 100%` (ใน flex child) | Layout Sizing = Fill |
+| Class name (เช่น `login-button`) | Layer name = "login-button" |
+| Nested `<div>` | Nested frames |
+
+### ตั้งชื่อไฟล์: `[screen-name]-preview.html`
 
 ---
 
-## Step 4: Iterate จนพอใจ
+## Step 4: Iterate จนพอใจ (Browser + Claude)
 
-- ผู้ใช้ดู preview แล้วขอแก้ไข
-- แก้ไข .jsx แล้วให้ดูใหม่
-- วนจนกว่าผู้ใช้พอใจ
-- เมื่อพอใจแล้ว ถามผู้ใช้: "พร้อมจะสร้างใน Figma ไหมครับ?"
+1. **User เปิด `.html` ใน browser** — double-click ไฟล์ หรือใช้ Live Preview ใน VSCode
+2. **User ดูผล** แล้วบอก Claude ให้แก้ไข (เช่น "ปรับสีปุ่มเป็นสีเขียว", "เพิ่ม padding", "เปลี่ยน layout")
+3. **Claude แก้ไฟล์ `.html`** → User refresh browser เห็นผลทันที
+4. **วนจนพอใจ** — ปรับ layout, สี, ขนาด, spacing, state ต่างๆ
+5. เมื่อพอใจแล้ว ถามผู้ใช้: "พร้อม import เข้า Figma ไหมครับ?"
 
 ---
 
-## Step 5: สร้างใน Figma ผ่าน MCP
+## Step 5: Import เข้า Figma (HTML to Figma MCP)
 
-เมื่อผู้ใช้พร้อม ให้อ่าน `references/figma-mcp-commands.md` แล้วทำตามขั้นตอน:
+เมื่อผู้ใช้พอใจกับ HTML preview แล้ว ใช้ **html-to-design MCP** ส่ง HTML ไป Figma โดยตรง
 
-### 5.1 Connect
+### 5.1 เตรียมตัว
 
-ถามผู้ใช้:
-> "กรุณาเปิด Talk to Figma Plugin ใน Figma แล้วบอก channel ID ให้หน่อยครับ"
+1. ตรวจว่า user เปิด **html.to.design** plugin ใน Figma → tab **MCP** → toggle **"Enable MCP endpoint"** เปิดอยู่ (STATUS: connected)
+2. ตรวจว่า HTML file พร้อม import:
+   - ใช้ flexbox/grid (ไม่ใช้ absolute position)
+   - Class names มีความหมาย
+   - สีใช้ CSS Variables
+   - DOM structure clean
 
-จากนั้นเรียก:
-```
-join_channel(channel_id)
-```
+### 5.2 Import ผ่าน MCP
 
-### 5.2 Prepare
-
-1. เรียก `get_document_info()` เพื่อดู structure ของ file ปัจจุบัน
-2. ถามผู้ใช้ว่าจะสร้างใน page ไหน
-3. **หมายเหตุ**: MCP ไม่สามารถสร้าง/ลบ page ได้ ต้องทำใน Figma โดยตรง
-
-### 5.3 Build — สร้าง element ตาม spec ที่ออกแบบไว้
-
-**ลำดับการสร้าง** (สำคัญมาก):
+ใช้ `import_html` ส่ง HTML ไป Figma โดยตรง:
 
 ```
-1. สร้าง Main Frame ด้วย create_frame (พร้อม auto layout + สี + parentId ในคำสั่งเดียว)
-2. สร้าง child elements จากบนลงล่าง (ใช้ parentId ใส่เข้า parent ได้เลย)
-3. แต่ละ element: create → set_corner_radius (ถ้าต้องการ)
-4. ตั้ง auto layout แยก ถ้าต้องปรับทีหลัง (set_layout_mode + set_padding + set_axis_align + etc.)
-```
-
-**Best Practices**:
-
-- **ใช้ parentId**: เมื่อสร้าง frame/text/rectangle ใส่ `parentId` เพื่อจัด hierarchy ได้เลย ไม่ต้อง insert_child แยก (ไม่มีคำสั่ง insert_child)
-- **ตั้ง auto layout ตอนสร้าง**: `create_frame` รองรับ layoutMode, itemSpacing, padding, alignment ทั้งหมดในคำสั่งเดียว
-- **ตั้งชื่อ layer**: ใช้ `name` parameter ให้มีความหมาย (เช่น "Email Field", "Login Button")
-- **สีใช้ 0-1**: `set_fill_color` ใช้ค่า 0-1 (ไม่ใช่ 0-255) หรือใส่ `fillColor` ตอน create_frame
-- **font ตั้งตอนสร้าง**: `create_text` รองรับ fontSize, fontWeight, fontColor — แก้ font หลังสร้างไม่ได้ผ่าน MCP
-- **สร้างทีละ element**: แล้ว verify ก่อนไปต่อ ใช้ `get_node_info` ตรวจสอบ
-- **Batch operations**: ใช้ `set_multiple_text_contents` แก้ text หลายตัวพร้อมกัน, `delete_multiple_nodes` ลบหลายตัว
-
-**Color conversion**: Hex → Figma RGBA (0-1)
-```
-#007AFF → r=0, g=0.478, b=1
-#FF3B30 → r=1, g=0.231, b=0.188
-#000000 → r=0, g=0, b=0
-#FFFFFF → r=1, g=1, b=1
-```
-
-### 5.4 Verify
-
-หลังสร้างเสร็จ:
-1. ใช้ `set_focus(nodeId)` เพื่อ scroll ไปหา design ที่สร้าง
-2. ถามผู้ใช้ว่า "ดูใน Figma แล้วเป็นอย่างไรบ้างครับ?"
-3. ถ้ามีแก้ → ใช้ modification commands แก้ได้:
-   - `set_fill_color` / `set_stroke_color` — แก้สี
-   - `set_corner_radius` — แก้มุมโค้ง
-   - `set_text_content` — แก้ text
-   - `move_node` / `resize_node` — ย้าย/ปรับขนาด
-   - `set_layout_mode` + `set_padding` + `set_axis_align` + `set_layout_sizing` + `set_item_spacing` — แก้ auto layout
-4. ถ้าต้องการสร้าง variant/state เพิ่ม → `clone_node` แล้ว modify
-5. ถ้ามี reference Figma URL → ใช้ `get_screenshot(fileKey, nodeId)` เปรียบเทียบ
-
-### 5.5 Annotate (Optional)
-
-ถ้าผู้ใช้ต้องการ spec annotations บน Figma:
-```
-set_multiple_annotations({
-  nodeId: "screen-id",
-  annotations: [
-    { nodeId: "button-id", labelMarkdown: "**Primary CTA**\n- Height: 50pt\n- Radius: 12pt" },
-    { nodeId: "input-id", labelMarkdown: "**Text Field**\n- Placeholder: quaternaryLabel color" }
-  ]
+import_html({
+  html: "<div class='login-screen'>...</div>",
+  css: ".login-screen { display: flex; ... }",
+  name: "Login Screen"
 })
 ```
+
+หรือถ้า HTML ซับซ้อน/มี external assets ให้ serve file แล้วใช้ `import_url`:
+
+```
+import_url({
+  url: "http://localhost:3000/login-preview.html",
+  name: "Login Screen"
+})
+```
+
+Plugin แปลง HTML → Figma layers:
+- `display: flex` → Auto Layout
+- `gap` → Item Spacing
+- `padding` → Padding
+- `border-radius` → Corner Radius
+- Class names → Layer names
+- Colors → Fill colors
+- Text → Text nodes with font size/weight
+
+### 5.3 Fine-tune ใน Figma
+
+หลัง import:
+1. ตรวจ Auto Layout structure — อาจต้องปรับ sizing mode (FILL/HUG/FIXED)
+2. ตรวจ font — อาจต้องเปลี่ยนเป็น LINE Seed Sans TH ใน Figma
+3. ตรวจ colors — ควรตรงกับ HTML preview
+4. ปรับ layer names ถ้าต้องการ
+5. เพิ่ม components, variants, styles ตามต้องการ
 
 ---
 
@@ -183,10 +309,9 @@ Skill นี้สร้าง output ได้หลายแบบ ขึ้�
 
 | Step | Output | Format |
 |------|--------|--------|
-| 3 | Interactive Preview | `.jsx` (React artifact) |
+| 3 | Interactive Preview | `.html` (Static HTML — เปิดใน browser) |
 | 3 | Design Spec Document | `.md` (optional, ถ้าผู้ใช้ขอ) |
-| 5 | Figma Design | สร้างตรงใน Figma ผ่าน MCP |
-| 5.5 | Figma Annotations | Annotations บน Figma nodes |
+| 5 | Figma Design | Import ผ่าน html-to-design MCP (`import_html` / `import_url`) |
 
 ---
 
@@ -285,20 +410,7 @@ Relative Luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B
 4. **Accessibility First**: contrast ratio, touch target, screen reader
 5. **WCAG Contrast Verified**: ทุกคู่สี text/bg ต้องผ่าน WCAG AA ขั้นต่ำ พร้อมระบุค่า ratio
 6. **Platform-Aware**: เคารพ platform conventions
-7. **Preview First**: ให้ดู preview ก่อนสร้างจริงเสมอ
-8. **Figma-Ready**: element names, auto layout, proper layer structure
-9. **Use parentId**: ใส่ elements เข้า parent ตอนสร้างได้เลย ไม่ต้อง insert_child แยก
-10. **Font ตั้งตอนสร้าง**: fontSize, fontWeight, fontColor ตั้งได้ตอน create_text เท่านั้น
-
----
-
-## MCP Limitations (สิ่งที่ต้องทำใน Figma โดยตรง)
-
-- สร้าง/ลบ/เปลี่ยนชื่อ Page
-- สร้าง Ellipse, Polygon, Star shapes
-- Group/Ungroup nodes
-- เปลี่ยน font family/style หลังสร้าง text แล้ว
-- ตั้ง effects (shadow, blur)
-- ตั้ง text decoration, line height, letter spacing
-- Rename node
-- ใช้ remote components (team library)
+7. **Preview First**: ให้ดู HTML preview ใน browser ก่อน import เข้า Figma เสมอ
+8. **Figma-Ready HTML**: ใช้ flexbox/grid, class names มีความหมาย, CSS Variables ตาม tokens
+9. **HTML to Figma MCP**: ใช้ html-to-design MCP (`import_html` / `import_url`) ส่ง HTML ไป Figma โดยตรง
+10. **Font ตั้งใน HTML**: ใช้ Google Fonts (LINE Seed Sans TH) — font อาจต้องปรับหลัง import Figma

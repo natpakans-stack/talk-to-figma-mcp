@@ -10,7 +10,7 @@ description: "ออกแบบ Responsive/Adaptive Design สำหรับ�
 ## Overall Flow
 
 ```
-1. Requirements → 2. Read References → 3. Define Breakpoints → 4. Design Adaptation Rules → 5. Preview → 6. Build in Figma
+1. Requirements → 2. Read References → 3. Define Breakpoints → 4. Design Adaptation Rules → 5. Preview (HTML) → 6. Import to Figma (HTML to Figma MCP)
 ```
 
 ---
@@ -183,116 +183,54 @@ Body text ไม่ค่อยเปลี่ยน ส่วน headings/displ
 
 ---
 
-## Step 5: Preview (React .jsx)
+## Step 5: Preview (Static HTML)
 
-สร้าง React preview ที่ **resize ได้**:
+สร้าง HTML preview ที่ **resize ได้** — เปิดใน browser แล้วลาก resize หน้าต่างเห็นผลทันที:
 
 ### Preview ต้องมี:
 
-1. **Responsive Container** — ลาก resize ได้ หรือมีปุ่มสลับ breakpoint
-2. **Breakpoint Indicator** — แสดง current breakpoint (xs/sm/md/lg/xl)
-3. **Side-by-side View** — แสดง Mobile + Tablet + Desktop พร้อมกัน
+1. **Responsive Container** — ใช้ CSS `resize: horizontal` หรือมีปุ่มสลับ breakpoint (vanilla JS)
+2. **Breakpoint Indicator** — แสดง current breakpoint (xs/sm/md/lg/xl) ด้วย vanilla JS + `matchMedia()`
+3. **Side-by-side View** — แสดง Mobile + Tablet + Desktop พร้อมกัน (ใช้ `<iframe>` หรือ CSS Grid)
 4. **Layout Annotations** — แสดง grid columns, margins, gaps
-5. **Light/Dark Toggle** — สลับ theme ได้
+5. **Light/Dark Toggle** — สลับ theme ได้ (vanilla JS)
 6. **Content Priority Highlight** — แสดงว่า content ไหนหาย/ย้ายเมื่อ resize
 
 ### Guidelines:
 
-- ใช้ CSS media queries (หรือ container queries) จริง
+- ใช้ **CSS media queries** (หรือ container queries) จริง
 - แสดง breakpoint badge ที่มุมบนซ้าย
-- มี ruler/grid overlay toggle
+- มี ruler/grid overlay toggle (vanilla JS)
 - ทุก adaptation rule ต้องเห็นผลจริงเมื่อ resize
+- ใช้ **CSS Variables** ตาม Design Tokens (`references/design-tokens.md`)
+- ใช้ **flexbox/grid** layout → Auto Layout ใน Figma
+- **ห้ามใช้** React, Vue, หรือ JS framework — ใช้ vanilla JS เท่านั้น
 
-ตั้งชื่อ: `[screen-name]-responsive-preview.jsx`
+ตั้งชื่อ: `[screen-name]-responsive-preview.html`
 
 ---
 
-## Step 6: Build in Figma
+## Step 6: Import เข้า Figma (HTML to Figma MCP)
 
-อ่าน `references/figma-mcp-commands.md` แล้วสร้าง:
+ใช้ **html-to-design MCP** ส่ง HTML ไป Figma โดยตรง:
 
-### 6.1 Frame Structure
-
-สร้าง frame สำหรับแต่ละ breakpoint:
-
-```
-📄 [Screen Name] - Responsive
-├── 🖼 Mobile (393 x 852)
-│   ├── Status Bar
-│   ├── Content
-│   └── Bottom Nav
-├── 🖼 Tablet (834 x 1194)
-│   ├── Top App Bar
-│   ├── Navigation Rail + Content
-│   └── Footer
-└── 🖼 Desktop (1440 x 900)
-    ├── Top App Bar
-    ├── Sidebar + Content + Side Panel
-    └── Footer
-```
-
-### 6.2 สร้างแต่ละ Frame
-
-```
-สำหรับแต่ละ breakpoint:
-
-1. create_frame({
-     name: "[Screen] - Mobile",
-     width: 393, height: 852,
-     fillColor: { r: 1, g: 1, b: 1 },
-     layoutMode: "VERTICAL"
-   })
-
-2. สร้าง child elements ตาม adaptation rules
-   - ใช้ parentId ใส่ elements
-   - ใช้ layoutMode: "VERTICAL" สำหรับ mobile stacking
-   - ใช้ layoutMode: "HORIZONTAL" สำหรับ desktop side-by-side
-
-3. set_layout_sizing สำหรับ auto-layout children:
-   - Mobile: layoutSizingHorizontal: "FILL" (full-width)
-   - Desktop: layoutSizingHorizontal: "FIXED" (fixed sidebar)
-```
-
-### 6.3 จัด Layout
-
-วาง frames เรียงกัน:
-```
-Mobile:  x=0,    y=0
-Tablet:  x=450,  y=0
-Desktop: x=1340, y=0
-```
-
-ระยะห่างระหว่าง frames: ~50px
-
-### 6.4 Annotate Adaptation Rules
-
-```
-set_multiple_annotations({
-  nodeId: "responsive-container",
-  annotations: [
-    {
-      nodeId: "mobile-nav",
-      labelMarkdown: "**Navigation**\nMobile: Bottom Tab Bar\nTablet: Navigation Rail\nDesktop: Full Sidebar"
-    },
-    {
-      nodeId: "mobile-cards",
-      labelMarkdown: "**Card Grid**\nMobile: 1 column\nTablet: 2 columns\nDesktop: 3 columns"
-    }
-  ]
-})
-```
-
-### 6.5 Connection Lines (Optional)
-
-ใช้ `create_connections` เชื่อมแสดงว่า element เดียวกัน adapt อย่างไร:
-```
-create_connections({
-  connections: [
-    { startNodeId: "mobile-nav", endNodeId: "tablet-nav", text: "Tab → Rail" },
-    { startNodeId: "tablet-nav", endNodeId: "desktop-nav", text: "Rail → Sidebar" }
-  ]
-})
-```
+1. ตรวจว่า user เปิด html.to.design plugin ใน Figma → tab MCP → STATUS: connected
+2. ใช้ `import_html` ส่ง HTML แต่ละ breakpoint ไป Figma:
+   ```
+   import_html({ html: "...", css: "...", name: "Login - Mobile (393px)" })
+   import_html({ html: "...", css: "...", name: "Login - Tablet (834px)" })
+   import_html({ html: "...", css: "...", name: "Login - Desktop (1440px)" })
+   ```
+   หรือ serve file แล้วใช้ `import_url`:
+   ```
+   import_url({ url: "http://localhost:3000/login-responsive-preview.html", name: "Login Responsive" })
+   ```
+3. Plugin แปลง HTML → Figma layers อัตโนมัติ
+4. ปรับ fine-tune ใน Figma:
+   - ตรวจ font — เปลี่ยนเป็น LINE Seed Sans TH ถ้าต้องการ
+   - ตรวจ sizing mode (FILL/HUG/FIXED)
+   - ปรับ layer names ถ้าต้องการ
+   - จัด frames เรียงกันตาม breakpoint (Mobile → Tablet → Desktop)
 
 ---
 
@@ -340,9 +278,8 @@ create_connections({
 |--------|--------|----------|
 | Breakpoint Definition | Markdown tables | เสมอ |
 | Adaptation Rules | Markdown tables per section | เสมอ |
-| Responsive Preview | `.jsx` (React, resizable) | เสมอ |
-| Figma Frames | Multiple frames per breakpoint | เมื่อ build ใน Figma |
-| Annotations | Figma annotations | เมื่อ build ใน Figma |
+| Responsive Preview | `.html` (Static HTML, resizable) | เสมอ |
+| Figma Frames | Import ผ่าน html-to-design MCP (`import_html` / `import_url`) | เมื่อ import เข้า Figma |
 
 ---
 

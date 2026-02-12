@@ -118,6 +118,15 @@
       "installPath": "~/.claude/commands/figma-ux-writer.md",
       "badge": "NEW",
       "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "jira-req-analysis.md",
+      "icon": "\ud83d\udccb",
+      "color": "var(--blue)",
+      "title": "Jira Requirement Analysis",
+      "installPath": "~/.claude/commands/jira-req-analysis.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
     }
   ]
 }

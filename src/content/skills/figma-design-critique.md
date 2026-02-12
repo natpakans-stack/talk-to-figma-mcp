@@ -26,7 +26,7 @@ description: "วิเคราะห์และ review design ที่มี
 
 ถามผู้ใช้ (ถ้ายังไม่ได้ระบุ):
 
-- **Source**: Figma URL, screenshot path, หรือจะเลือกใน Figma ตอนนี้?
+- **Source**: Figma URL, screenshot path, **HTML preview file (.html)**, หรือจะเลือกใน Figma ตอนนี้?
 - **Context**: หน้าจอนี้ใช้ทำอะไร? target user เป็นใคร?
 - **Platform**: Mobile (iOS/Android), Web, Desktop?
 - **Scope**: Review ทั้งหน้า หรือเฉพาะบาง component?
@@ -49,6 +49,11 @@ get_node_info(nodeId)                 → ดูรายละเอียด n
 scan_text_nodes(nodeId)               → scan text ทั้งหมด
 scan_nodes_by_types(nodeId, types)    → scan components ตาม type
 ```
+
+**จาก HTML Preview File:**
+- อ่านไฟล์ `.html` preview ด้วย Read tool
+- วิเคราะห์ CSS styles, layout structure, colors, typography จาก source code
+- ตรวจ contrast, spacing, consistency จาก CSS values โดยตรง
 
 ---
 

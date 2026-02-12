@@ -20,6 +20,8 @@ description: "ออกแบบ User Flow, Information Architecture, Task Flow,
 5. **Generate Diagrams**: สร้าง diagram ใน FigJam/Figma
 6. **Build in Figma**: สร้าง screen map ใน Figma (optional)
 
+> **ส่งต่อ**: เมื่อ flow เสร็จแล้ว สามารถส่งต่อไป **figma-ui-design-spec** skill เพื่อสร้าง HTML preview สำหรับแต่ละ screen ได้เลย
+
 ---
 
 ## Step 1: รวบรวม Requirements

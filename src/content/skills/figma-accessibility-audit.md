@@ -21,6 +21,7 @@ description: "ตรวจสอบ Accessibility อย่างละเอี
 
 - **Figma URL** → `get_screenshot`, `get_design_context`, `get_metadata`
 - **Figma Selection** → `read_my_design`, `scan_text_nodes`, `scan_nodes_by_types`
+- **HTML Preview File** → อ่านไฟล์ `.html` ด้วย Read tool แล้วตรวจ contrast, touch targets, semantic HTML, ARIA attributes จาก source code โดยตรง (ตรวจได้ก่อน import Figma)
 - **Context**: ถามว่า target WCAG level คือ AA หรือ AAA?
 
 ---

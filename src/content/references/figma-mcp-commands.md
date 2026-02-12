@@ -1,6 +1,6 @@
 # Figma MCP Commands Reference
 
-คู่มือ commands ทั้งหมดที่ใช้ได้จริงสำหรับทำงานกับ Figma ผ่าน MCP Servers 2 ตัว
+คู่มือ commands ทั้งหมดที่ใช้ได้จริงสำหรับทำงานกับ Figma ผ่าน MCP Servers 3 ตัว
 
 ---
 
@@ -10,6 +10,7 @@
 |--------|--------|------------|
 | **TalkToFigma** (stdio) | Local Plugin | สร้าง/แก้ไข/ลบ elements ใน Figma โดยตรง |
 | **figma** (remote) | Figma API | อ่าน design, screenshot, generate code, diagrams |
+| **html-to-design** (remote) | html.to.design Plugin | ส่ง HTML ไปสร้างเป็น Figma layers อัตโนมัติ |
 
 ---
 
@@ -32,9 +33,19 @@
 12. [Diagrams](#12-diagrams)
 13. [Code Connect](#13-code-connect)
 
+### html-to-design MCP (HTML → Figma)
+14. [Import HTML to Figma](#14-import-html-to-figma)
+
 ### Patterns
-14. [Common Patterns](#14-common-patterns)
-15. [Color Conversion](#15-color-conversion)
+15. [Common Patterns](#15-common-patterns)
+16. [Color Conversion](#16-color-conversion)
+17. [Smart Frame Positioning](#17-smart-frame-positioning)
+18. [Icon Placeholder Pattern](#18-icon-placeholder-pattern)
+19. [Exact Color Conversion](#19-exact-color-conversion)
+20. [CSS-to-Figma Mapping Table](#20-css-to-figma-mapping-table)
+21. [Post-Creation Verification Pattern](#21-post-creation-verification-pattern)
+22. [Font Handling](#22-font-handling)
+23. [HTML to Figma Best Practices](#23-html-to-figma--best-practices)
 
 ---
 
@@ -327,7 +338,71 @@ URL: https://figma.com/design/ABC123/MyFile?node-id=1-2
 
 ---
 
-## 14. Common Patterns
+## 14. Import HTML to Figma (html-to-design MCP)
+
+ใช้ server `html-to-design` (remote) — ส่ง HTML ไปสร้างเป็น Figma layers ได้โดยตรงจาก Claude
+
+### Prerequisites
+
+1. ติดตั้ง plugin **html.to.design** (by divRIOTS) ใน Figma
+2. เปิด plugin → tab **MCP** → เปิด toggle **"Enable MCP endpoint"**
+3. ตรวจว่า **STATUS: connected** (จุดเขียว) ใน plugin
+
+### Available Tools
+
+| Command | Parameters | Description |
+|---------|-----------|-------------|
+| `import_html` | `html, css?, js?, name?` | ส่ง HTML code ไปสร้างเป็น Figma layers |
+| `import_url` | `url, name?` | ส่ง URL ไป import ทั้งหน้าเว็บเป็น Figma layers |
+
+### import_html — ส่ง HTML Code
+
+```
+import_html({
+  html: "<div class='card'>...</div>",
+  css: ".card { display: flex; ... }",
+  name: "Login Screen"
+})
+```
+
+- ส่ง HTML + CSS ไปตรง → plugin แปลงเป็น Figma layers ทันที
+- **ไม่ต้อง** serve file ผ่าน URL
+- **ไม่ต้อง** manual copy/paste ใน plugin
+- Class names จะกลายเป็น Figma layer names
+
+### import_url — ส่ง URL
+
+```
+import_url({
+  url: "http://localhost:3000/login-preview.html",
+  name: "Login Screen"
+})
+```
+
+- ส่ง URL ของหน้าเว็บ → plugin import ทั้งหน้า
+- ต้อง serve file ก่อน (Live Server, `npx serve .`)
+- เหมาะกับ HTML preview ที่ซับซ้อน (multi-page, external assets)
+
+### Workflow: Claude → HTML → Figma
+
+```
+1. Claude สร้าง HTML preview (Step 3 ใน UI Design Spec)
+2. User review ใน browser + iterate จนพอใจ
+3. Claude ส่ง HTML ไป Figma ผ่าน import_html หรือ import_url
+4. Plugin แปลง HTML → Figma layers อัตโนมัติ
+5. User fine-tune ใน Figma (font, sizing, components)
+```
+
+### Tips
+
+- ใช้ `import_html` เมื่อ HTML ไม่ซับซ้อนมาก (single component, single screen)
+- ใช้ `import_url` เมื่อ HTML มี external assets (fonts, images) หรือหลายหน้า
+- บอก "send to Figma" หรือ "send to html.to.design" ใน prompt เพื่อ trigger import
+- ตรวจว่า plugin เปิด MCP endpoint อยู่ก่อน import
+
+---
+
+## 15. Common Patterns
 
 ### Pattern 1: สร้าง Mobile Screen (iPhone 15 Pro)
 
@@ -460,7 +535,7 @@ get_design_context(fileKey, nodeId)
 
 ---
 
-## 15. Color Conversion
+## 16. Color Conversion
 
 Figma MCP ใช้ค่าสี RGBA แบบ **0-1** (ไม่ใช้ 0-255)
 
@@ -490,7 +565,7 @@ b = parseInt(hex.slice(5,7), 16) / 255
 
 ---
 
-## 16. Smart Frame Positioning (ป้องกัน Frame ทับกัน)
+## 17. Smart Frame Positioning (ป้องกัน Frame ทับกัน)
 
 **สำคัญ**: ก่อนสร้าง frame ใหม่ ต้องสแกนตำแหน่ง frame เดิมก่อนเสมอ
 
@@ -572,7 +647,7 @@ for i in range(totalFrames):
 
 ---
 
-## 17. Icon Placeholder Pattern (ใช้ FontAwesome)
+## 18. Icon Placeholder Pattern (ใช้ FontAwesome)
 
 เนื่องจาก MCP ไม่สามารถสร้าง vector icon ได้ ให้ใช้ text placeholder แทน
 
@@ -596,6 +671,304 @@ create_text({
 
 ---
 
+## 19. Exact Color Conversion (Hex → Figma RGBA)
+
+**กฎสำคัญ**: ใช้ทศนิยม **อย่างน้อย 3 ตำแหน่ง** เสมอ — ห้ามปัดเศษเหลือ 2 ตำแหน่ง
+
+### สูตร Exact
+
+```
+r = Math.round((parseInt(hex.slice(1,3), 16) / 255) * 1000) / 1000
+g = Math.round((parseInt(hex.slice(3,5), 16) / 255) * 1000) / 1000
+b = Math.round((parseInt(hex.slice(5,7), 16) / 255) * 1000) / 1000
+```
+
+### Pre-computed Design Token Colors (Exact)
+
+#### Primary & Secondary
+| Token | Hex | r | g | b |
+|-------|-----|---|---|---|
+| semantic/primary/fg/high | #EC599D | 0.925 | 0.349 | 0.616 |
+| semantic/primary/fg/low | #F3E2EA | 0.953 | 0.886 | 0.918 |
+| semantic/primary/bg/lowest | #FDEFF5 | 0.992 | 0.937 | 0.961 |
+| semantic/primary/bg/mid | #EC599D | 0.925 | 0.349 | 0.616 |
+| semantic/primary/border/mid | #F7BDD8 | 0.969 | 0.741 | 0.847 |
+| semantic/secondary/fg/high | #7279FB | 0.447 | 0.475 | 0.984 |
+| semantic/secondary/bg/mid | #7279FB | 0.447 | 0.475 | 0.984 |
+| semantic/secondary/border/mid | #C7C9FD | 0.780 | 0.788 | 0.992 |
+
+#### Gray-Neutral
+| Token | Hex | r | g | b |
+|-------|-----|---|---|---|
+| semantic/gray-neutral/fg/high | #1B1D22 | 0.106 | 0.114 | 0.133 |
+| semantic/gray-neutral/fg/mid-on-gray | #3F414E | 0.247 | 0.255 | 0.306 |
+| semantic/gray-neutral/fg/mid-on-white | #6A6E83 | 0.416 | 0.431 | 0.514 |
+| semantic/gray-neutral/fg/low-on-white | #9A9DAD | 0.604 | 0.616 | 0.678 |
+| semantic/gray-neutral/bg/lightgray | #F8F8F9 | 0.973 | 0.973 | 0.976 |
+| semantic/gray-neutral/bg/midgray | #EBECEF | 0.922 | 0.925 | 0.937 |
+| semantic/gray-neutral/bg/darkgray | #CFD1D9 | 0.812 | 0.820 | 0.851 |
+
+#### Semantic Status
+| Token | Hex | r | g | b |
+|-------|-----|---|---|---|
+| semantic/error/fg/high | #EA244F | 0.918 | 0.141 | 0.310 |
+| semantic/error/bg/high | #BB1D3F | 0.733 | 0.114 | 0.247 |
+| semantic/warning/fg/high | #C69A2A | 0.776 | 0.604 | 0.165 |
+| semantic/warning/bg/high | #F8C135 | 0.973 | 0.757 | 0.208 |
+| semantic/success/fg/high | #559652 | 0.333 | 0.588 | 0.322 |
+| semantic/success/bg/high | #559652 | 0.333 | 0.588 | 0.322 |
+| semantic/info/fg/high | #026486 | 0.008 | 0.392 | 0.525 |
+| semantic/info/bg/high | #0386B3 | 0.012 | 0.525 | 0.702 |
+
+#### System Colors (iOS)
+| Color | Hex | r | g | b |
+|-------|-----|---|---|---|
+| systemBlue | #007AFF | 0.000 | 0.478 | 1.000 |
+| systemRed | #FF3B30 | 1.000 | 0.231 | 0.188 |
+| systemGreen | #34C759 | 0.204 | 0.780 | 0.349 |
+| systemOrange | #FF9500 | 1.000 | 0.584 | 0.000 |
+| systemYellow | #FFCC00 | 1.000 | 0.800 | 0.000 |
+| systemIndigo | #5856D6 | 0.345 | 0.337 | 0.839 |
+| systemTeal | #5AC8FA | 0.353 | 0.784 | 0.980 |
+| label | #000000 | 0.000 | 0.000 | 0.000 |
+| secondaryLabel | #3C3C43 | 0.235 | 0.235 | 0.263 |
+| tertiaryLabel | #3C3C43 | 0.235 | 0.235 | 0.263 |
+| quaternaryLabel | #3C3C43 | 0.235 | 0.235 | 0.263 |
+| placeholderText | #3C3C43 | 0.235 | 0.235 | 0.263 |
+| separator | #3C3C43 | 0.235 | 0.235 | 0.263 |
+| systemGray | #8E8E93 | 0.557 | 0.557 | 0.576 |
+| systemGray2 | #AEAEB2 | 0.682 | 0.682 | 0.698 |
+| systemGray3 | #C7C7CC | 0.780 | 0.780 | 0.800 |
+| systemGray4 | #D1D1D6 | 0.820 | 0.820 | 0.839 |
+| systemGray5 | #E5E5EA | 0.898 | 0.898 | 0.918 |
+| systemGray6 | #F2F2F7 | 0.949 | 0.949 | 0.969 |
+
+#### Material Design 3
+| Color | Hex | r | g | b |
+|-------|-----|---|---|---|
+| M3 Primary | #6750A4 | 0.404 | 0.314 | 0.643 |
+| M3 OnPrimary | #FFFFFF | 1.000 | 1.000 | 1.000 |
+| M3 PrimaryContainer | #EADDFF | 0.918 | 0.867 | 1.000 |
+| M3 Secondary | #625B71 | 0.384 | 0.357 | 0.443 |
+| M3 Surface | #FFFBFE | 1.000 | 0.984 | 0.996 |
+| M3 SurfaceVariant | #E7E0EC | 0.906 | 0.878 | 0.925 |
+| M3 Error | #B3261E | 0.702 | 0.149 | 0.118 |
+
+#### Common Grays
+| Color | Hex | r | g | b |
+|-------|-----|---|---|---|
+| Gray 50 | #FAFAFA | 0.980 | 0.980 | 0.980 |
+| Gray 100 | #F5F5F5 | 0.961 | 0.961 | 0.961 |
+| Gray 200 | #EEEEEE | 0.933 | 0.933 | 0.933 |
+| Gray 300 | #E0E0E0 | 0.878 | 0.878 | 0.878 |
+| Gray 400 | #BDBDBD | 0.741 | 0.741 | 0.741 |
+| Gray 500 | #9E9E9E | 0.620 | 0.620 | 0.620 |
+| Gray 600 | #757575 | 0.459 | 0.459 | 0.459 |
+| Gray 700 | #616161 | 0.380 | 0.380 | 0.380 |
+| Gray 800 | #424242 | 0.259 | 0.259 | 0.259 |
+| Gray 900 | #212121 | 0.129 | 0.129 | 0.129 |
+
+> **สำคัญ**: ถ้าสีที่ต้องการไม่อยู่ใน table นี้ ให้คำนวณจากสูตรด้านบน — **ห้ามประมาณค่าเอง**
+
+### ตัวอย่างสีที่คำนวณผิดบ่อย
+
+| ❌ ค่าปัดเศษ (ผิด) | ✅ ค่า Exact (ถูก) | ผลต่าง |
+|---------------------|--------------------|---------|
+| `#007AFF → g=0.48` | `g=0.478` | สีเขียวเพี้ยน |
+| `#EC599D → r=0.93` | `r=0.925` | สี Primary เพี้ยน |
+| `#7279FB → g=0.48` | `g=0.475` | สี Secondary เพี้ยน |
+| `#6A6E83 → g=0.43` | `g=0.431` | สีเทาเพี้ยน |
+
+### Alpha Handling
+
+- `opacity: 0.6` ใน CSS → ใช้ `a: 0.6` ใน Figma RGBA
+- iOS `tertiaryLabel` มี opacity 30% → `fontColor: {r: 0.235, g: 0.235, b: 0.263, a: 0.3}`
+- `rgba(60,60,67,0.6)` → `{r: 0.235, g: 0.235, b: 0.263, a: 0.6}`
+
+---
+
+## 20. CSS-to-Figma Mapping Table
+
+เมื่อแปลง React preview (.jsx) เป็น Figma MCP commands ใช้ตารางนี้:
+
+### Layout Direction
+
+| CSS | Figma Parameter |
+|-----|----------------|
+| `display: flex; flex-direction: row` | `layoutMode: "HORIZONTAL"` |
+| `display: flex; flex-direction: column` | `layoutMode: "VERTICAL"` |
+| `display: block` (default) | `layoutMode: "NONE"` |
+
+### Spacing
+
+| CSS | Figma Parameter |
+|-----|----------------|
+| `gap: 12px` | `itemSpacing: 12` |
+| `row-gap` + `column-gap` (wrap) | `itemSpacing` + `counterAxisSpacing` |
+| `padding: 16px` | `paddingTop: 16, paddingRight: 16, paddingBottom: 16, paddingLeft: 16` |
+| `padding: 12px 16px` | `paddingTop: 12, paddingRight: 16, paddingBottom: 12, paddingLeft: 16` |
+| `padding: 8px 16px 12px 16px` | `paddingTop: 8, paddingRight: 16, paddingBottom: 12, paddingLeft: 16` |
+
+### Sizing
+
+| CSS | Figma Parameter | หมายเหตุ |
+|-----|----------------|----------|
+| `width: 393px` | `width: 393, layoutSizingHorizontal: "FIXED"` | ขนาดคงที่ |
+| `height: 852px` | `height: 852, layoutSizingVertical: "FIXED"` | ขนาดคงที่ |
+| `width: 100%` | `layoutSizingHorizontal: "FILL"` | ยืดเต็ม parent (ใช้ได้เฉพาะ child ของ auto-layout) |
+| `height: auto` / `height: fit-content` | `layoutSizingVertical: "HUG"` | ขนาดตาม content |
+| `width: fit-content` | `layoutSizingHorizontal: "HUG"` | ขนาดตาม content |
+| `flex: 1` | `layoutSizingHorizontal: "FILL"` หรือ `layoutSizingVertical: "FILL"` | ขยายเต็มพื้นที่ว่าง |
+
+### Alignment
+
+| CSS | Figma primaryAxisAlignItems | ทิศทาง |
+|-----|---------------------------|--------|
+| `justify-content: flex-start` | `"MIN"` | ชิดซ้าย (H) / ชิดบน (V) |
+| `justify-content: center` | `"CENTER"` | กลาง |
+| `justify-content: flex-end` | `"MAX"` | ชิดขวา (H) / ชิดล่าง (V) |
+| `justify-content: space-between` | `"SPACE_BETWEEN"` | กระจายเท่ากัน |
+
+| CSS | Figma counterAxisAlignItems | ทิศทาง |
+|-----|---------------------------|--------|
+| `align-items: flex-start` | `"MIN"` | ชิดบน (H) / ชิดซ้าย (V) |
+| `align-items: center` | `"CENTER"` | กลาง |
+| `align-items: flex-end` | `"MAX"` | ชิดล่าง (H) / ชิดขวา (V) |
+| `align-items: baseline` | `"BASELINE"` | baseline ของ text |
+
+### Wrap
+
+| CSS | Figma Parameter |
+|-----|----------------|
+| `flex-wrap: nowrap` | `layoutWrap: "NO_WRAP"` |
+| `flex-wrap: wrap` | `layoutWrap: "WRAP"` |
+
+### Gotchas: CSS ≠ Figma
+
+| CSS Behavior | Figma Behavior | วิธีแก้ |
+|-------------|----------------|---------|
+| `margin` สร้าง space รอบ element | ไม่มี margin — ใช้ `itemSpacing` ของ parent | ตั้ง `itemSpacing` ที่ parent frame |
+| `margin: auto` จัดกลาง | ไม่มี — ใช้ alignment | ตั้ง `primaryAxisAlignItems: "CENTER"` |
+| Margin collapse (vertical) | ไม่มี concept นี้ | spacing จะรวมกันไม่ collapse |
+| `box-sizing: border-box` | Figma ทำ border-box เสมอ | ไม่ต้องทำอะไร |
+| `overflow: hidden` | Figma clip content อยู่แล้ว | ไม่ต้องทำอะไร |
+| `position: absolute` | ใช้ `layoutMode: "NONE"` + กำหนด x, y ตรงๆ | วาง element ใน frame ที่ไม่มี auto-layout |
+| `border: 1px solid #ccc` | `strokeColor + strokeWeight` | ใช้ `strokeColor` + `strokeWeight` |
+| `border-radius: 12px` | `set_corner_radius(nodeId, 12)` | เรียกหลัง create |
+| `background-color: #F5F5F5` | `fillColor: {r: 0.961, g: 0.961, b: 0.961}` | ใส่ตอน create_frame |
+| `color: #333` (text color) | `fontColor: {r: 0.2, g: 0.2, b: 0.2}` | ใส่ตอน create_text |
+| Text `font-size: 17px` | `fontSize: 17` | ใส่ตอน create_text |
+| Text `font-weight: bold` / `700` | `fontWeight: 700` | ใส่ตอน create_text |
+
+---
+
+## 21. Post-Creation Verification Pattern
+
+หลังสร้าง UI ใน Figma ทุกครั้ง **ต้อง verify** ว่าผลลัพธ์ตรงกับ spec
+
+### Pattern: Verify Main Frame
+
+```
+// หลังสร้าง main screen frame
+frameInfo = get_node_info(mainFrameId)
+
+// ตรวจ dimensions
+if frameInfo.width != expectedWidth || frameInfo.height != expectedHeight:
+  resize_node(mainFrameId, expectedWidth, expectedHeight)
+
+// ตรวจ fill color (เทียบค่า RGBA)
+if frameInfo.fills[0].color != expectedColor:
+  set_fill_color(mainFrameId, r, g, b)
+```
+
+### Pattern: Verify Children
+
+```
+// หลังสร้าง children ทั้งหมด
+childIds = [child1Id, child2Id, ...]
+childrenInfo = get_nodes_info(childIds)
+
+for each child in childrenInfo:
+  // ตรวจ size
+  if |child.width - expectedWidth| > 2:
+    resize_node(child.id, expectedWidth, expectedHeight)
+
+  // ตรวจ color
+  if child.fills && child.fills[0].color != expectedColor:
+    set_fill_color(child.id, r, g, b)
+```
+
+### Tolerance
+
+- **Dimensions**: ±1px (auto-layout อาจปัดเศษ sub-pixel)
+- **Colors**: ค่า RGBA ต้องตรงกัน (ใช้ exact conversion จาก Section 18)
+- **Spacing**: ตรวจ itemSpacing ผ่าน parent frame info
+
+### When to Verify
+
+| จังหวะ | ทำอะไร |
+|--------|--------|
+| หลังสร้าง main frame | `get_node_info()` → ตรวจ w, h, fill |
+| หลังสร้าง children ทั้งหมด | `get_nodes_info()` → ตรวจ w, h ของแต่ละ child |
+| หลังตั้ง auto-layout | `get_node_info()` → ตรวจว่า frame ไม่ resize ผิด |
+| สุดท้ายก่อนบอกผู้ใช้ | `get_node_info(mainFrame)` → snapshot สุดท้าย |
+
+---
+
+## 22. Font Handling (ข้อจำกัดและวิธีรับมือ)
+
+### MCP ทำได้เฉพาะตอน `create_text`
+
+| Parameter | ทำได้ | ตัวอย่าง |
+|-----------|-------|---------|
+| `fontSize` | ✅ ตั้งตอนสร้าง | `fontSize: 17` |
+| `fontWeight` | ✅ ตั้งตอนสร้าง | `fontWeight: 700` (รองรับ 400, 700) |
+| `fontColor` | ✅ ตั้งตอนสร้าง | `fontColor: {r: 0, g: 0, b: 0}` |
+| `fontFamily` | ❌ ไม่มี | Figma ใช้ default font (มักเป็น Inter) |
+| `lineHeight` | ❌ ไม่มี | ต้องแก้ใน Figma |
+| `letterSpacing` | ❌ ไม่มี | ต้องแก้ใน Figma |
+| `textDecoration` | ❌ ไม่มี | ต้องแก้ใน Figma |
+| `textCase` | ❌ ไม่มี | ต้องแก้ใน Figma |
+
+### แก้ไขหลังสร้าง
+
+| Parameter | แก้ไขได้ | วิธี |
+|-----------|---------|------|
+| text content | ✅ | `set_text_content(nodeId, text)` |
+| fill color (text bg) | ✅ | `set_fill_color(nodeId, r, g, b)` |
+| fontSize | ❌ หลังสร้าง | ต้องลบแล้วสร้างใหม่ หรือแก้ใน Figma |
+| fontWeight | ❌ หลังสร้าง | ต้องลบแล้วสร้างใหม่ หรือแก้ใน Figma |
+| fontColor | ❌ หลังสร้าง | ต้องลบแล้วสร้างใหม่ หรือแก้ใน Figma |
+
+### CSS fontWeight → Figma Mapping
+
+MCP รองรับเฉพาะ `400` (Regular) และ `700` (Bold):
+
+| CSS font-weight | ค่า | Figma fontWeight | หมายเหตุ |
+|----------------|-----|-----------------|----------|
+| `100` (Thin) | 100 | `400` | ปัดเป็น Regular |
+| `200` (ExtraLight) | 200 | `400` | ปัดเป็น Regular |
+| `300` (Light) | 300 | `400` | ปัดเป็น Regular |
+| `normal` / `400` (Regular) | 400 | `400` | ตรง |
+| `500` (Medium) | 500 | `400` | ปัดเป็น Regular (ใกล้กว่า) |
+| `600` (SemiBold) | 600 | `700` | ปัดเป็น Bold |
+| `bold` / `700` (Bold) | 700 | `700` | ตรง |
+| `800` (ExtraBold) | 800 | `700` | ปัดเป็น Bold |
+| `900` (Black) | 900 | `700` | ปัดเป็น Bold |
+
+### ขั้นตอนหลังสร้าง text ทั้งหมดเสร็จ
+
+บอกผู้ใช้:
+> "Text ถูกสร้างด้วย fontSize และ fontWeight ที่ถูกต้องแล้ว แต่ **font family** อาจไม่ตรงกับ preview (Figma ใช้ default font)
+> หากต้องการเปลี่ยน font family:
+> 1. เลือก text ทั้งหมดใน Figma (Cmd+A ภายใน frame)
+> 2. เปลี่ยน font ใน Properties panel ทางขวา
+> 3. สำหรับ iOS → ใช้ SF Pro
+> 4. สำหรับ Android → ใช้ Roboto
+> 5. สำหรับ Custom → ใช้ font ตาม brand guidelines"
+
+---
+
 ## สิ่งที่ไม่มีใน MCP (ต้องทำใน Figma โดยตรง)
 
 - สร้าง Ellipse, Polygon, Star
@@ -607,3 +980,81 @@ create_text({
 - ตั้ง line height, letter spacing, paragraph spacing
 - Rename node
 - Get remote components (team library)
+
+---
+
+## 23. HTML to Figma — Best Practices
+
+ส่ง HTML ไป Figma ผ่าน **html-to-design MCP** (ดู Section 14) หรือ manual import ผ่าน plugin
+
+### Plugin: html.to.design (by divRIOTS)
+
+- **MCP (แนะนำ)**: เชื่อม html-to-design MCP → ใช้ `import_html` / `import_url` ส่งตรงจาก Claude (ดู Section 14)
+- **Manual**: Figma → Plugins → html.to.design → ใส่ URL ของ HTML page → Import
+- ถ้าใช้ manual ต้องเปิด HTML ผ่าน URL (Live Server หรือ `npx serve .`)
+
+### HTML Best Practices สำหรับ Import
+
+เพื่อให้ผลลัพธ์ใน Figma ดีที่สุด ให้เขียน HTML/CSS ตามกฎเหล่านี้:
+
+#### CSS → Figma Mapping
+
+| HTML/CSS | Figma Result | หมายเหตุ |
+|----------|-------------|----------|
+| `display: flex` | Auto Layout | — |
+| `flex-direction: column` | Vertical Auto Layout | — |
+| `flex-direction: row` | Horizontal Auto Layout | — |
+| `gap: 16px` | Item Spacing = 16 | — |
+| `padding: 16px` | Padding = 16 (all sides) | — |
+| `padding: 12px 16px` | paddingTop/Bottom = 12, Left/Right = 16 | — |
+| `border-radius: 12px` | Corner Radius = 12 | — |
+| `width: 100%` (flex child) | layoutSizingHorizontal = FILL | เฉพาะ child ของ flex |
+| `width: 200px` | Fixed Width = 200 | — |
+| `background-color: #EC599D` | Fill Color | — |
+| `color: #1B1D22` | Text Color | — |
+| `font-size: 16px` | Font Size = 16 | — |
+| `font-weight: 700` | Font Weight = Bold | — |
+| `box-shadow` | Effect > Drop Shadow | บาง plugin รองรับ |
+
+#### Class Names → Layer Names
+
+Plugin จะใช้ class name เป็น layer name ใน Figma:
+
+```html
+<!-- ✅ ดี — layer name มีความหมาย -->
+<div class="login-form">
+  <input class="email-field" />
+  <button class="login-button">เข้าสู่ระบบ</button>
+</div>
+
+<!-- ❌ ไม่ดี — layer name ไม่มีความหมาย -->
+<div class="flex-col p-4">
+  <input class="w-full" />
+  <button class="bg-pink-500">เข้าสู่ระบบ</button>
+</div>
+```
+
+#### สิ่งที่ควรทำ
+
+- ใช้ **flexbox/grid** (ไม่ใช้ absolute position) → Auto Layout
+- ใช้ **CSS Variables** สำหรับ colors → ง่ายต่อการปรับ
+- ตั้ง **class names** ให้มีความหมาย → Figma layer names ที่อ่านได้
+- ใช้ **semantic HTML** (`<header>`, `<main>`, `<section>`) → clean hierarchy
+- ใช้ **Google Fonts** → font จะถูก map (อาจต้องปรับใน Figma)
+- ใช้ **inline SVG** สำหรับ icons → จะกลายเป็น vector ใน Figma
+
+#### สิ่งที่ควรหลีกเลี่ยง
+
+- **absolute/fixed position** → จะไม่ได้ Auto Layout
+- **Tailwind/Bootstrap class names** → layer names ไม่มีความหมาย
+- **Complex CSS animations** → ไม่รองรับใน Figma
+- **External images via URL** → อาจโหลดไม่ได้ ใช้ inline SVG หรือ base64 แทน
+- **Nested flex ลึกเกินไป** → Figma layer hierarchy จะซับซ้อน
+
+### หลัง Import — สิ่งที่ต้องปรับใน Figma
+
+1. **Font**: อาจต้องเปลี่ยนเป็น font ที่ต้องการ (LINE Seed Sans TH, SF Pro, Roboto)
+2. **Sizing mode**: ตรวจ FILL/HUG/FIXED ให้ถูกต้อง
+3. **Layer names**: ปรับ rename ถ้าต้องการ
+4. **Components**: แปลง repeated elements เป็น Figma components
+5. **Styles**: สร้าง color styles / text styles จาก imported values

@@ -10,7 +10,7 @@ description: "สร้าง Design System ทั้งระบบ — compone
 ## Overall Flow
 
 ```
-1. Requirements → 2. Read References → 3. Define Foundations → 4. Design Components → 5. Preview → 6. Build in Figma → 7. Document
+1. Requirements → 2. Read References → 3. Define Foundations → 4. Design Components → 5. Preview (HTML) → 6. Import to Figma (HTML to Figma MCP) → 7. Document
 ```
 
 ---
@@ -268,81 +268,51 @@ Atoms → Molecules → Organisms → Templates → Pages
 
 ---
 
-## Step 5: Preview (React .jsx)
+## Step 5: Preview (Static HTML)
 
-สร้าง React preview แสดง Design System Overview:
+สร้าง HTML preview แสดง Design System Overview — เปิดใน browser ได้ทันที:
 
 ### Preview ต้องมี:
 
-1. **Color Palette** — แสดงทุก color token พร้อม hex
-2. **Typography Scale** — แสดงทุก type style
+1. **Color Palette** — แสดงทุก color token พร้อม hex (CSS Variables)
+2. **Typography Scale** — แสดงทุก type style (Google Fonts: LINE Seed Sans TH)
 3. **Spacing Scale** — visual representation
 4. **Component Gallery** — ทุก component, ทุก variant, ทุก state
-5. **Light/Dark Toggle** — สลับ theme ได้
-6. **Component State Switcher** — เปลี่ยน state ได้
+5. **Light/Dark Toggle** — สลับ theme ได้ (vanilla JS)
+6. **Component State Switcher** — เปลี่ยน state ได้ (vanilla JS)
 
-ตั้งชื่อ: `[system-name]-design-system-preview.jsx`
+### Guidelines:
+
+- ใช้ **CSS Variables** ตาม Design Tokens (`references/design-tokens.md`)
+- ใช้ **flexbox/grid** layout → จะกลายเป็น Auto Layout ใน Figma
+- ตั้ง **class names** ให้มีความหมาย → จะกลายเป็น Figma layer names
+- ใช้ **semantic HTML** (`<header>`, `<section>`, `<main>`)
+- **ห้ามใช้** React, Vue, หรือ JS framework — ใช้ vanilla JS เท่านั้น
+- ใช้ **inline SVG** หรือ placeholder สำหรับ icons
+
+ตั้งชื่อ: `[system-name]-design-system-preview.html`
 
 ---
 
-## Step 6: Build in Figma
+## Step 6: Import เข้า Figma (HTML to Figma MCP)
 
-อ่าน `references/figma-mcp-commands.md` แล้วสร้าง:
+ใช้ **html-to-design MCP** ส่ง HTML ไป Figma โดยตรง:
 
-### 6.1 Structure
-
-```
-📄 Design System Page
-├── 🖼 Foundations
-│   ├── Color Palette (frames with fill colors)
-│   ├── Typography Scale (text samples)
-│   └── Spacing / Radius / Elevation (visual samples)
-├── 🖼 Atoms
-│   ├── Buttons (all variants x states)
-│   ├── Inputs (all variants x states)
-│   ├── Checkboxes, Radios, Toggles
-│   └── Chips, Badges, Avatars
-├── 🖼 Molecules
-│   ├── Form Fields, List Items
-│   └── Search Bar, Tabs
-└── 🖼 Organisms
-    ├── App Bars, Navigation
-    ├── Cards, Dialogs
-    └── Bottom Sheets
-```
-
-### 6.2 Color Palette สร้างใน Figma
-
-```
-สำหรับแต่ละ color:
-1. create_frame(name: "Primary-500", width: 80, height: 80, fillColor: {...})
-2. create_text(text: "#6200EE", fontSize: 11, parentId: ...)
-3. จัดเป็น row ด้วย parent frame (layoutMode: "HORIZONTAL")
-```
-
-### 6.3 Component สร้างใน Figma
-
-```
-สำหรับแต่ละ component variant/state:
-1. create_frame(name: "Button/Filled/Default", ...)  → component container
-2. create_frame(parentId, fillColor, ...)              → background
-3. create_text(parentId, text, fontSize, fontColor)    → label
-4. set_corner_radius(nodeId, radius)                   → corner radius
-5. set_layout_mode + set_padding + set_axis_align      → auto layout
-```
-
-### 6.4 Annotate
-
-ใช้ annotations อธิบาย token values:
-```
-set_multiple_annotations({
-  nodeId: "foundations-frame",
-  annotations: [
-    { nodeId: "color-swatch-id", labelMarkdown: "**Primary 500**\nHex: #6200EE\nRGB: 98, 0, 238\nUsage: Primary actions, links" },
-    { nodeId: "heading-sample-id", labelMarkdown: "**Heading Large**\n32px / Bold / Line: 40px" }
-  ]
-})
-```
+1. ตรวจว่า user เปิด html.to.design plugin ใน Figma → tab MCP → STATUS: connected
+2. ใช้ `import_html` ส่ง HTML ไป Figma:
+   ```
+   import_html({ html: "...", css: "...", name: "Design System Overview" })
+   ```
+   หรือ serve file แล้วใช้ `import_url`:
+   ```
+   import_url({ url: "http://localhost:3000/design-system-preview.html", name: "Design System" })
+   ```
+3. Plugin แปลง HTML → Figma layers อัตโนมัติ
+4. ปรับ fine-tune ใน Figma:
+   - ตรวจ font — เปลี่ยนเป็น LINE Seed Sans TH ถ้าต้องการ
+   - ตรวจ sizing mode (FILL/HUG/FIXED)
+   - ปรับ layer names ถ้าต้องการ
+   - สร้าง components, variants, styles ตาม design system
 
 ---
 
@@ -404,9 +374,8 @@ set_multiple_annotations({
 |--------|--------|----------|
 | Design Tokens | Markdown tables | เสมอ |
 | Component Specs | Markdown with variants/states | เสมอ |
-| Preview | `.jsx` (React) | เสมอ |
-| Figma Foundations | Figma frames/colors/text | เมื่อ build ใน Figma |
-| Figma Components | Figma frames with annotations | เมื่อ build ใน Figma |
+| Preview | `.html` (Static HTML — เปิดใน browser) | เสมอ |
+| Figma Design | Import ผ่าน html-to-design MCP (`import_html` / `import_url`) | เมื่อ import เข้า Figma |
 | Documentation | `.md` | เมื่อผู้ใช้ต้องการ |
 
 ---

@@ -1685,7 +1685,7 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
   <!-- ═══ Skill 7: UX Writer ═══ -->
   <h3>Skill 7: <code>figma-ux-writer</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-ux-writer.md</div>
-  <p>เขียน UX Copy ระดับมืออาชีพทั้งไทยและอังกฤษ — microcopy, error messages, CTA, empty states, onboarding ทุกจุดสัมผัสกับผู้ใช้ อ่านแล้วเข้าใจทันที ไม่มีข้อสงสัย</p>
+  <p>เขียน UX Copy ระดับมืออาชีพทั้งไทยและอังกฤษ — microcopy, error messages, CTA, empty states, onboarding ทุกจุดสัมผัสกับผู้ใช้ พร้อมตรวจคำผิด/ไวยากรณ์ทั้งไทย-อังกฤษ และสร้าง Correction Log อ่านแล้วเข้าใจทันที ไม่มีข้อสงสัย</p>
 
   <div class="flow-row">
     <div class="flow-step">1. Context<br><small>เข้าใจหน้าจอ + ผู้ใช้</small></div>
@@ -1694,7 +1694,7 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
     <span class="flow-arrow">→</span>
     <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Write<br><small>TH + EN copy</small></div>
     <span class="flow-arrow">→</span>
-    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Review<br><small>10-point checklist</small></div>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Review<br><small>Spell Check + Correction Log</small></div>
     <span class="flow-arrow">→</span>
     <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Apply<br><small>ใส่ text ใน Figma</small></div>
   </div>
@@ -1743,11 +1743,20 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
         <li>Active voice, front-load keywords</li>
       </ul>
 
+      <h4>Spell &amp; Grammar Check (TH + EN)</h4>
+      <ul>
+        <li><strong>ตรวจคำผิดภาษาไทย</strong> — ทับศัพท์ผิด (อัพเดท→อัปเดต, อีเมล์→อีเมล, เว็ปไซต์→เว็บไซต์), คำสะกดผิดทั่วไป</li>
+        <li><strong>ตรวจคำผิดภาษาอังกฤษ</strong> — Spelling (Recieve→Receive, Succesful→Successful), Grammar (Login vs Log in, Its vs It's)</li>
+        <li><strong>ตรวจไวยากรณ์</strong> — ภาษาไทย: ตัด "ทำการ" ซ้ำซ้อน, "สามารถ...ได้" ที่ไม่จำเป็น / ภาษาอังกฤษ: subject-verb agreement</li>
+        <li><strong>Correction Log</strong> — บันทึกทุกจุดที่แก้: ตำแหน่ง, ข้อความเดิม, ข้อความที่แก้, ประเภทข้อผิด, เหตุผล พร้อม Summary สรุปจำนวน</li>
+      </ul>
+
       <h4>Output</h4>
       <ul>
         <li><strong>Copy Deck Table</strong> — ทุก element + ไทย/EN + tone + max length</li>
         <li><strong>Terminology Table</strong> — consistency ทั้ง app</li>
         <li><strong>Content Audit</strong> — review copy ที่มีอยู่ พร้อม fix</li>
+        <li><strong>Correction Log</strong> — รายการคำผิดที่แก้ + เหตุผล + Summary</li>
         <li>Optional: ใส่ text เข้า Figma ผ่าน <code>set_multiple_text_contents</code></li>
       </ul>
     </div>
@@ -2816,7 +2825,7 @@ UI components &amp; icons: 3:1 AA
 
       <h4>Overview</h4>
       <p>เขียน UX Copy ที่ผู้ใช้อ่านแล้วเข้าใจทันที ไม่มีข้อสงสัย — ทั้งภาษาไทย (หลัก) และอังกฤษ ในระดับมืออาชีพ</p>
-      <p><strong>Flow:</strong> Context → Voice &amp; Tone → Write → Review &amp; Polish → Apply (Figma)</p>
+      <p><strong>Flow:</strong> Context → Voice &amp; Tone → Write → Review &amp; Polish + Spell Check + Correction Log → Apply (Figma)</p>
 
       <h4>Voice Attributes (Standard)</h4>
       <table>
@@ -2876,19 +2885,28 @@ UI components &amp; icons: 3:1 AA
         <li>สม่ำเสมอ — ใช้คำเดียวกันทั้ง app?</li>
         <li>ครบทุก state — success, error, empty, loading?</li>
         <li>ไม่ยาวเกินกรอบ — พอดี layout?</li>
-        <li>สะกดถูก — ตรวจ typo?</li>
+        <li>สะกดถูก — ตรวจ typo? (ดู Spell &amp; Grammar Check ด้านล่าง)</li>
       </ol>
+
+      <h4>Spell &amp; Grammar Check (TH + EN)</h4>
+      <ul>
+        <li><strong>คำไทยที่มักผิด</strong>: ทับศัพท์ (อัพเดท→อัปเดต, อีเมล์→อีเมล, เว็ปไซต์→เว็บไซต์, แอปพลิเคชั่น→แอปพลิเคชัน), คำทั่วไป (กรุณณา→กรุณา, สังเกตุ→สังเกต)</li>
+        <li><strong>คำอังกฤษที่มักผิด</strong>: Spelling (Recieve→Receive, Succesful→Successful, Occured→Occurred), Grammar (Login vs Log in, Its vs It's)</li>
+        <li><strong>ไวยากรณ์</strong>: ไทย — ตัด "ทำการ" ซ้ำซ้อน, "สามารถ...ได้" ที่ไม่จำเป็น, "ของ" ซ้ำซ้อน / EN — subject-verb agreement, compound verbs (set up vs setup)</li>
+        <li><strong>Correction Log</strong>: ตาราง — ตำแหน่ง | ข้อความเดิม | ข้อความที่แก้ | ประเภทข้อผิด | เหตุผล + Summary สรุปจำนวนข้อผิดแต่ละประเภท</li>
+      </ul>
 
       <h4>Output</h4>
       <ul>
         <li><strong>Copy Deck Table</strong>: ทุก element + ไทย/EN + tone + max length</li>
         <li><strong>Terminology Table</strong>: ทุก concept ใช้คำเดียวกันทั้ง app</li>
         <li><strong>Content Audit</strong>: review copy ที่มี + recommendation</li>
+        <li><strong>Correction Log</strong>: รายการคำผิดที่แก้ + เหตุผล + Summary</li>
         <li>Optional: ใส่ text เข้า Figma ผ่าน MCP</li>
       </ul>
 
       <h4>Trigger Words</h4>
-      <p><code>UX writing</code>, <code>copy</code>, <code>เขียน copy</code>, <code>ข้อความ</code>, <code>microcopy</code>, <code>tone of voice</code>, <code>content design</code></p>
+      <p><code>UX writing</code>, <code>copy</code>, <code>เขียน copy</code>, <code>ข้อความ</code>, <code>microcopy</code>, <code>tone of voice</code>, <code>content design</code>, <code>ตรวจคำผิด</code>, <code>spell check</code>, <code>เช็คคำผิด</code>, <code>proofread</code>, <code>grammar check</code></p>
     </div>
   </details>
 
