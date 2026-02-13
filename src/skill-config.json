@@ -42,8 +42,8 @@
       "color": "#1bc47d",
       "title": "FontAwesome Icons Reference",
       "installPath": "~/.claude/commands/references/fontawesome-icons.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "figma-mcp-commands.md",
@@ -51,8 +51,8 @@
       "color": "var(--red)",
       "title": "Figma MCP Commands Reference",
       "installPath": "~/.claude/commands/references/figma-mcp-commands.md",
-      "badge": "UPDATED",
-      "badgeColor": "#f24822"
+      "badge": null,
+      "badgeColor": null
     }
   ],
   "skills": [
@@ -62,8 +62,8 @@
       "color": "var(--accent)",
       "title": "Skill File (\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e25\u0e31\u0e01)",
       "installPath": "~/.claude/commands/figma-ui-design-spec.md",
-      "badge": "UPDATED",
-      "badgeColor": "#a259ff"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "figma-design-critique.md",
@@ -71,8 +71,8 @@
       "color": "var(--green)",
       "title": "Design Critique / Review Skill",
       "installPath": "~/.claude/commands/figma-design-critique.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "figma-user-flow.md",
@@ -80,8 +80,8 @@
       "color": "var(--blue)",
       "title": "User Flow / IA Skill",
       "installPath": "~/.claude/commands/figma-user-flow.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "figma-accessibility-audit.md",
@@ -89,8 +89,8 @@
       "color": "var(--orange)",
       "title": "Accessibility Audit Skill",
       "installPath": "~/.claude/commands/figma-accessibility-audit.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "figma-design-system.md",
@@ -98,8 +98,8 @@
       "color": "var(--accent)",
       "title": "Design System Creation Skill",
       "installPath": "~/.claude/commands/figma-design-system.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "figma-responsive-design.md",
@@ -107,8 +107,8 @@
       "color": "var(--blue)",
       "title": "Responsive Design Skill",
       "installPath": "~/.claude/commands/figma-responsive-design.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "figma-ux-writer.md",
@@ -116,8 +116,8 @@
       "color": "var(--accent)",
       "title": "UX Writer Skill (TH + EN)",
       "installPath": "~/.claude/commands/figma-ux-writer.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "jira-req-analysis.md",
@@ -125,8 +125,8 @@
       "color": "var(--blue)",
       "title": "Jira Requirement Analysis",
       "installPath": "~/.claude/commands/jira-req-analysis.md",
-      "badge": "NEW",
-      "badgeColor": "#1bc47d"
+      "badge": null,
+      "badgeColor": null
     },
     {
       "filename": "html-presentation-slide.md",
