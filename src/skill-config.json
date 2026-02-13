@@ -127,6 +127,15 @@
       "installPath": "~/.claude/commands/jira-req-analysis.md",
       "badge": "NEW",
       "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "html-presentation-slide.md",
+      "icon": "\ud83c\udfac",
+      "color": "var(--accent)",
+      "title": "HTML Presentation Slide (16:9)",
+      "installPath": "~/.claude/commands/html-presentation-slide.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
     }
   ]
 }

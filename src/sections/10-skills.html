@@ -503,6 +503,63 @@
     </div>
   </details>
 
+  <!-- ═══ Skill 8: HTML Presentation Slide ═══ -->
+  <h3>Skill 8: <code>html-presentation-slide</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/html-presentation-slide.md</div>
+  <p>สร้าง HTML Presentation Slide (16:9) แบบ self-contained — พร้อม Navigation ครบชุด สำหรับ Weekly Update, Sprint Review, Project Demo</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Requirements<br><small>เนื้อหา & theme</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Tokens<br><small>Design tokens</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Build HTML<br><small>Slides + nav</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Iterate<br><small>Browser preview</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Push<br><small>GitHub</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด HTML Presentation Slide Skill</summary>
+    <div class="details-body">
+      <h4>สิ่งที่ Skill สร้างให้</h4>
+      <table>
+        <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>16:9 Viewport</strong></td><td>Slide container รักษา aspect ratio 16:9 อัตโนมัติ</td></tr>
+          <tr><td><strong>Slide Transitions</strong></td><td>Smooth left/right animation ด้วย CSS transitions</td></tr>
+          <tr><td><strong>Present Mode</strong></td><td>Fullscreen mode กด F หรือปุ่ม Present (เฉพาะ Cover)</td></tr>
+          <tr><td><strong>Pages Dropdown</strong></td><td>แสดงรายการ slide ทั้งหมด {N} : {Title} กดกระโดดไปได้</td></tr>
+          <tr><td><strong>Nav Bar</strong></td><td>Home button + Prev/Next + Counter ด้านล่าง</td></tr>
+          <tr><td><strong>Keyboard Shortcuts</strong></td><td>Arrow keys, Space, Home, End, F (fullscreen)</td></tr>
+          <tr><td><strong>Touch Support</strong></td><td>Swipe left/right บน mobile</td></tr>
+          <tr><td><strong>Dark Slide Support</strong></td><td>Nav ปรับ theme อัตโนมัติตาม slide background</td></tr>
+          <tr><td><strong>Gradient Presets</strong></td><td>5 gradient backgrounds สลับสีทุก slide</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Navigation Visibility Rules</h4>
+      <table>
+        <thead><tr><th>Component</th><th>Cover (ปกติ)</th><th>Cover (fullscreen)</th><th>หน้าอื่นๆ</th></tr></thead>
+        <tbody>
+          <tr><td>Present Button</td><td>แสดง</td><td>ซ่อน</td><td>ซ่อน</td></tr>
+          <tr><td>Pages Dropdown</td><td>ซ่อน</td><td>แสดง</td><td>แสดง</td></tr>
+          <tr><td>Nav Bar</td><td>แสดง</td><td>แสดง</td><td>แสดง</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Slide Types</h4>
+      <ul>
+        <li><strong>Cover</strong>: Logo + วันที่ + title + tags + character + present hint</li>
+        <li><strong>Two-Column</strong>: text ซ้าย + visual ขวา</li>
+        <li><strong>Full Width</strong>: Timeline, Calendar, Grid layouts</li>
+        <li><strong>Image Gallery</strong>: CSS Grid ของรูปภาพ</li>
+        <li><strong>Thank You</strong>: Closing slide</li>
+      </ul>
+    </div>
+  </details>
+
   <!-- วิธีใช้ Skill -->
   <h3>วิธีใช้ Skill</h3>
   <p>เมื่อติดตั้งเสร็จแล้ว พิมพ์ชื่อ skill ใน Claude หรือพิมพ์ภาษาธรรมชาติ:</p>
@@ -516,6 +573,7 @@
       <tr><td><code>/figma-design-system</code></td><td>"สร้าง design system"</td><td>Tokens + components ทั้งระบบ</td></tr>
       <tr><td><code>/figma-responsive-design</code></td><td>"ออกแบบ responsive"</td><td>Multi-breakpoint design</td></tr>
       <tr><td><code>/figma-ux-writer</code></td><td>"เขียน copy หน้า Login"</td><td>UX Copy ไทย + EN</td></tr>
+      <tr><td><code>/html-presentation-slide</code></td><td>"สร้าง slide weekly update"</td><td>HTML Presentation 16:9 + Navigation</td></tr>
     </tbody>
   </table>
   <p style="margin-top:8px;">Claude จะ trigger skill อัตโนมัติเมื่อเห็นคำที่เกี่ยวข้อง</p>
@@ -533,6 +591,7 @@
     ├── figma-design-system.md           ← Skill 5: Design System
     ├── figma-responsive-design.md       ← Skill 6: Responsive
     ├── figma-ux-writer.md               ← Skill 7: UX Writer (TH+EN)
+    ├── html-presentation-slide.md       ← Skill 8: Presentation Slide
     └── references/
         ├── ux-principles.md             ← UX Principles
         ├── material-design.md           ← Material Design 3
