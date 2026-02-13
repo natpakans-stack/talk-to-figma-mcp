@@ -541,6 +541,42 @@
       .section { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
     }
 
+    /* ─── Hero Release Notes (scoped) ─── */
+    .hero details {
+      border: none;
+      margin: 0;
+      overflow: visible;
+      background: none;
+    }
+    .hero details[open] { border-color: transparent; }
+    .hero summary {
+      padding: 4px 12px;
+      font-weight: 600;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      background: none;
+      border: none;
+      border-radius: 6px;
+      list-style: none;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+    .hero summary::-webkit-details-marker { display: none; }
+    .hero summary::before { display: none; }
+    .hero summary:hover {
+      color: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.08);
+    }
+    .hero summary:focus-visible {
+      outline: 2px solid #4ade80;
+      outline-offset: 2px;
+    }
+    .hero details[open] > summary {
+      color: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.08);
+      border-bottom: none;
+    }
+
     /* ─── Collapsible / details ─── */
     details {
       border: 1px solid var(--border);
