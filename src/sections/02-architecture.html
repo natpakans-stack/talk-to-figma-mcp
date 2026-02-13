@@ -1,3 +1,4 @@
+<!-- Version: 2.0.0 | Updated: 2026-02-13 -->
 <section class="section" id="sec2">
   <h2><span class="num">2</span> สถาปัตยกรรม</h2>
   <p class="section-subtitle">แต่ละชิ้นเชื่อมกันยังไง?</p>
@@ -12,43 +13,60 @@
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-box">
-        <div class="arch-icon">🔌</div>
-        <div class="arch-title">MCP Server</div>
-        <div class="arch-desc">ตัวแปลคำสั่ง<br>Claude → Figma</div>
+        <div class="arch-icon">🔍</div>
+        <div class="arch-title">Figma MCP (อ่าน)</div>
+        <div class="arch-desc">ดู screenshot<br>อ่าน design context</div>
+      </div>
+    </div>
+    <div class="arch-grid" style="margin-top:16px;">
+      <div class="arch-box">
+        <div class="arch-icon">💻</div>
+        <div class="arch-title">VS Code + Claude</div>
+        <div class="arch-desc">สร้าง HTML/CSS<br>preview ใน browser</div>
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-box">
         <div class="arch-icon">📡</div>
-        <div class="arch-title">WebSocket Server</div>
-        <div class="arch-desc">ตัวส่งข้อความ<br>real-time</div>
+        <div class="arch-title">html-to-design MCP (เขียน)</div>
+        <div class="arch-desc">ส่ง HTML ไป<br>สร้างใน Figma</div>
       </div>
       <div class="arch-arrow">→</div>
       <div class="arch-box">
         <div class="arch-icon">🎨</div>
-        <div class="arch-title">Figma + Plugin</div>
-        <div class="arch-desc">รับคำสั่งแล้ว<br>สร้าง design จริง</div>
+        <div class="arch-title">Figma + html.to.design</div>
+        <div class="arch-desc">แปลง HTML<br>เป็น Figma layers</div>
       </div>
     </div>
-    <div class="arch-subtitle">ทุกอย่างรันอยู่บนเครื่องเรา (localhost)</div>
+    <div class="arch-subtitle">ใช้ 2 MCP Servers: Figma MCP (อ่าน) + html-to-design MCP (เขียน)</div>
   </div>
 
   <h3>อธิบายแต่ละชิ้น</h3>
   <table>
     <thead><tr><th>ชิ้นส่วน</th><th>คืออะไร</th><th>ทำหน้าที่อะไร</th></tr></thead>
     <tbody>
-      <tr><td><strong>VS Code + Claude Code</strong></td><td>Editor + AI</td><td>เราพิมพ์คำสั่ง, AI คิดแล้วสั่งงาน</td></tr>
-      <tr><td><strong>MCP Server (stdio)</strong></td><td>ตัวแปลภาษา</td><td>แปลคำสั่ง AI เป็นคำสั่ง Figma</td></tr>
-      <tr><td><strong>WebSocket Server</strong></td><td>ตัวส่งข้อความ</td><td>ส่งคำสั่งระหว่าง MCP กับ Figma Plugin</td></tr>
-      <tr><td><strong>Figma Plugin</strong></td><td>หูของ Figma</td><td>รับคำสั่งแล้วทำงานจริงใน Figma</td></tr>
+      <tr><td><strong>VS Code + Claude Code</strong></td><td>Editor + AI</td><td>เราพิมพ์คำสั่ง, AI สร้าง HTML/CSS preview แล้วส่งเข้า Figma</td></tr>
+      <tr><td><strong>Figma MCP (อ่าน)</strong></td><td>ตัวอ่าน design</td><td>ถ่ายภาพหน้าจอ, อ่าน design context, ดู metadata จาก Figma</td></tr>
+      <tr><td><strong>html-to-design MCP (เขียน)</strong></td><td>ตัวส่ง HTML → Figma</td><td>ส่ง HTML/CSS ไปแปลงเป็น Figma layers ผ่าน html.to.design plugin</td></tr>
+      <tr><td><strong>html.to.design Plugin</strong></td><td>Plugin ใน Figma</td><td>รับ HTML แล้วแปลงเป็น Figma layers อัตโนมัติ (Auto Layout, สี, text ครบ)</td></tr>
     </tbody>
   </table>
 
-  <h3>Channel ID คืออะไร?</h3>
-  <p>Channel ID เปรียบเสมือน <strong>"ห้องแชท"</strong> ที่ Claude กับ Figma Plugin ใช้คุยกัน:</p>
-  <ul>
-    <li>ทุกครั้งที่เปิด Figma Plugin ใหม่ จะได้ <strong>Channel ID ใหม่</strong></li>
-    <li>ต้องบอก Claude ว่า Channel ID คืออะไร เพื่อให้เข้าห้องเดียวกัน</li>
-    <li>ถ้า Channel ID ไม่ตรงกัน = <strong>คุยกันไม่ได้</strong></li>
-  </ul>
+  <h3>Workflow: สร้าง Design</h3>
+  <p>ขั้นตอนการสร้าง design ใหม่:</p>
+  <ol>
+    <li>Claude สร้าง <strong>HTML/CSS preview</strong> → เปิดดูใน browser</li>
+    <li>User review + บอก Claude แก้ → <strong>iterate</strong> จนพอใจ</li>
+    <li>Claude ส่ง HTML ไป Figma ผ่าน <code>import_html</code></li>
+    <li>html.to.design plugin แปลง HTML → <strong>Figma layers</strong> อัตโนมัติ</li>
+    <li>User fine-tune ใน Figma (font, sizing, components)</li>
+  </ol>
+
+  <h3>Workflow: อ่าน Design เดิม</h3>
+  <p>ส่ง Figma URL ให้ Claude อ่าน:</p>
+  <ol>
+    <li>Claude ใช้ <code>get_screenshot</code> ถ่ายภาพหน้าจอ</li>
+    <li>Claude ใช้ <code>get_design_context</code> อ่านรายละเอียด design</li>
+    <li>Claude วิเคราะห์ → ให้ feedback / สร้าง variant ใหม่</li>
+  </ol>
 </section>
 

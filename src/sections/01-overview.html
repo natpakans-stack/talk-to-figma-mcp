@@ -1,33 +1,44 @@
+<!-- Version: 2.0.0 | Updated: 2026-02-13 -->
 <section class="section" id="sec1">
   <h2><span class="num">1</span> ภาพรวม</h2>
   <p class="section-subtitle">มันคืออะไร? ทำอะไรได้?</p>
 
   <h3>มันคืออะไร?</h3>
-  <p><a href="https://www.figma.com/community/plugin/1485687494525374295" target="_blank" style="color:var(--accent); font-weight:600; text-decoration:none; border-bottom:2px solid var(--accent-light);">Talk To Figma MCP Plugin</a> คือระบบที่ทำให้ <strong>Claude AI</strong> สามารถ:</p>
+  <p><strong>HTML-to-Figma Workflow</strong> คือระบบที่ทำให้ <strong>Claude AI</strong> สามารถ:</p>
   <ul class="cap-list">
-    <li>สร้าง Frame, Rectangle, Text, Shape ใน Figma ได้</li>
-    <li>แก้ไขสี, ขนาด, ตำแหน่ง, Auto Layout ของ element ที่มีอยู่แล้วได้</li>
-    <li>อ่านข้อมูล document, selection, styles, components ได้</li>
-    <li>Clone, Delete, Export element ได้</li>
-    <li>ใช้ Components จาก local library ได้</li>
+    <li>สร้าง HTML/CSS preview แล้ว import เข้า Figma เป็น layers อัตโนมัติ</li>
+    <li>อ่าน design ที่มีอยู่แล้ว — ถ่ายภาพหน้าจอ, ดู design context, อ่าน metadata</li>
+    <li>Iterate เร็ว — แก้ HTML ใน Claude → refresh browser → เห็นผลทันที</li>
+    <li>สร้างทั้งหน้าจอพร้อมกัน — ไม่ต้องสร้างทีละ element</li>
+    <li>ได้ layout ที่แม่นยำ — CSS → Figma Auto Layout mapping</li>
   </ul>
+
+  <h3>ใช้ MCP 2 ตัว</h3>
+  <table>
+    <thead><tr><th>MCP Server</th><th>หน้าที่</th><th>ตัวอย่าง</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Figma MCP</strong> (อ่าน)</td><td>อ่าน design จาก Figma</td><td>ถ่ายภาพหน้าจอ, ดู specs, อ่าน metadata</td></tr>
+      <tr><td><strong>html-to-design MCP</strong> (เขียน)</td><td>ส่ง HTML ไปสร้างใน Figma</td><td>import_html, import_url</td></tr>
+    </tbody>
+  </table>
 
   <h3>ทำไมถึงน่าใช้?</h3>
   <table>
     <thead><tr><th>สิ่งที่ทำได้</th><th>ตัวอย่าง</th></tr></thead>
     <tbody>
-      <tr><td>สร้าง UI จากคำอธิบาย</td><td>"สร้างหน้า Login แบบ iOS ให้หน่อย"</td></tr>
-      <tr><td>แก้ไข design ที่มี</td><td>"เปลี่ยนปุ่มเป็นสีน้ำเงิน, เพิ่ม corner radius 12"</td></tr>
-      <tr><td>สร้าง Layout ซ้ำๆ เร็ว</td><td>"สร้าง card 10 ใบ เรียงกัน"</td></tr>
-      <tr><td>ออกแบบตาม Design System</td><td>"สร้างหน้าจอตาม Material Design 3"</td></tr>
+      <tr><td>สร้าง UI จากคำอธิบาย</td><td>"ออกแบบหน้า Login แบบ iOS แล้ว import เข้า Figma"</td></tr>
+      <tr><td>ดู design ที่มีแล้วแก้</td><td>"ดู design จาก URL นี้ แล้วสร้าง variant ใหม่"</td></tr>
+      <tr><td>Preview ก่อน import</td><td>ดู HTML ใน browser ก่อน → iterate จนพอใจ → แล้วค่อย import</td></tr>
+      <tr><td>ออกแบบตาม Design System</td><td>"ออกแบบหน้าจอตาม Material Design 3 แล้วส่งเข้า Figma"</td></tr>
     </tbody>
   </table>
 
   <h3>ข้อจำกัด</h3>
   <ul class="limit-list">
-    <li>ไม่สามารถสร้าง Vector/Pen tool ซับซ้อนได้</li>
-    <li>ไม่สามารถ import รูปภาพจาก URL ได้โดยตรง</li>
-    <li>ไม่สามารถใช้ Prototype/Interaction ได้</li>
-    <li>ต้องเปิด Figma Desktop (ใช้ผ่าน browser ไม่ได้)</li>
+    <li>ต้องเปิด Figma Desktop + html.to.design plugin ค้างไว้ตอน import</li>
+    <li>Font อาจ map ไม่ตรง 100% — ต้อง fine-tune ใน Figma หลัง import</li>
+    <li>ไม่สามารถสร้าง Prototype/Interaction ได้</li>
+    <li>HTML ที่ใช้ absolute positioning อาจแปลงไม่ตรง — ใช้ flexbox จะดีกว่า</li>
   </ul>
 </section>
+

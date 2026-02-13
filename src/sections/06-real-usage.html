@@ -1,23 +1,23 @@
+<!-- Version: 2.0.0 | Updated: 2026-02-13 -->
 <section class="section" id="sec6">
   <h2><span class="num">6</span> วิธีใช้งานจริง</h2>
-  <p class="section-subtitle">สั่ง AI ทำงานใน Figma</p>
+  <p class="section-subtitle">สั่ง AI ออกแบบแล้ว import เข้า Figma</p>
 
   <h3>6.1 — พื้นฐาน: สั่ง Claude สร้าง Design</h3>
   <p>เมื่อเชื่อมต่อเสร็จแล้ว สามารถสั่งงาน Claude ด้วย<strong>ภาษาธรรมชาติ</strong>:</p>
   <table>
     <thead><tr><th>พิมพ์</th><th>Claude จะทำ</th></tr></thead>
     <tbody>
-      <tr><td>"สร้าง frame ขนาด iPhone 15 Pro"</td><td>สร้าง frame 393×852 px</td></tr>
-      <tr><td>"สร้างปุ่ม Login สีน้ำเงิน"</td><td>สร้าง frame + text + สี + radius</td></tr>
-      <tr><td>"ดูว่าตอนนี้เลือกอะไรอยู่"</td><td>อ่าน selection แล้วบอก</td></tr>
-      <tr><td>"เปลี่ยนสีพื้นหลังเป็น #F5F5F5"</td><td>set fill color ให้ element ที่เลือก</td></tr>
-      <tr><td>"จัด auto layout แนวตั้ง spacing 16"</td><td>ตั้ง auto layout ให้ frame ที่เลือก</td></tr>
+      <tr><td>"สร้างปุ่ม Login สีน้ำเงิน แล้ว import เข้า Figma"</td><td>สร้าง HTML ปุ่ม → ส่ง import_html → Figma สร้าง frame</td></tr>
+      <tr><td>"ออกแบบหน้า Login สำหรับ iOS"</td><td>สร้าง HTML preview ทั้งหน้า → เปิดดูใน browser</td></tr>
+      <tr><td>"ดู design จากลิงก์นี้ [URL]"</td><td>ใช้ get_screenshot ถ่ายภาพ → วิเคราะห์ design</td></tr>
+      <tr><td>"import เข้า Figma เลย"</td><td>ส่ง HTML ผ่าน import_html → Figma สร้าง layers</td></tr>
     </tbody>
   </table>
 
   <h3>6.2 — สร้างหน้าจอจาก Spec</h3>
   <p>สามารถบอก Claude ให้ออกแบบหน้าจอทั้งหน้าได้:</p>
-  <pre style="background:#f0e6ff; color:#1a1a2e; border-left:4px solid #a259ff;"><code>สร้างหน้า Login สำหรับ iOS ใน Figma ให้หน่อย ประกอบด้วย:
+  <pre style="background:#f0e6ff; color:#1a1a2e; border-left:4px solid #a259ff;"><code>ออกแบบหน้า Login สำหรับ iOS ใน Figma ให้หน่อย ประกอบด้วย:
 - Logo ด้านบน
 - Text field สำหรับ Email
 - Text field สำหรับ Password
@@ -26,20 +26,32 @@
 - ปุ่ม Sign Up ด้านล่าง</code></pre>
   <p>Claude จะ:</p>
   <ol>
-    <li>สร้าง main frame ขนาด iPhone</li>
-    <li>สร้างแต่ละ component ทีละชิ้น</li>
-    <li>จัด layout ด้วย auto layout</li>
-    <li>ตั้งสี, font, spacing ให้เหมาะสม</li>
+    <li>สร้าง <strong>HTML/CSS preview</strong> ทั้งหน้า</li>
+    <li>ให้เปิดดูใน <strong>browser</strong> เพื่อ review</li>
+    <li>ถ้าต้องการแก้ → บอก Claude → แก้ HTML → refresh browser</li>
+    <li>พอใจแล้ว → บอก Claude <strong>"import เข้า Figma"</strong></li>
+    <li>html.to.design แปลง HTML → Figma layers พร้อม Auto Layout, สี, text ครบ</li>
   </ol>
 
-  <h3>6.3 — แก้ไข Design ที่มีอยู่</h3>
-  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>ดู element ที่เลือกอยู่ แล้วเปลี่ยนสีเป็น #007AFF</code></pre>
-  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>เพิ่ม corner radius 16 ให้ frame ที่เลือก</code></pre>
-  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>เปลี่ยน text ของปุ่มจาก "Submit" เป็น "ส่งข้อมูล"</code></pre>
-
-  <h3>6.4 — ใช้งานร่วมกับ Figma Remote MCP</h3>
-  <p>ถ้าตั้งค่า Figma Remote MCP ไว้แล้ว (Step 4.6) สามารถส่ง Figma URL ให้ Claude อ่าน design ได้:</p>
-  <pre style="background:#e6f9f0; color:#1a1a2e; border-left:4px solid #1bc47d;"><code>ดู design จากลิงก์นี้แล้วสร้างให้เหมือนกัน:
+  <h3>6.3 — อ่าน Design ที่มีอยู่</h3>
+  <p>ส่ง Figma URL ให้ Claude อ่าน design ได้:</p>
+  <pre style="background:#e6f9f0; color:#1a1a2e; border-left:4px solid #1bc47d;"><code>ดู design จากลิงก์นี้แล้วให้ feedback:
 https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
+  <p>Claude จะใช้ Figma MCP:</p>
+  <ul>
+    <li><code>get_screenshot</code> — ถ่ายภาพหน้าจอ design</li>
+    <li><code>get_design_context</code> — อ่านรายละเอียด (layout, colors, fonts)</li>
+    <li>วิเคราะห์แล้วให้ feedback / สร้าง variant ใหม่</li>
+  </ul>
+
+  <h3>6.4 — Iterate แล้ว Import</h3>
+  <p>จุดเด่นของ workflow นี้คือการ <strong>iterate ใน HTML ก่อน</strong> แล้วค่อย import:</p>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>"เปลี่ยนสีปุ่มเป็นสีเขียว แล้วเพิ่ม border radius"</code></pre>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>"เพิ่ม dark mode toggle"</code></pre>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>"ดีแล้ว import เข้า Figma เลย"</code></pre>
+  <div class="info-box tip">
+    <span class="icon">⚡</span>
+    <div><strong>Tip:</strong> Iterate ใน HTML ได้เร็วกว่าแก้ใน Figma — แก้ HTML → refresh browser → เห็นผลทันที</div>
+  </div>
 </section>
 

@@ -1,14 +1,15 @@
+<!-- Version: 2.0.0 | Updated: 2026-02-13 -->
 <!-- ════════════════════ 10. SKILL & INSTALL ════════════════════ -->
 <section class="section" id="sec10">
   <h2><span class="num" style="background:#0d99ff;">10</span> Skill &amp; วิธีติดตั้งให้ทีม</h2>
-  <p class="section-subtitle">Claude Custom Skill สำหรับออกแบบ UI ใน Figma</p>
+  <p class="section-subtitle">Claude Custom Skill สำหรับออกแบบ UI แล้ว import เข้า Figma</p>
 
   <h3>Skill คืออะไร?</h3>
   <p><strong>Skill</strong> (หรือ Custom Slash Command) คือไฟล์ <code>.md</code> ที่สอน Claude ให้ทำงานเฉพาะทาง ไม่ต้องอธิบายทุกครั้ง แค่พิมพ์ <code>/figma-ui-design-spec</code> แล้ว Claude จะรู้เลยว่าต้องทำอะไร</p>
 
   <h3>Skill ที่มี: <code>figma-ui-design-spec</code></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-ui-design-spec.md</div>
-  <p>Skill นี้สั่งให้ Claude สร้าง <strong>UI Design Specification</strong> ที่ครบถ้วน อ้างอิงหลักการออกแบบมาตรฐาน พร้อม preview และสร้างหน้าจอจริงใน Figma ได้</p>
+  <p>Skill นี้สั่งให้ Claude สร้าง <strong>UI Design Specification</strong> ที่ครบถ้วน อ้างอิงหลักการออกแบบมาตรฐาน พร้อม HTML preview แล้ว import เข้า Figma ได้</p>
 
   <!-- Flow -->
   <h4>Flow การทำงานของ Skill</h4>
@@ -17,11 +18,11 @@
     <span class="flow-arrow">→</span>
     <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Design Principles<br><small>อ่าน references</small></div>
     <span class="flow-arrow">→</span>
-    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Preview<br><small>สร้าง React preview</small></div>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. HTML Preview<br><small>สร้าง HTML preview</small></div>
     <span class="flow-arrow">→</span>
     <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Iterate<br><small>แก้จนพอใจ</small></div>
     <span class="flow-arrow">→</span>
-    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Build in Figma<br><small>สร้างจริงผ่าน MCP</small></div>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Import to Figma<br><small>ส่ง HTML เข้า Figma</small></div>
   </div>
 
   <!-- Skill detail -->
@@ -49,13 +50,13 @@
           <tr><td><code>material-design.md</code></td><td>Android / Web (Material Design 3)</td></tr>
           <tr><td><code>hig.md</code></td><td>iOS / macOS (Apple HIG)</td></tr>
           <tr><td><code>design-tokens.md</code></td><td>Custom Design System</td></tr>
-          <tr><td><code>figma-mcp-commands.md</code></td><td>Step 5 — สร้างใน Figma</td></tr>
-          <tr><td><code>fontawesome-icons.md</code></td><td>Icon mapping — placeholder → FontAwesome <span style="background:#1bc47d;color:#fff;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;">NEW</span></td></tr>
+          <tr><td><code>figma-mcp-commands.md</code></td><td>Step 5 — import เข้า Figma</td></tr>
+          <tr><td><code>fontawesome-icons.md</code></td><td>Icon mapping — placeholder → FontAwesome</td></tr>
         </tbody>
       </table>
 
-      <h4>Step 3: สร้าง Interactive Preview (React .jsx)</h4>
-      <p>Claude สร้างไฟล์ <code>.jsx</code> ที่ render หน้าจอจริงได้ทันที เพื่อให้ดูหน้าตาก่อนสร้างใน Figma</p>
+      <h4>Step 3: สร้าง HTML Preview</h4>
+      <p>Claude สร้างไฟล์ <code>.html</code> ที่เปิดดูใน browser ได้ทันที เพื่อให้ดูหน้าตาก่อน import เข้า Figma</p>
       <p><strong>Preview ต้องมี:</strong></p>
       <ol>
         <li>iPhone/Android frame จำลอง (เช่น 393×852 สำหรับ iPhone 15 Pro)</li>
@@ -69,36 +70,32 @@
 
       <h4>Step 4: Iterate จนพอใจ</h4>
       <ul>
-        <li>ดู preview แล้วขอแก้ไข</li>
-        <li>แก้ไข .jsx แล้วให้ดูใหม่</li>
+        <li>ดู preview ใน browser แล้วขอแก้ไข</li>
+        <li>Claude แก้ HTML → refresh browser → ดูใหม่</li>
         <li>วนจนกว่าพอใจ</li>
-        <li>เมื่อพอใจแล้ว Claude จะถาม: "พร้อมจะสร้างใน Figma ไหมครับ?"</li>
+        <li>เมื่อพอใจแล้ว Claude จะถาม: "พร้อมจะ import เข้า Figma ไหมครับ?"</li>
       </ul>
 
-      <h4>Step 5: สร้างใน Figma ผ่าน MCP</h4>
-      <p><strong>ลำดับการสร้าง (สำคัญมาก):</strong></p>
+      <h4>Step 5: Import เข้า Figma ผ่าน html-to-design MCP</h4>
+      <p><strong>ขั้นตอน:</strong></p>
       <ol>
-        <li>สร้าง Main Frame ด้วย <code>create_frame</code> (พร้อม auto layout + สี + parentId ในคำสั่งเดียว)</li>
-        <li>สร้าง child elements จากบนลงล่าง (ใช้ <code>parentId</code> ใส่เข้า parent ได้เลย)</li>
-        <li>แต่ละ element: สร้าง → <code>set_corner_radius</code> (ถ้าต้องการ)</li>
-        <li>ตั้ง auto layout แยก ถ้าต้องปรับทีหลัง (<code>set_layout_mode</code> + <code>set_padding</code> + <code>set_axis_align</code> + <code>set_layout_sizing</code> + <code>set_item_spacing</code>)</li>
+        <li>Claude ใช้ <code>import_html</code> ส่ง HTML/CSS ไปที่ html.to.design plugin</li>
+        <li>Plugin แปลง HTML → Figma layers อัตโนมัติ (Auto Layout, สี, text ครบ)</li>
+        <li>Claude ใช้ <code>get_screenshot</code> ตรวจผลลัพธ์ใน Figma</li>
+        <li>ถ้าต้องการแก้ → แก้ HTML แล้ว import ใหม่ หรือ fine-tune ใน Figma</li>
       </ol>
-      <div class="info-box warn" style="margin:12px 0;">
-        <span class="icon">⚠️</span>
-        <div><strong>สำคัญ:</strong> ไม่มีคำสั่ง <code>insert_child</code> — ใช้ <code>parentId</code> ตอนสร้างแทน / ไม่มี <code>set_auto_layout</code> รวม — ต้องแยก 5 คำสั่ง / แก้ font หลังสร้าง text ไม่ได้ — ตั้ง fontSize/fontWeight/fontColor ตอน <code>create_text</code> เท่านั้น</div>
+      <div class="info-box tip" style="margin:12px 0;">
+        <span class="icon">⚡</span>
+        <div><strong>ข้อดีของ HTML-to-Figma:</strong> สร้างทั้งหน้าจอพร้อมกัน, CSS colors/spacing แม่นยำ, flexbox → Auto Layout mapping ถูกต้อง, รองรับ Google Fonts ทุก weight</div>
       </div>
-
-      <h4>Step 5.5: Annotate (Optional)</h4>
-      <p>ถ้าต้องการ spec annotations บน Figma ใช้ <code>set_multiple_annotations</code> เพิ่มหมายเหตุให้แต่ละ element ได้</p>
 
       <h4>Output Files</h4>
       <table>
         <thead><tr><th>Step</th><th>Output</th><th>Format</th></tr></thead>
         <tbody>
-          <tr><td>3</td><td>Interactive Preview</td><td><code>.jsx</code> (React)</td></tr>
+          <tr><td>3</td><td>Interactive Preview</td><td><code>.html</code> (เปิดใน browser)</td></tr>
           <tr><td>3</td><td>Design Spec Document</td><td><code>.md</code> (optional)</td></tr>
-          <tr><td>5</td><td>Figma Design</td><td>สร้างตรงใน Figma ผ่าน MCP</td></tr>
-          <tr><td>5.5</td><td>Figma Annotations</td><td>Annotations บน Figma nodes</td></tr>
+          <tr><td>5</td><td>Figma Design</td><td>Import ผ่าน html-to-design MCP</td></tr>
         </tbody>
       </table>
 
@@ -127,10 +124,10 @@
         <li><strong>Accessibility First</strong>: contrast ratio, touch target, screen reader</li>
         <li><strong>WCAG Contrast Verified</strong>: ทุกคู่สี text/bg ต้องผ่าน WCAG AA ขั้นต่ำ พร้อมระบุค่า ratio</li>
         <li><strong>Platform-Aware</strong>: เคารพ platform conventions</li>
-        <li><strong>Preview First</strong>: ให้ดู preview ก่อนสร้างจริงเสมอ</li>
-        <li><strong>Figma-Ready</strong>: element names, auto layout, proper layer structure</li>
-        <li><strong>Use parentId</strong>: ใส่ elements เข้า parent ตอนสร้างได้เลย ไม่ต้อง insert_child แยก</li>
-        <li><strong>Font ตั้งตอนสร้าง</strong>: fontSize, fontWeight, fontColor ตั้งได้ตอน create_text เท่านั้น</li>
+        <li><strong>Preview First</strong>: ให้ดู HTML preview ใน browser ก่อน import เสมอ</li>
+        <li><strong>Figma-Ready</strong>: ใช้ flexbox ใน HTML เพื่อให้แปลงเป็น Auto Layout ได้ดี</li>
+        <li><strong>ใช้ CSS Colors</strong>: ใช้ hex/rgb ใน HTML ตรงๆ — html.to.design แปลงให้อัตโนมัติ</li>
+        <li><strong>Google Fonts</strong>: ใช้ Google Fonts ใน HTML เพื่อให้ Figma map font ได้ถูกต้อง</li>
       </ol>
 
       <h4>WCAG Color Contrast Checker (บังคับ)</h4>
@@ -160,7 +157,7 @@
   </details>
 
   <!-- ═══ Skill 2: Design Critique ═══ -->
-  <h3>Skill 2: <code>figma-design-critique</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <h3>Skill 2: <code>figma-design-critique</code></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-design-critique.md</div>
   <p>วิเคราะห์และ review design ที่มีอยู่แล้ว — ให้คะแนน 8 มิติ, ระบุจุดแข็ง/จุดอ่อน, เสนอ improvement พร้อม action items</p>
 
@@ -209,13 +206,12 @@
         <li>Strengths (จุดแข็ง) + Issues (Critical / Major / Minor)</li>
         <li>Contrast Audit table ทุกคู่สี</li>
         <li>Action Items เรียงตาม priority</li>
-        <li>Optional: แก้ไขตรงใน Figma ผ่าน MCP ได้เลย</li>
       </ul>
     </div>
   </details>
 
   <!-- ═══ Skill 3: User Flow ═══ -->
-  <h3>Skill 3: <code>figma-user-flow</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <h3>Skill 3: <code>figma-user-flow</code></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-user-flow.md</div>
   <p>ออกแบบ User Flow, Information Architecture, Task Flow, Screen Map สำหรับ app/web ทั้งระบบ — สร้าง flow diagram ใน FigJam ได้</p>
 
@@ -260,7 +256,7 @@
   </details>
 
   <!-- ═══ Skill 4: Accessibility Audit ═══ -->
-  <h3>Skill 4: <code>figma-accessibility-audit</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <h3>Skill 4: <code>figma-accessibility-audit</code></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-accessibility-audit.md</div>
   <p>ตรวจสอบ Accessibility อย่างครบถ้วนตาม WCAG 2.1 — ครอบคลุม 7 หมวด ไม่ใช่แค่สี</p>
 
@@ -309,13 +305,12 @@
         <li>Detailed findings ทั้ง 7 หมวด</li>
         <li>WCAG Violations Summary (criterion, level, issue, fix)</li>
         <li>Priority Action Items (P0-P3)</li>
-        <li>Optional: แก้ไขใน Figma ผ่าน MCP ได้เลย</li>
       </ul>
     </div>
   </details>
 
   <!-- ═══ Skill 5: Design System ═══ -->
-  <h3>Skill 5: <code>figma-design-system</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <h3>Skill 5: <code>figma-design-system</code></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-design-system.md</div>
   <p>สร้าง Design System ทั้งระบบ — ตั้งแต่ color system, typography scale, tokens จนถึง component library พร้อม documentation</p>
 
@@ -360,15 +355,15 @@
       <ul>
         <li>Design Tokens (Markdown tables)</li>
         <li>Component Specs (variants × states)</li>
-        <li>React Preview (.jsx) — gallery ทั้ง system</li>
-        <li>Figma: Foundations + Components frames</li>
+        <li>HTML Preview — gallery ทั้ง system เปิดดูใน browser</li>
+        <li>Figma: Import foundations + components ผ่าน html-to-design</li>
         <li>Documentation (.md)</li>
       </ul>
     </div>
   </details>
 
   <!-- ═══ Skill 6: Responsive Design ═══ -->
-  <h3>Skill 6: <code>figma-responsive-design</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <h3>Skill 6: <code>figma-responsive-design</code></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-responsive-design.md</div>
   <p>ออกแบบ Responsive/Adaptive Design สำหรับหลาย screen size — Mobile, Tablet, Desktop พร้อมสร้างหลาย frames ใน Figma</p>
 
@@ -422,16 +417,15 @@
       <h4>Output</h4>
       <ul>
         <li>Breakpoint definitions + adaptation rules</li>
-        <li>Responsive Preview (.jsx) — resize ได้ + side-by-side view</li>
-        <li>Figma: Multiple frames (Mobile + Tablet + Desktop)</li>
+        <li>Responsive HTML Preview — resize ได้ + side-by-side view</li>
+        <li>Figma: Import multiple frames (Mobile + Tablet + Desktop) ผ่าน html-to-design</li>
         <li>Annotations อธิบาย adaptation rules</li>
-        <li>Connection lines แสดง element mapping ระหว่าง sizes</li>
       </ul>
     </div>
   </details>
 
   <!-- ═══ Skill 7: UX Writer ═══ -->
-  <h3>Skill 7: <code>figma-ux-writer</code> <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></h3>
+  <h3>Skill 7: <code>figma-ux-writer</code></h3>
   <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-ux-writer.md</div>
   <p>เขียน UX Copy ระดับมืออาชีพทั้งไทยและอังกฤษ — microcopy, error messages, CTA, empty states, onboarding ทุกจุดสัมผัสกับผู้ใช้ พร้อมตรวจคำผิด/ไวยากรณ์ทั้งไทย-อังกฤษ และสร้าง Correction Log อ่านแล้วเข้าใจทันที ไม่มีข้อสงสัย</p>
 
@@ -444,7 +438,7 @@
     <span class="flow-arrow">→</span>
     <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. Review<br><small>Spell Check + Correction Log</small></div>
     <span class="flow-arrow">→</span>
-    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Apply<br><small>ใส่ text ใน Figma</small></div>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">5. Deliver<br><small>Copy deck</small></div>
   </div>
 
   <details>
@@ -505,7 +499,6 @@
         <li><strong>Terminology Table</strong> — consistency ทั้ง app</li>
         <li><strong>Content Audit</strong> — review copy ที่มีอยู่ พร้อม fix</li>
         <li><strong>Correction Log</strong> — รายการคำผิดที่แก้ + เหตุผล + Summary</li>
-        <li>Optional: ใส่ text เข้า Figma ผ่าน <code>set_multiple_text_contents</code></li>
       </ul>
     </div>
   </details>
@@ -516,7 +509,7 @@
   <table>
     <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
     <tbody>
-      <tr><td><code>/figma-ui-design-spec</code></td><td>"ออกแบบหน้า Login"</td><td>สร้าง UI screen/component</td></tr>
+      <tr><td><code>/figma-ui-design-spec</code></td><td>"ออกแบบหน้า Login"</td><td>สร้าง HTML preview + import เข้า Figma</td></tr>
       <tr><td><code>/figma-design-critique</code></td><td>"review design นี้ให้หน่อย"</td><td>วิเคราะห์ + ให้คะแนน design</td></tr>
       <tr><td><code>/figma-user-flow</code></td><td>"ออกแบบ flow ของ app"</td><td>สร้าง user flow + screen map</td></tr>
       <tr><td><code>/figma-accessibility-audit</code></td><td>"ตรวจ accessibility"</td><td>WCAG audit 7 หมวด</td></tr>
@@ -546,7 +539,7 @@
         ├── hig.md                       ← Apple HIG
         ├── design-tokens.md             ← Design Tokens
         ├── figma-mcp-commands.md        ← Figma MCP Commands
-        └── fontawesome-icons.md         ← FontAwesome Icon Mapping (NEW)</code></pre>
+        └── fontawesome-icons.md         ← FontAwesome Icon Mapping</code></pre>
     <h4>🔧 วิธีสร้าง (copy-paste ใน Terminal)</h4>
     <ol>
       <li>สร้างโฟลเดอร์:</li>

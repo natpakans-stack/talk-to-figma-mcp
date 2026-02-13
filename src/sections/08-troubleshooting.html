@@ -1,62 +1,77 @@
+<!-- Version: 2.0.0 | Updated: 2026-02-13 -->
 <section class="section" id="sec8">
   <h2><span class="num">8</span> Troubleshooting</h2>
   <p class="section-subtitle">แก้ปัญหาที่พบบ่อย</p>
 
   <div class="trouble-card">
-    <div class="trouble-header">🔴 ปัญหาที่ 1: Claude ไม่ตอบ / ไม่เห็น Figma</div>
+    <div class="trouble-header">🔴 ปัญหาที่ 1: Claude ไม่สามารถ import HTML เข้า Figma ได้</div>
     <div class="trouble-body">
-      <p><strong>อาการ:</strong> สั่งให้ทำอะไรใน Figma แล้ว Claude ไม่ทำ หรือบอกว่าเชื่อมต่อไม่ได้</p>
+      <p><strong>อาการ:</strong> สั่งให้ import HTML เข้า Figma แล้วได้ error หรือไม่มีผลลัพธ์</p>
       <p><strong>วิธีแก้:</strong></p>
       <ol>
-        <li>เช็คว่า <strong>WebSocket Server</strong> ยังรันอยู่ไหม (Terminal ต้องแสดง <code>running on ws://localhost:3055</code>)</li>
-        <li>เช็คว่า <strong>Figma Plugin</strong> เปิดอยู่ไหม (ต้องแสดง "Connected")</li>
-        <li>เช็คว่า <strong>Channel ID</strong> ตรงกันไหม — ถ้าไม่แน่ใจ ทำ Step 5.2-5.3 ใหม่</li>
+        <li>เช็คว่า <strong>html.to.design plugin</strong> เปิดอยู่ใน Figma (ต้องเห็น plugin window)</li>
+        <li>เช็คว่า tab <strong>MCP</strong> → toggle <strong>"Enable MCP endpoint"</strong> เปิดอยู่</li>
+        <li>เช็คว่า STATUS: <strong>connected</strong> (จุดเขียว) — ถ้าเป็นแดงให้ปิดแล้วเปิด plugin ใหม่</li>
         <li>ลอง <strong>ปิดแล้วเปิด Claude Code ใหม่</strong> ใน VS Code</li>
       </ol>
     </div>
   </div>
 
   <div class="trouble-card">
-    <div class="trouble-header">🔴 ปัญหาที่ 2: <code>bunx: command not found</code></div>
+    <div class="trouble-header">🔴 ปัญหาที่ 2: html.to.design Plugin แสดง STATUS: disconnected</div>
     <div class="trouble-body">
-      <p><strong>อาการ:</strong> พิมพ์ <code>bunx</code> แล้ว Terminal บอกว่าหาคำสั่งไม่เจอ</p>
-      <p><strong>วิธีแก้:</strong></p>
-      <pre><code><span class="fn">npm</span> install <span class="flag">-g</span> bun</code></pre>
-      <p>ถ้ายังไม่ได้ ลองใช้ <code>npx</code> แทน <code>bunx</code>:</p>
-      <pre><code><span class="fn">npx</span> cursor-talk-to-figma-socket</code></pre>
-    </div>
-  </div>
-
-  <div class="trouble-card">
-    <div class="trouble-header">🔴 ปัญหาที่ 3: Port 3055 ถูกใช้อยู่แล้ว</div>
-    <div class="trouble-body">
-      <p><strong>อาการ:</strong> รัน WebSocket Server แล้วได้ error <code>EADDRINUSE</code></p>
-      <p><strong>วิธีแก้:</strong></p>
-      <pre><code><span class="cm"># หา process ที่ใช้ port 3055</span>
-<span class="fn">lsof</span> <span class="flag">-i</span> :3055
-
-<span class="cm"># Kill process นั้น (แทนที่ PID ด้วยเลขที่เจอ)</span>
-<span class="fn">kill</span> <span class="flag">-9</span> PID</code></pre>
-      <p>แล้วรัน <code>bunx cursor-talk-to-figma-socket</code> ใหม่</p>
-    </div>
-  </div>
-
-  <div class="trouble-card">
-    <div class="trouble-header">🔴 ปัญหาที่ 4: Figma Plugin แสดง "Disconnected"</div>
-    <div class="trouble-body">
-      <p><strong>อาการ:</strong> Plugin เปิดอยู่ แต่สถานะเป็น Disconnected</p>
+      <p><strong>อาการ:</strong> Plugin เปิดอยู่ แต่สถานะ MCP เป็น disconnected (จุดแดง)</p>
       <p><strong>วิธีแก้:</strong></p>
       <ol>
         <li>ปิด Plugin (กดปุ่ม X)</li>
-        <li>เช็คว่า WebSocket Server ยังรันอยู่</li>
-        <li>เปิด Plugin ใหม่ (คลิกขวา → Plugins → Cursor Talk To Figma)</li>
-        <li>จด Channel ID ใหม่ แล้วอัปเดตให้ Claude (Step 5.3)</li>
+        <li>เปิด Plugin ใหม่ (คลิกขวา → Plugins → html.to.design)</li>
+        <li>ไปที่ tab MCP → ปิดแล้วเปิด toggle "Enable MCP endpoint" ใหม่</li>
+        <li>รอจน STATUS เปลี่ยนเป็น connected (จุดเขียว)</li>
       </ol>
     </div>
   </div>
 
   <div class="trouble-card">
-    <div class="trouble-header">🔴 ปัญหาที่ 5: <code>claude: command not found</code></div>
+    <div class="trouble-header">🔴 ปัญหาที่ 3: Layout ใน Figma ไม่ตรงกับ HTML preview</div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> Import สำเร็จ แต่ layout เพี้ยน หรือตำแหน่งไม่ตรง</p>
+      <p><strong>วิธีแก้:</strong></p>
+      <ul>
+        <li>ใช้ <strong>flexbox</strong> แทน absolute positioning ใน HTML</li>
+        <li>ใช้ <code>gap</code> แทน <code>margin</code> สำหรับ spacing ระหว่าง element</li>
+        <li>หลีกเลี่ยง <code>position: absolute</code> — html.to.design แปลงเป็น Auto Layout ได้ดีกว่า</li>
+        <li>ใช้ <code>width</code>/<code>height</code> ที่ชัดเจน สำหรับ container หลัก</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 4: Font ใน Figma ไม่ตรงกับ HTML</div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> Font ที่เห็นใน Figma ไม่ใช่ font ที่กำหนดใน HTML</p>
+      <p><strong>วิธีแก้:</strong></p>
+      <ul>
+        <li>html.to.design อาจ map font ไม่ตรง 100% — ต้อง<strong>เปลี่ยน font ใน Figma</strong> หลัง import</li>
+        <li>ใน HTML ให้ใช้ <strong>Google Fonts</strong> ที่ Figma รองรับ (เช่น Inter, Roboto, Noto Sans Thai)</li>
+        <li>ระบุ <code>font-weight</code> ให้ชัดเจน (เช่น 400, 500, 600, 700)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 5: Claude อ่าน Figma URL ไม่ได้</div>
+    <div class="trouble-body">
+      <p><strong>อาการ:</strong> ส่ง Figma URL ให้ Claude แล้วได้ error "Permission denied" หรือ "Node not found"</p>
+      <p><strong>วิธีแก้:</strong></p>
+      <ol>
+        <li><strong>Permission denied</strong>: ตรวจว่า Figma MCP ได้ authorize แล้ว — รัน <code>claude mcp add figma --transport sse --url https://modelcontextprotocol.servers.figma.com/sse</code> แล้ว Login ใหม่</li>
+        <li><strong>Node not found</strong>: ตรวจว่า fileKey และ nodeId จาก URL ถูกต้อง — ลองเปลี่ยน <code>-</code> เป็น <code>:</code> ใน node-id</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 ปัญหาที่ 6: <code>claude: command not found</code></div>
     <div class="trouble-body">
       <p><strong>อาการ:</strong> พิมพ์ <code>claude</code> แล้ว Terminal ไม่รู้จักคำสั่ง</p>
       <p><strong>วิธีแก้:</strong></p>
