@@ -1,15 +1,11 @@
+---
+name: jira-req-analysis
+description: "วิเคราะห์ Requirements จาก Jira Card ของ BA เพื่อเตรียม UI Design Scope ดึงข้อมูลจาก Jira MCP หรือรับ text จากผู้ใช้ แยกวิเคราะห์เป็น User Stories, Acceptance Criteria, Edge Cases, Screen List ใช้ skill นี้เมื่อผู้ใช้ต้องการ: วิเคราะห์ requirement, อ่าน Jira card, BA analysis, หรือเมื่อพิมพ์ 'jira', 'analyse req', 'วิเคราะห์ requirement', 'card analysis', 'BA req', 'jira card'"
+---
+
 # Jira Requirement Analysis Skill
 
 วิเคราะห์ Requirements จาก Jira Card ของ BA เพื่อเตรียม UI Design Scope
-
----
-
-## Trigger
-
-ใช้ skill นี้เมื่อ:
-- ผู้ใช้บอก Jira issue key (เช่น PROJ-123)
-- ผู้ใช้พิมพ์ "jira", "analyse req", "วิเคราะห์ requirement", "card analysis", "BA req", "jira card"
-- ผู้ใช้ paste requirement text จาก BA/PM
 
 ---
 

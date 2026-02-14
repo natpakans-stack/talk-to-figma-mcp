@@ -53,6 +53,42 @@
       "installPath": "~/.claude/commands/references/figma-mcp-commands.md",
       "badge": null,
       "badgeColor": null
+    },
+    {
+      "filename": "slide-templates.md",
+      "icon": "\ud83c\udfac",
+      "color": "var(--accent)",
+      "title": "Slide CSS/JS Templates",
+      "installPath": "~/.claude/commands/references/slide-templates.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "qa-gate-criteria.md",
+      "icon": "\u2705",
+      "color": "var(--green)",
+      "title": "QA Gate Audit Criteria",
+      "installPath": "~/.claude/commands/references/qa-gate-criteria.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "ux-writing-spellcheck.md",
+      "icon": "\u270d\ufe0f",
+      "color": "var(--accent)",
+      "title": "UX Writing Spell Check Tables",
+      "installPath": "~/.claude/commands/references/ux-writing-spellcheck.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "skill-building-guide.md",
+      "icon": "\ud83d\udcda",
+      "color": "var(--blue)",
+      "title": "Skill Building Guide (Anthropic)",
+      "installPath": "~/.claude/commands/references/skill-building-guide.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
     }
   ],
   "skills": [
