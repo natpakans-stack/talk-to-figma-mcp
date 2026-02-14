@@ -60,8 +60,8 @@
       "color": "var(--accent)",
       "title": "Slide CSS/JS Templates",
       "installPath": "~/.claude/commands/references/slide-templates.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
     },
     {
       "filename": "qa-gate-criteria.md",
@@ -69,8 +69,8 @@
       "color": "var(--green)",
       "title": "QA Gate Audit Criteria",
       "installPath": "~/.claude/commands/references/qa-gate-criteria.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
     },
     {
       "filename": "ux-writing-spellcheck.md",
@@ -78,8 +78,8 @@
       "color": "var(--accent)",
       "title": "UX Writing Spell Check Tables",
       "installPath": "~/.claude/commands/references/ux-writing-spellcheck.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
     },
     {
       "filename": "skill-building-guide.md",
@@ -98,8 +98,8 @@
       "color": "var(--accent)",
       "title": "Skill File (\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e25\u0e31\u0e01)",
       "installPath": "~/.claude/commands/figma-ui-design-spec.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "UPDATE",
+      "badgeColor": "#7279FB"
     },
     {
       "filename": "figma-design-critique.md",
@@ -116,8 +116,8 @@
       "color": "var(--blue)",
       "title": "User Flow / IA Skill",
       "installPath": "~/.claude/commands/figma-user-flow.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "UPDATE",
+      "badgeColor": "#7279FB"
     },
     {
       "filename": "figma-accessibility-audit.md",
@@ -152,8 +152,8 @@
       "color": "var(--accent)",
       "title": "UX Writer Skill (TH + EN)",
       "installPath": "~/.claude/commands/figma-ux-writer.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "UPDATE",
+      "badgeColor": "#7279FB"
     },
     {
       "filename": "jira-req-analysis.md",
@@ -161,8 +161,8 @@
       "color": "var(--blue)",
       "title": "Jira Requirement Analysis",
       "installPath": "~/.claude/commands/jira-req-analysis.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "UPDATE",
+      "badgeColor": "#7279FB"
     },
     {
       "filename": "html-presentation-slide.md",
@@ -170,8 +170,8 @@
       "color": "var(--accent)",
       "title": "HTML Presentation Slide (16:9)",
       "installPath": "~/.claude/commands/html-presentation-slide.md",
-      "badge": null,
-      "badgeColor": null
+      "badge": "UPDATE",
+      "badgeColor": "#7279FB"
     },
     {
       "filename": "html-qa-gate.md",
