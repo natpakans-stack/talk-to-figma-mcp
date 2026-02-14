@@ -134,6 +134,15 @@
       "color": "var(--accent)",
       "title": "HTML Presentation Slide (16:9)",
       "installPath": "~/.claude/commands/html-presentation-slide.md",
+      "badge": null,
+      "badgeColor": null
+    },
+    {
+      "filename": "html-qa-gate.md",
+      "icon": "\u2705",
+      "color": "var(--green)",
+      "title": "HTML QA Gate (Auto-check & Fix)",
+      "installPath": "~/.claude/commands/html-qa-gate.md",
       "badge": "NEW",
       "badgeColor": "#1bc47d"
     }

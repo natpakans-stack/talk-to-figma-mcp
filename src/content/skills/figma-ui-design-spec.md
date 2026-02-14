@@ -7,27 +7,36 @@ description: "สร้าง UI Design Specification document สำหรั�
 
 สร้างเอกสาร UI Design Specification ที่ครบถ้วน อ้างอิงหลักการออกแบบที่ได้มาตรฐาน พร้อม preview และสร้างหน้าจอจริงใน Figma ได้
 
+## Pipeline Position
+
+```
+Jira BA → IA + User Flow → [UI Design] → QA Gate → ส่งมอบ
+                              ▲ อยู่ตรงนี้
+```
+
 ## Overall Flow
 
 ```
-1. Requirements → 2. Read Design Principles → 3. Preview (HTML) → 4. Iterate (Browser) → 5. Import to Figma (HTML to Figma MCP)
+1. Requirements → 2. Read Design Principles → 3. Preview (HTML) → 4. Iterate (Browser) → 5. QA Gate → 6. Import to Figma (HTML to Figma MCP)
 ```
 
-ทั้ง 5 ขั้นตอนคือ flow หลักของ skill:
+ทั้ง 6 ขั้นตอนคือ flow หลักของ skill:
 
-1. **Requirements**: รวบรวมความต้องการจากผู้ใช้ (หรือจาก Jira card ผ่าน jira-req-analysis skill)
+1. **Requirements**: รวบรวมความต้องการจากผู้ใช้ (หรือจาก Jira card ผ่าน jira-req-analysis → figma-user-flow pipeline)
 2. **Design Principles**: อ่าน references เพื่อออกแบบตามหลักการ
 3. **Preview**: สร้าง Static HTML file (.html) ให้ดูหน้าจอจริงใน browser ก่อน import เข้า Figma
 4. **Iterate**: User เปิด HTML ใน browser + บอก Claude แก้ไข → refresh ดูผลทันที
-5. **Import to Figma**: ใช้ html-to-design MCP ส่ง HTML ไป Figma โดยตรง (`import_html` / `import_url`)
+5. **QA Gate**: ส่ง HTML ไป **html-qa-gate** skill ตรวจคุณภาพ (Color, Accessibility, Navigation, Sizing, Spacing) — auto-fix + วนตรวจ max 3 รอบ
+6. **Import to Figma**: ใช้ html-to-design MCP ส่ง HTML ไป Figma โดยตรง (`import_html` / `import_url`)
 
 ---
 
 ## Step 1: รวบรวม Requirements
 
 Requirements อาจมาจาก:
-- **User บอกตรง** → ถามข้อมูลเพิ่มตามรายการด้านล่าง
+- **IA + User Flow pipeline** → ถ้า user ผ่าน `jira-req-analysis` → `figma-user-flow` pipeline มาแล้ว จะมี structured data ครบ: Screen Map, Navigation Matrix, User Flows (happy + error paths), Feature Inventory, User Stories, State Matrix — ข้ามไป Step 2 ได้เลย
 - **Jira card analysis** → ถ้า user ผ่าน `jira-req-analysis` skill มาแล้ว จะมี structured data (User Stories, Screen List, State Matrix, Components, User Flow) พร้อมใช้ — ข้ามไป Step 2 ได้เลย
+- **User บอกตรง** → ถามข้อมูลเพิ่มตามรายการด้านล่าง
 - **Figma reference design** → ใช้ get_screenshot/get_design_context อ่าน
 
 ถ้ายังไม่มี structured requirements ถามข้อมูลเหล่านี้:
@@ -249,7 +258,23 @@ references/design-tokens.md        → สำหรับ Custom Design System t
 
 ---
 
-## Step 5: Import เข้า Figma (HTML to Figma MCP)
+## Step 5: QA Gate — ตรวจคุณภาพก่อนส่งมอบ
+
+> **Pipeline**: `Jira BA` → `IA + User Flow` → `UI Design` → **QA Gate** → ส่งมอบ
+
+เมื่อ user พอใจกับ HTML preview แล้ว **ต้องผ่าน QA Gate ก่อน import เข้า Figma**:
+
+1. ใช้ **html-qa-gate** skill ตรวจ HTML file
+2. ตรวจ 5 หมวด: Color, Accessibility, Navigation, Sizing, Spacing
+3. ถ้าเจอ issues → auto-fix + วนตรวจ (max 3 รอบ)
+4. ถ้าผ่าน → ถามว่าพร้อม import เข้า Figma ไหม
+5. ถ้าไม่ผ่านหลัง 3 รอบ → แสดง report ให้ user ตัดสินใจ
+
+> "ก่อน import เข้า Figma ขอตรวจคุณภาพ HTML ก่อนนะครับ — เช็ค Color, Accessibility, Sizing, Spacing"
+
+---
+
+## Step 6: Import เข้า Figma (HTML to Figma MCP)
 
 เมื่อผู้ใช้พอใจกับ HTML preview แล้ว ใช้ **html-to-design MCP** ส่ง HTML ไป Figma โดยตรง
 

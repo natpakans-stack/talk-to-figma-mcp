@@ -177,15 +177,20 @@ Output เป็น structured summary:
 
 ---
 
-## Step 5: ส่งต่อไป Design
+## Step 5: ส่งต่อไป IA + User Flow
+
+> **Pipeline**: `Jira BA` → **IA + User Flow** → `UI Design` → `QA Gate` → ส่งมอบ
 
 เมื่อ user review สรุปแล้ว ถาม:
 
-> "พร้อมเริ่มออกแบบ UI ไหมครับ? ผมจะสร้าง HTML preview ให้ดูได้เลย"
+> "พร้อมลาก IA และ User Flow ไหมครับ? ผมจะวาง Information Architecture และออกแบบ flow ก่อนเริ่มทำหน้าจอ"
 
 เมื่อ user ตอบพร้อม:
-- ใช้ข้อมูลจาก Step 1-4 เป็น input สำหรับ **figma-ui-design-spec** skill
-- ส่ง: Screen list, State matrix, Component list, User flow, Design approach ไปเป็น requirements
+- ใช้ข้อมูลจาก Step 1-4 เป็น input สำหรับ **figma-user-flow** skill
+- ส่ง: Screen list, User stories, User flow summary, Edge cases, Dependencies ไปเป็น requirements
+- **figma-user-flow** จะสร้าง IA, Screen Map, Navigation Matrix, User Flow diagrams
+- เมื่อ flow เสร็จ → ส่งต่อไป **figma-ui-design-spec** → สร้าง HTML preview
+- เมื่อ HTML เสร็จ → ส่งต่อไป **html-qa-gate** → ตรวจคุณภาพก่อนส่งมอบ
 
 ---
 

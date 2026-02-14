@@ -7,24 +7,34 @@ description: "ออกแบบ User Flow, Information Architecture, Task Flow,
 
 ออกแบบ User Flow และ Information Architecture สำหรับ app/web ทั้งระบบ — ไม่ใช่แค่หน้าจอเดียว แต่มองภาพรวมทั้ง journey
 
+## Pipeline Position
+
+```
+Jira BA → [IA + User Flow] → UI Design → QA Gate → ส่งมอบ
+                ▲ อยู่ตรงนี้
+```
+
 ## Overall Flow
 
 ```
-1. Requirements → 2. Read Principles → 3. Map IA → 4. Design Flows → 5. Generate Diagrams → 6. Build in Figma (Optional)
+1. Requirements → 2. Read Principles → 3. Map IA → 4. Design Flows → 5. Generate Diagrams → 6. Build in Figma (Optional) → 7. ส่งต่อไป UI Design
 ```
 
-1. **Requirements**: เข้าใจ product, users, features
+1. **Requirements**: เข้าใจ product, users, features (หรือรับต่อจาก **jira-req-analysis** skill)
 2. **Read Principles**: อ่าน UX + navigation patterns
 3. **Map IA**: วาง Information Architecture
 4. **Design Flows**: สร้าง user flows สำหรับ key tasks
 5. **Generate Diagrams**: สร้าง diagram ใน FigJam/Figma
 6. **Build in Figma**: สร้าง screen map ใน Figma (optional)
-
-> **ส่งต่อ**: เมื่อ flow เสร็จแล้ว สามารถส่งต่อไป **figma-ui-design-spec** skill เพื่อสร้าง HTML preview สำหรับแต่ละ screen ได้เลย
+7. **ส่งต่อ**: ส่ง IA + Flows ไป **figma-ui-design-spec** skill เพื่อสร้าง HTML preview
 
 ---
 
 ## Step 1: รวบรวม Requirements
+
+Requirements อาจมาจาก:
+- **Jira BA analysis** → ถ้า user ผ่าน `jira-req-analysis` skill มาแล้ว จะมี structured data (User Stories, Screen List, State Matrix, Components, User Flow Summary, Edge Cases) พร้อมใช้ — ข้ามไปข้อมูลที่มีแล้ว ถามแค่ที่ขาด
+- **User บอกตรง** → ถามข้อมูลเพิ่มตามรายการด้านล่าง
 
 ถามข้อมูลเหล่านี้ (ถ้ายังไม่ได้ระบุ):
 
@@ -309,6 +319,32 @@ set_multiple_annotations({
 | User Flows (text) | Markdown steps | เสมอ |
 | Flow Diagrams | FigJam (via generate_diagram) | เมื่อผู้ใช้ต้องการ visual |
 | Screen Map (visual) | Figma frames + connections | เมื่อผู้ใช้ต้องการใน Figma |
+
+---
+
+## Step 7: ส่งต่อไป UI Design
+
+> **Pipeline**: `Jira BA` → `IA + User Flow` → **UI Design** → `QA Gate` → ส่งมอบ
+
+เมื่อ user review IA + flows แล้ว ถาม:
+
+> "IA และ User Flow พร้อมแล้วครับ พร้อมเริ่มออกแบบ UI ไหม? ผมจะสร้าง HTML preview สำหรับแต่ละหน้าจอให้ดูได้เลย"
+
+เมื่อ user ตอบพร้อม:
+- ใช้ข้อมูลจาก Step 1-6 เป็น input สำหรับ **figma-ui-design-spec** skill
+- ส่ง: Screen Map, Navigation Matrix, User Flows (happy + error paths), Feature Inventory ไปเป็น requirements
+- **figma-ui-design-spec** จะสร้าง HTML preview สำหรับแต่ละ screen
+- เมื่อ HTML เสร็จ → **html-qa-gate** จะตรวจคุณภาพก่อนส่งมอบ
+
+### Data Handoff:
+
+| Data | จาก Step | ส่งต่อไป UI Design |
+|------|---------|-------------------|
+| Screen Map + hierarchy | Step 3.3 | กำหนด screens ที่ต้องออกแบบ |
+| Navigation Matrix | Step 3.4 | กำหนด transitions ระหว่างหน้า |
+| User Flows (happy + error) | Step 4 | กำหนด states + edge cases ต่อหน้า |
+| Feature Inventory | Step 3.1 | กำหนด components ที่ต้องมี |
+| Flow Diagrams | Step 5 | Reference สำหรับ design |
 
 ---
 
