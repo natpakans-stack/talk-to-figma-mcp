@@ -563,16 +563,27 @@
   <!-- วิธีใช้ Skill -->
   <h3>วิธีใช้ Skill</h3>
   <p>เมื่อติดตั้งเสร็จแล้ว พิมพ์ชื่อ skill ใน Claude หรือพิมพ์ภาษาธรรมชาติ:</p>
+
+  <h4>Figma Skills</h4>
   <table>
     <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
     <tbody>
       <tr><td><code>/figma-ui-design-spec</code></td><td>"ออกแบบหน้า Login"</td><td>สร้าง HTML preview + import เข้า Figma</td></tr>
-      <tr><td><code>/figma-design-critique</code></td><td>"review design นี้ให้หน่อย"</td><td>วิเคราะห์ + ให้คะแนน design</td></tr>
+      <tr><td><code>/figma-design-critique</code></td><td>"review design นี้ให้หน่อย"</td><td>วิเคราะห์ + ให้คะแนน design 8 มิติ</td></tr>
       <tr><td><code>/figma-user-flow</code></td><td>"ออกแบบ flow ของ app"</td><td>สร้าง user flow + screen map</td></tr>
       <tr><td><code>/figma-accessibility-audit</code></td><td>"ตรวจ accessibility"</td><td>WCAG audit 7 หมวด</td></tr>
       <tr><td><code>/figma-design-system</code></td><td>"สร้าง design system"</td><td>Tokens + components ทั้งระบบ</td></tr>
       <tr><td><code>/figma-responsive-design</code></td><td>"ออกแบบ responsive"</td><td>Multi-breakpoint design</td></tr>
-      <tr><td><code>/figma-ux-writer</code></td><td>"เขียน copy หน้า Login"</td><td>UX Copy ไทย + EN</td></tr>
+      <tr><td><code>/figma-ux-writer</code></td><td>"เขียน copy หน้า Login"</td><td>UX Copy ไทย + EN + ตรวจคำผิด</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Other Skills</h4>
+  <table>
+    <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
+    <tbody>
+      <tr><td><code>/jira-req-analysis</code></td><td>"วิเคราะห์ Jira card นี้"</td><td>วิเคราะห์ Requirement จาก Jira Card</td></tr>
+      <tr><td><code>/html-qa-gate</code></td><td>"ตรวจ HTML ก่อนส่ง dev"</td><td>ตรวจคุณภาพ HTML + auto-fix (max 3 รอบ)</td></tr>
       <tr><td><code>/html-presentation-slide</code></td><td>"สร้าง slide weekly update"</td><td>HTML Presentation 16:9 + Navigation</td></tr>
     </tbody>
   </table>
@@ -580,43 +591,130 @@
 
   <!-- วิธีติดตั้ง -->
   <h3>วิธีติดตั้ง Skill &amp; References ให้ทีม</h3>
-  <div class="install-box">
-    <h4>📁 โครงสร้างไฟล์ที่ต้องสร้าง</h4>
-    <pre style="background:rgba(255,255,255,0.05); border-radius:8px; padding:16px; margin:12px 0;"><code style="color:#e2e8f0; background:none; border:none;">~/.claude/
-└── commands/
-    ├── figma-ui-design-spec.md          ← Skill 1: สร้าง UI
-    ├── figma-design-critique.md         ← Skill 2: Review design
-    ├── figma-user-flow.md               ← Skill 3: User Flow / IA
-    ├── figma-accessibility-audit.md     ← Skill 4: A11y Audit
-    ├── figma-design-system.md           ← Skill 5: Design System
-    ├── figma-responsive-design.md       ← Skill 6: Responsive
-    ├── figma-ux-writer.md               ← Skill 7: UX Writer (TH+EN)
-    ├── html-presentation-slide.md       ← Skill 8: Presentation Slide
+
+  <div class="info-box note" style="margin-bottom:20px;">
+    <span class="icon">💡</span>
+    <div>
+      <strong>ทีมใช้ Git เป็น single source of truth</strong> — ทุกคน clone repo เดียวกัน รัน script ครั้งเดียว อัปเดตแค่ <code>git pull</code><br>
+      ไม่ต้อง zip ส่งกันทุกรอบที่แก้ไข ทุกคนได้ version เดียวกันเสมอ
+    </div>
+  </div>
+
+  <!-- Step 1: Clone -->
+  <div class="step-card green" data-step="STEP 1 — ทำครั้งเดียว">
+    <h4>Clone repo มาไว้ในเครื่อง</h4>
+    <p>เปิด Terminal แล้วรัน:</p>
+    <pre><code><span class="fn">cd</span> ~/Documents
+<span class="fn">git</span> clone <span class="str">https://github.com/natpakans-stack/talk-to-figma-mcp.git</span>
+<span class="fn">cd</span> talk-to-figma-mcp</code></pre>
+  </div>
+
+  <!-- Step 2: Setup -->
+  <div class="step-card blue" data-step="STEP 2 — ทำครั้งเดียว">
+    <h4>รัน Setup Script</h4>
+    <pre><code><span class="fn">bash</span> setup-symlinks.sh</code></pre>
+    <p>Script จะเชื่อมไฟล์จาก repo ไปยัง <code>~/.claude/commands/</code> โดยตรง — ไฟล์ไม่ได้ถูก copy แต่เชื่อมกัน</p>
+    <p style="margin-top:12px;">ผลลัพธ์ที่ควรเห็น:</p>
+    <pre style="font-size:13px;"><code><span class="str">Skills:</span>
+  <span class="fn">Linked</span>  figma-ui-design-spec.md
+  <span class="fn">Linked</span>  figma-design-critique.md
+  <span class="fn">Linked</span>  figma-user-flow.md
+  ...
+
+<span class="str">References:</span>
+  <span class="fn">Linked</span>  ux-principles.md
+  <span class="fn">Linked</span>  hig.md
+  ...
+
+<span class="fn">Done!</span> Created: 20</code></pre>
+  </div>
+
+  <!-- Step 3: Verify -->
+  <div class="step-card" data-step="STEP 3 — เช็คว่าครบ">
+    <h4>ตรวจสถานะ</h4>
+    <pre><code><span class="fn">bash</span> setup-symlinks.sh <span class="flag">--status</span></code></pre>
+    <p>ทุกไฟล์ต้องขึ้น <strong style="color:#1bc47d;">OK</strong> สีเขียว — ถ้ามี <strong style="color:#f24822;">missing</strong> ให้รัน:</p>
+    <pre><code><span class="fn">bash</span> setup-symlinks.sh <span class="flag">--force</span></code></pre>
+  </div>
+
+  <!-- Update -->
+  <h3>อัปเดต Skills (เมื่อทีมแจ้งว่ามี version ใหม่)</h3>
+  <div class="step-card green" data-step="อัปเดต">
+    <h4>แค่ git pull — ใช้ได้ทันที</h4>
+    <pre><code><span class="fn">cd</span> ~/Documents/talk-to-figma-mcp
+<span class="fn">git</span> pull</code></pre>
+    <p>เพราะไฟล์เชื่อมกันอยู่ — <code>git pull</code> เสร็จก็ใช้ skill ใหม่ได้เลย</p>
+    <p style="margin-top:8px;">ถ้ามี <strong>skill ใหม่เพิ่ม</strong> (ไม่ใช่แค่แก้ไข) ให้รัน script อีกรอบ:</p>
+    <pre><code><span class="fn">bash</span> setup-symlinks.sh</code></pre>
+  </div>
+
+  <!-- Script commands -->
+  <h3>คำสั่ง Setup Script</h3>
+  <table>
+    <thead><tr><th>คำสั่ง</th><th>ทำอะไร</th></tr></thead>
+    <tbody>
+      <tr><td><code>bash setup-symlinks.sh</code></td><td>ติดตั้ง skills (ปกติ)</td></tr>
+      <tr><td><code>bash setup-symlinks.sh --force</code></td><td>ติดตั้งใหม่ทั้งหมด (แก้ปัญหา / หลัง git pull ถ้า skill หาย)</td></tr>
+      <tr><td><code>bash setup-symlinks.sh --status</code></td><td>เช็คว่า skills ติดตั้งครบไหม</td></tr>
+      <tr><td><code>bash setup-symlinks.sh --uninstall</code></td><td>ถอนการติดตั้ง (restore ไฟล์เดิมถ้ามี)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Troubleshoot skills -->
+  <h3>แก้ปัญหา Skill</h3>
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 พิมพ์ /figma-ui-design-spec แล้วไม่มีอะไรขึ้น</div>
+    <div class="trouble-body">
+      <p>Skill ยังไม่ได้ติดตั้ง หรือ link หลุด:</p>
+      <pre><code><span class="fn">cd</span> ~/Documents/talk-to-figma-mcp
+<span class="fn">bash</span> setup-symlinks.sh <span class="flag">--status</span>   <span class="cm"># เช็คสถานะ</span>
+<span class="fn">bash</span> setup-symlinks.sh <span class="flag">--force</span>    <span class="cm"># แก้ทั้งหมด</span></code></pre>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 git pull แล้วขึ้น error conflict</div>
+    <div class="trouble-body">
+      <p>ถ้าไม่ได้แก้ไขไฟล์ใน repo เอง:</p>
+      <pre><code><span class="fn">git</span> stash
+<span class="fn">git</span> pull</code></pre>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">🔴 อยากกลับไปใช้ไฟล์เดิมก่อนติดตั้ง</div>
+    <div class="trouble-body">
+      <p>Script backup ไฟล์เดิมเป็น <code>.bak</code> อัตโนมัติ — ถอนแล้วจะ restore ให้:</p>
+      <pre><code><span class="fn">bash</span> setup-symlinks.sh <span class="flag">--uninstall</span></code></pre>
+    </div>
+  </div>
+
+  <!-- File structure -->
+  <div class="install-box" style="margin-top:24px;">
+    <h4>📁 โครงสร้างไฟล์ใน Repo</h4>
+    <pre style="background:rgba(255,255,255,0.05); border-radius:8px; padding:16px; margin:12px 0;"><code style="color:#e2e8f0; background:none; border:none;">talk-to-figma-mcp/
+├── setup-symlinks.sh                    ← Setup script
+└── src/content/
+    ├── skills/
+    │   ├── figma-ui-design-spec.md      ← Skill 1: สร้าง UI
+    │   ├── figma-design-critique.md     ← Skill 2: Review design
+    │   ├── figma-user-flow.md           ← Skill 3: User Flow / IA
+    │   ├── figma-accessibility-audit.md ← Skill 4: A11y Audit
+    │   ├── figma-design-system.md       ← Skill 5: Design System
+    │   ├── figma-responsive-design.md   ← Skill 6: Responsive
+    │   ├── figma-ux-writer.md           ← Skill 7: UX Writer (TH+EN)
+    │   ├── jira-req-analysis.md         ← Skill 8: Jira Req Analysis
+    │   ├── html-qa-gate.md              ← Skill 9: HTML QA Gate
+    │   └── html-presentation-slide.md   ← Skill 10: Presentation
     └── references/
         ├── ux-principles.md             ← UX Principles
         ├── material-design.md           ← Material Design 3
         ├── hig.md                       ← Apple HIG
         ├── design-tokens.md             ← Design Tokens
         ├── figma-mcp-commands.md        ← Figma MCP Commands
-        └── fontawesome-icons.md         ← FontAwesome Icon Mapping</code></pre>
-    <h4>🔧 วิธีสร้าง (copy-paste ใน Terminal)</h4>
-    <ol>
-      <li>สร้างโฟลเดอร์:</li>
-    </ol>
-    <pre style="background:rgba(255,255,255,0.05); border-radius:8px; padding:12px; margin:8px 0;"><code style="color:#a6e3a1; background:none; border:none;">mkdir -p ~/.claude/commands/references</code></pre>
-    <ol start="2">
-      <li>
-        <strong>ดาวน์โหลดไฟล์ Skill ทั้งหมดจาก Google Drive:</strong><br>
-        <a href="https://drive.google.com/file/d/1u-ugwdx8_MehGtaBwIf-HalmIo1DfpJs/view?usp=sharing" target="_blank" style="display:inline-flex; align-items:center; gap:8px; margin:10px 0; padding:12px 20px; background:linear-gradient(135deg,#a259ff,#7b2edd); color:white; text-decoration:none; border-radius:10px; font-weight:700; font-size:14px; transition:opacity 0.15s;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          ดาวน์โหลด Skill Files จาก Google Drive
-        </a><br>
-        <span style="font-size:12.5px; color:rgba(255,255,255,0.5);">ดาวน์โหลดแล้ว unzip → copy ไฟล์ทั้งหมดไปวางใน path ข้างบน</span>
-      </li>
-      <li>หรือสร้างไฟล์เอง โดย copy เนื้อหาจาก <strong>Section 11</strong> ด้านล่าง แล้ว save เป็น <code>.md</code></li>
-    </ol>
+        └── fontawesome-icons.md         ← FontAwesome Icons</code></pre>
     <div style="margin-top:16px; padding:12px 16px; background:rgba(162,89,255,0.15); border-radius:8px; font-size:13.5px;">
-      <strong>💡 Tip:</strong> ไฟล์เหล่านี้ไม่ต้องแก้บ่อย ติดตั้งครั้งเดียวใช้ได้ตลอด — ทีมสามารถเพิ่ม/แก้ reference ใหม่ได้ตามต้องการ
+      <strong>สำหรับ Skill Maintainer:</strong> แก้ไฟล์ใน <code>src/content/</code> แล้ว <code>git push</code> — ทีมรัน <code>git pull</code> ก็ได้ของใหม่ทันที
     </div>
   </div>
 </section>
