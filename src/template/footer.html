@@ -8,25 +8,26 @@
 </footer>
 
 <!-- ════════════════════ BACK TO TOP ════════════════════ -->
-<button id="backToTop" aria-label="Back to top" title="กลับด้านบน" style="
-  position:fixed; bottom:32px; right:32px; z-index:9999;
-  width:48px; height:48px; border-radius:50%;
-  background:linear-gradient(135deg,#a259ff,#7c3aed);
-  color:#fff; border:none; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 12px rgba(124,58,237,0.4);
-  opacity:0; visibility:hidden;
-  transition:opacity 0.3s, visibility 0.3s, transform 0.3s;
-  transform:translateY(12px);
-">
+<button id="backToTop" aria-label="Back to top" title="กลับด้านบน">
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M10 16V4M4 9l6-6 6 6"/>
   </svg>
 </button>
 <style>
+  #backToTop{
+    position:fixed;bottom:32px;right:32px;z-index:9999;
+    width:48px;height:48px;border-radius:50%;
+    background:linear-gradient(135deg,#a259ff,#7c3aed);
+    color:#fff;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 12px rgba(124,58,237,0.4);
+    opacity:0;visibility:hidden;
+    transition:opacity 0.3s,visibility 0.3s,transform 0.3s;
+    transform:translateY(12px);
+  }
   #backToTop.visible{opacity:1;visibility:visible;transform:translateY(0)}
-  #backToTop:hover{background:linear-gradient(135deg,#c084fc,#a259ff);transform:translateY(-2px)!important;box-shadow:0 6px 16px rgba(124,58,237,0.5)}
-  #backToTop:active{transform:translateY(0)!important}
+  #backToTop:hover{background:linear-gradient(135deg,#c084fc,#a259ff);transform:translateY(-2px);box-shadow:0 6px 16px rgba(124,58,237,0.5)}
+  #backToTop:active{transform:translateY(0)}
   @media(max-width:600px){#backToTop{bottom:20px;right:20px;width:44px;height:44px}}
 </style>
 <script>
