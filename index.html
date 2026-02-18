@@ -785,8 +785,8 @@
     <span>Figma</span>
   </div>
   <!-- Version Badge -->
-  <div style="margin-top:28px; display:inline-flex; align-items:center; gap:10px;" role="status" aria-label="Current version: 2.3.0, released 18 February 2026">
-    <span style="display:inline-block; background:rgba(27,196,125,0.25); border:1px solid rgba(27,196,125,0.5); color:#4ade80; padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700; letter-spacing:0.5px;">v2.3.0</span>
+  <div style="margin-top:28px; display:inline-flex; align-items:center; gap:10px;" role="status" aria-label="Current version: 2.4.0, released 18 February 2026">
+    <span style="display:inline-block; background:rgba(27,196,125,0.25); border:1px solid rgba(27,196,125,0.5); color:#4ade80; padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700; letter-spacing:0.5px;">v2.4.0</span>
     <time datetime="2026-02-18" style="font-size:13px; color:rgba(255,255,255,0.7);">18 Feb 2026</time>
   </div>
 </header>
@@ -817,7 +817,7 @@
   <summary class="release-notes-toggle">
     <h2>Release Notes</h2>
     <span class="release-notes-latest">
-      <span class="release-tag release-tag--latest">v2.3.0</span>
+      <span class="release-tag release-tag--latest">v2.4.0</span>
       <time datetime="2026-02-18">18 Feb 2026</time>
     </span>
   </summary>
@@ -825,7 +825,19 @@
   <div class="release-notes-body">
     <div class="release-entry">
       <div class="release-header">
-        <span class="release-tag release-tag--latest">v2.3.0</span>
+        <span class="release-tag release-tag--latest">v2.4.0</span>
+        <time datetime="2026-02-18">18 Feb 2026</time>
+      </div>
+      <ul>
+        <li>เพิ่ม <strong>Workflow Skills 3 ตัว</strong> — <code>/design-pipeline</code> (Jira→Design→QA ครบจบ), <code>/design-review</code> (review ครบทุกมิติ), <code>/qa-pipeline</code> (QA 2 ชั้นอัตโนมัติ)</li>
+        <li>เพิ่ม <strong>Utility Skills 2 ตัว</strong> — <code>/token-validation</code> (ตรวจ Design Token compliance), <code>/component-state-generator</code> (สร้าง state variations อัตโนมัติ)</li>
+        <li>รวม Skills ทั้งหมด <strong>16 ตัว</strong> — 11 Core Skills + 3 Workflow Skills + 2 Utility Skills</li>
+      </ul>
+    </div>
+
+    <div class="release-entry">
+      <div class="release-header">
+        <span class="release-tag">v2.3.0</span>
         <time datetime="2026-02-18">18 Feb 2026</time>
       </div>
       <ul>
@@ -1497,7 +1509,7 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
 
 
 
-<!-- Version: 2.3.0 | Updated: 2026-02-18 -->
+<!-- Version: 2.4.0 | Updated: 2026-02-18 -->
 <!-- ════════════════════ 10. SKILL & INSTALL ════════════════════ -->
 <section class="section" id="sec10">
   <h2><span class="num" style="background:#0d99ff;">10</span> Skill &amp; วิธีติดตั้งให้ทีม</h2>
@@ -2137,6 +2149,317 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
     </tbody>
   </table>
 
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ═══ WORKFLOW SKILLS (NEW v2.4.0) ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h3 style="margin-top:48px; padding-top:24px; border-top:2px solid rgba(162,89,255,0.3);">Workflow Skills — รวมหลาย Skill เป็น Pipeline</h3>
+  <div class="info-box note" style="margin-bottom:20px;">
+    <span class="icon">🔗</span>
+    <div>
+      <strong>Workflow Skills</strong> เชื่อม Core Skills หลายตัวเข้าด้วยกัน รันอัตโนมัติเป็น pipeline — ส่ง output ของ step ก่อนเป็น input ของ step ถัดไป ไม่ต้องพิมพ์คำสั่งซ้ำ
+    </div>
+  </div>
+
+  <!-- ═══ Workflow 1: QA Pipeline ═══ -->
+  <h3>Workflow 1: <code>qa-pipeline</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/qa-pipeline.md</div>
+  <p>รัน QA 2 ชั้นอัตโนมัติ — ชั้น 1: Code-level (Vercel 100+ rules) → ชั้น 2: Design-level (10 checkpoints / 20 คะแนน) พร้อม auto-fix + วนตรวจซ้ำจนผ่าน</p>
+
+  <div class="flow-row">
+    <div class="flow-step">HTML File<br><small>ไฟล์ที่จะตรวจ</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">Code QA<br><small>/web-design-guidelines</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">Auto-fix<br><small>แก้ code issues</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">Design QA<br><small>/html-qa-gate</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">Report<br><small>Pass/Fail สรุปรวม</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด QA Pipeline Skill</summary>
+    <div class="details-body">
+      <h4>วิธีใช้</h4>
+      <pre><code>/qa-pipeline path/to/design.html</code></pre>
+
+      <h4>3 ขั้นตอน</h4>
+      <table>
+        <thead><tr><th>Step</th><th>ทำอะไร</th><th>เรียก Skill</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Code QA</strong></td><td>ตรวจ 100+ rules (accessibility, forms, animation, typography, performance, dark mode, anti-patterns) + auto-fix</td><td><code>/web-design-guidelines</code></td></tr>
+          <tr><td><strong>2. Design QA</strong></td><td>ตรวจ 10 checkpoints (functional intent, component readiness, handoff check) ให้คะแนน /20 + auto-fix + วนซ้ำ max 3 รอบ</td><td><code>/html-qa-gate</code></td></tr>
+          <tr><td><strong>3. Report</strong></td><td>สรุปผลรวม — Code Pass/Fail + Design Score + Overall Status</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <h4>เกณฑ์ผ่าน</h4>
+      <ul>
+        <li>Design QA Score &ge; 16/20</li>
+        <li>ไม่มี Critical code issues ค้าง</li>
+      </ul>
+
+      <h4>ใช้เมื่อไหร่</h4>
+      <p>สร้าง HTML เสร็จแล้ว ต้องการตรวจครบก่อนส่ง dev / import เข้า Figma</p>
+    </div>
+  </details>
+
+  <!-- ═══ Workflow 2: Design Review ═══ -->
+  <h3>Workflow 2: <code>design-review</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/design-review.md</div>
+  <p>Review ครบทุกมิติใน 1 คำสั่ง — Design Critique (8 มิติ + คะแนน) + Accessibility Audit (WCAG 7 หมวด) + Web Interface Guidelines (100+ rules) สรุปเป็น Priority Actions</p>
+
+  <div class="flow-row">
+    <div class="flow-step">Design Input<br><small>HTML / Figma / Screenshot</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">Critique<br><small>8 มิติ + คะแนน</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">A11y Audit<br><small>WCAG 7 หมวด</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">Code Check<br><small>100+ rules (HTML)</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">Report<br><small>Priority Actions</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Design Review Skill</summary>
+    <div class="details-body">
+      <h4>วิธีใช้</h4>
+      <pre><code>/design-review path/to/design.html
+/design-review [Figma URL]</code></pre>
+
+      <h4>Scope ตาม Input</h4>
+      <table>
+        <thead><tr><th>Input</th><th>Critique</th><th>A11y Audit</th><th>Web Guidelines</th></tr></thead>
+        <tbody>
+          <tr><td>Figma URL</td><td>✅</td><td>✅</td><td>❌ (ไม่มี code)</td></tr>
+          <tr><td>HTML file</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Screenshot</td><td>✅</td><td>✅ (จำกัด)</td><td>❌</td></tr>
+        </tbody>
+      </table>
+
+      <h4>เรียก Skills อะไรบ้าง</h4>
+      <table>
+        <thead><tr><th>Step</th><th>Skill</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>1. Design Critique</td><td><code>/figma-design-critique</code></td><td>Score 1-10 + Strengths/Weaknesses</td></tr>
+          <tr><td>2. A11y Audit</td><td><code>/figma-accessibility-audit</code></td><td>WCAG Level + Violations</td></tr>
+          <tr><td>3. Code Check</td><td><code>/web-design-guidelines</code></td><td>100+ rule findings</td></tr>
+          <tr><td>4. Combined Report</td><td>—</td><td>Priority Actions (P0/P1/P2)</td></tr>
+        </tbody>
+      </table>
+
+      <h4>เมื่อไหร่ใช้อันไหน</h4>
+      <table>
+        <thead><tr><th>ต้องการ</th><th>ใช้</th></tr></thead>
+        <tbody>
+          <tr><td>ตรวจ design อย่างเดียว</td><td><code>/figma-design-critique</code></td></tr>
+          <tr><td>ตรวจ accessibility อย่างเดียว</td><td><code>/figma-accessibility-audit</code></td></tr>
+          <tr><td>ตรวจ code อย่างเดียว</td><td><code>/web-design-guidelines</code></td></tr>
+          <tr><td><strong>ตรวจครบทุกมิติ</strong></td><td><strong><code>/design-review</code></strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <!-- ═══ Workflow 3: Design Pipeline ═══ -->
+  <h3>Workflow 3: <code>design-pipeline</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/design-pipeline.md</div>
+  <p>จาก Jira Requirement ไปจนถึง HTML พร้อมส่ง Dev ใน 1 คำสั่ง — 6 steps อัตโนมัติ ส่ง output ของ step ก่อนเป็น input ของ step ถัดไป</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Jira Req<br><small>/jira-req-analysis</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. IA &amp; Flow<br><small>/figma-user-flow</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. UI Design<br><small>/figma-ui-design-spec</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">4. UX Copy<br><small>/figma-ux-writer</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#a259ff,#7c3aed);">5. QA<br><small>/qa-pipeline</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">6. Handoff<br><small>สรุป + ส่งมอบ</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Design Pipeline Skill</summary>
+    <div class="details-body">
+      <h4>วิธีใช้</h4>
+      <pre><code>/design-pipeline PROJ-123
+/design-pipeline "ระบบสมัครสมาชิก มี email + social login"</code></pre>
+
+      <h4>6 Steps</h4>
+      <table>
+        <thead><tr><th>Step</th><th>ทำอะไร</th><th>เรียก Skill</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Requirement</strong></td><td>วิเคราะห์ Jira card → User Stories, Screen List, Edge Cases</td><td><code>/jira-req-analysis</code></td><td>req_analysis</td></tr>
+          <tr><td><strong>2. IA &amp; Flow</strong></td><td>ออกแบบ Screen Map + User Flows + Navigation Matrix</td><td><code>/figma-user-flow</code></td><td>ia_result</td></tr>
+          <tr><td><strong>3. UI Design</strong></td><td>สร้าง HTML preview ทุกหน้าจอ ตาม Design Tokens</td><td><code>/figma-ui-design-spec</code></td><td>html_files</td></tr>
+          <tr><td><strong>4. UX Copy</strong></td><td>เขียน copy ไทย+EN inject ลง HTML + ตรวจคำผิด</td><td><code>/figma-ux-writer</code></td><td>copy_deck</td></tr>
+          <tr><td><strong>5. QA</strong></td><td>รัน QA 2 ชั้น (code + design) + auto-fix</td><td><code>/qa-pipeline</code></td><td>qa_results</td></tr>
+          <tr><td><strong>6. Handoff</strong></td><td>สรุป: ไฟล์ทั้งหมด + QA status + next steps</td><td>—</td><td>summary</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Checkpoint Rules</h4>
+      <ul>
+        <li>ทุก step ถาม confirm ก่อนไปต่อ (ยกเว้น QA รันอัตโนมัติ)</li>
+        <li>ข้าม step ได้ถ้ามีข้อมูลอยู่แล้ว</li>
+        <li>กลับไป step ก่อนหน้าได้</li>
+        <li>แสดง progress: <code>[Step X/6] {step name}</code></li>
+      </ul>
+
+      <h4>ใช้เมื่อไหร่</h4>
+      <p>ได้ Jira card / requirement มา อยากออกแบบตั้งแต่ต้นจนจบ ครบทั้ง IA → UI → Copy → QA</p>
+    </div>
+  </details>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ═══ UTILITY SKILLS (NEW v2.4.0) ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <h3 style="margin-top:48px; padding-top:24px; border-top:2px solid rgba(162,89,255,0.3);">Utility Skills — เครื่องมือเสริม ใช้ตอนไหนก็ได้</h3>
+  <div class="info-box note" style="margin-bottom:20px;">
+    <span class="icon">🔧</span>
+    <div>
+      <strong>Utility Skills</strong> เป็นเครื่องมือเสริมที่ใช้ได้ทุกเมื่อ — ไม่ต้องอยู่ใน pipeline ก็เรียกใช้ได้เลย
+    </div>
+  </div>
+
+  <!-- ═══ Utility 1: Token Validation ═══ -->
+  <h3>Utility 1: <code>token-validation</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/token-validation.md</div>
+  <p>ตรวจว่า HTML/Figma ใช้สี, spacing, typography, radius ตรงกับ Design Tokens จาก CLAUDE.md หรือไม่ — Flag ทุกค่าที่ไม่ตรง + แนะนำ token ที่ถูกต้อง</p>
+
+  <div class="flow-row">
+    <div class="flow-step">Design Input<br><small>HTML / Figma</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">Parse<br><small>Extract CSS values</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">Validate<br><small>vs Design Tokens</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">Report<br><small>Compliance %</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">Auto-fix<br><small>ถาม → แก้ให้</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Token Validation Skill</summary>
+    <div class="details-body">
+      <h4>วิธีใช้</h4>
+      <pre><code>/token-validation path/to/design.html</code></pre>
+
+      <h4>5 หมวดที่ตรวจ</h4>
+      <table>
+        <thead><tr><th>หมวด</th><th>Rule</th><th>Tolerance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Colors</strong></td><td>ทุกสีต้องอยู่ใน CLAUDE.md palette</td><td>Exact match (0)</td></tr>
+          <tr><td><strong>Spacing</strong></td><td>padding/margin/gap ต้องเป็นตัวคูณ 4px</td><td>Nearest token</td></tr>
+          <tr><td><strong>Typography</strong></td><td>font-size + line-height + weight combinations ต้องตรง</td><td>Exact match</td></tr>
+          <tr><td><strong>Border Radius</strong></td><td>ค่า radius ต้องตรง: 0/4/8/12/16/24/9999</td><td>Nearest token</td></tr>
+          <tr><td><strong>Shadows</strong></td><td>box-shadow ต้องตรงกับ token</td><td>Exact match</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Output: Compliance Report</h4>
+      <ul>
+        <li>✅ PASS — ค่าตรงกับ token</li>
+        <li>⚠️ WARN — ค่าใกล้เคียงแต่ไม่ตรง (แนะนำ token ที่ใกล้ที่สุด)</li>
+        <li>❌ FAIL — ค่าไม่อยู่ใน token system</li>
+        <li>Compliance % สรุปรวม</li>
+      </ul>
+
+      <h4>ใช้เมื่อไหร่</h4>
+      <p>อยากเช็คว่า design ใช้ค่าตรงกับ Design System หรือไม่ — ตรวจได้ทั้ง HTML file และ Figma design</p>
+    </div>
+  </details>
+
+  <!-- ═══ Utility 2: Component State Generator ═══ -->
+  <h3>Utility 2: <code>component-state-generator</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/component-state-generator.md</div>
+  <p>ให้ base component แล้ว generate ทุก state ที่จำเป็นอัตโนมัติ — Default, Hover, Focused, Active, Disabled, Error, Loading ตาม Design Tokens</p>
+
+  <div class="flow-row">
+    <div class="flow-step">Base Component<br><small>HTML / Figma / Description</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">Identify Type<br><small>Button/Input/Card/Toggle</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">Generate States<br><small>Clone + modify</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">Output<br><small>HTML gallery / Figma</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Component State Generator Skill</summary>
+    <div class="details-body">
+      <h4>วิธีใช้</h4>
+      <pre><code>/component-state-generator "Primary Button"
+/component-state-generator path/to/component.html</code></pre>
+
+      <h4>States ตามประเภท Component</h4>
+      <table>
+        <thead><tr><th>ประเภท</th><th>ตัวอย่าง</th><th>States ที่สร้าง</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Interactive</strong></td><td>Button, Link, Tab, Menu Item</td><td>Default, Hover, Active, Focused, Disabled, Loading</td></tr>
+          <tr><td><strong>Input</strong></td><td>Text Input, Textarea, Select</td><td>Empty, Focused, Filled, Error, Disabled, Success</td></tr>
+          <tr><td><strong>Container</strong></td><td>Card, List Item, Accordion</td><td>Default, Hover, Selected, Loading, Empty</td></tr>
+          <tr><td><strong>Toggle</strong></td><td>Switch, Checkbox, Radio</td><td>Off, On, Disabled Off, Disabled On</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Visual Rules</h4>
+      <ul>
+        <li><strong>Hover</strong>: darken 10% จาก base (คำนวณ HSL → ลด L 10%)</li>
+        <li><strong>Active</strong>: darken 20% + scale(0.98)</li>
+        <li><strong>Focused</strong>: focus ring 2px solid #7279FB offset 2px</li>
+        <li><strong>Disabled</strong>: BG: #EBECEF, Text: #9A9DAD (ไม่ใช้ opacity — accessibility)</li>
+        <li><strong>Loading</strong>: spinner สี component + disabled interaction</li>
+      </ul>
+
+      <h4>Output</h4>
+      <ul>
+        <li><strong>HTML</strong>: State Gallery แสดง component ทุก state เรียงกัน</li>
+        <li><strong>Figma</strong>: Parent frame + clone per state + auto-layout</li>
+        <li><strong>State Spec Table</strong>: ตารางค่า BG/Text/Border/Shadow ทุก state</li>
+      </ul>
+
+      <h4>ใช้เมื่อไหร่</h4>
+      <p>มี component base design แล้ว ต้องการสร้างทุก state variation ให้ครบ — ลด effort ไม่ต้องทำทีละ state</p>
+    </div>
+  </details>
+
+  <!-- ═══ Skill Map: ภาพรวมทั้งหมด ═══ -->
+  <h3 style="margin-top:48px; padding-top:24px; border-top:2px solid rgba(162,89,255,0.3);">Skill Map — ภาพรวมทั้ง 16 Skills</h3>
+  <div class="info-box tip" style="margin-bottom:20px;">
+    <span class="icon">🗺️</span>
+    <div>
+      <strong>3 ชั้น:</strong> Workflow Skills (รวม pipeline) → Core Skills (ทำงานเดี่ยว) → Utility Skills (เครื่องมือเสริม)
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>ชั้น</th><th>Skill</th><th>หน้าที่</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3" style="background:rgba(162,89,255,0.15); font-weight:700;">Workflow<br><small>(pipeline)</small></td><td><code>/design-pipeline</code></td><td>Jira → IA → UI → Copy → QA ครบจบ</td></tr>
+      <tr><td><code>/design-review</code></td><td>Review ครบ 3 มิติ (critique + a11y + code)</td></tr>
+      <tr><td><code>/qa-pipeline</code></td><td>QA 2 ชั้นอัตโนมัติ (code + design)</td></tr>
+      <tr><td rowspan="11" style="background:rgba(13,153,255,0.15); font-weight:700;">Core<br><small>(ทำงานเดี่ยว)</small></td><td><code>/figma-ui-design-spec</code></td><td>สร้าง UI (HTML preview → Figma)</td></tr>
+      <tr><td><code>/figma-design-critique</code></td><td>Review design 8 มิติ + คะแนน</td></tr>
+      <tr><td><code>/figma-user-flow</code></td><td>User Flow / IA / Screen Map</td></tr>
+      <tr><td><code>/figma-accessibility-audit</code></td><td>WCAG Audit 7 หมวด</td></tr>
+      <tr><td><code>/figma-design-system</code></td><td>Design System (tokens + components)</td></tr>
+      <tr><td><code>/figma-responsive-design</code></td><td>Responsive Design multi-breakpoint</td></tr>
+      <tr><td><code>/figma-ux-writer</code></td><td>UX Copy ไทย+EN + ตรวจคำผิด</td></tr>
+      <tr><td><code>/html-presentation-slide</code></td><td>สร้าง HTML Presentation 16:9</td></tr>
+      <tr><td><code>/jira-req-analysis</code></td><td>วิเคราะห์ Jira Card → Design Scope</td></tr>
+      <tr><td><code>/html-qa-gate</code></td><td>Design-level QA (10 checkpoints)</td></tr>
+      <tr><td><code>/web-design-guidelines</code></td><td>Code-level QA (Vercel 100+ rules)</td></tr>
+      <tr><td rowspan="2" style="background:rgba(27,196,125,0.15); font-weight:700;">Utility<br><small>(เสริม)</small></td><td><code>/token-validation</code></td><td>ตรวจ Design Token compliance</td></tr>
+      <tr><td><code>/component-state-generator</code></td><td>สร้าง state variations อัตโนมัติ</td></tr>
+    </tbody>
+  </table>
+
   <!-- วิธีใช้ Skill -->
   <h3>วิธีใช้ Skill</h3>
   <p>เมื่อติดตั้งเสร็จแล้ว พิมพ์ชื่อ skill ใน Claude หรือพิมพ์ภาษาธรรมชาติ:</p>
@@ -2155,7 +2478,7 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
     </tbody>
   </table>
 
-  <h4>Other Skills</h4>
+  <h4>Other Core Skills</h4>
   <table>
     <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
     <tbody>
@@ -2163,6 +2486,25 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
       <tr><td><code>/html-qa-gate</code></td><td>"ตรวจ HTML ก่อนส่ง dev"</td><td>ตรวจคุณภาพ design-level + auto-fix (max 3 รอบ)</td></tr>
       <tr><td><code>/html-presentation-slide</code></td><td>"สร้าง slide weekly update"</td><td>HTML Presentation 16:9 + Navigation</td></tr>
       <tr><td><code>/web-design-guidelines</code></td><td>"review UI code" / "check accessibility"</td><td>ตรวจ code-level ตาม Vercel 100+ rules</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Workflow Skills (รวม pipeline)</h4>
+  <table>
+    <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
+    <tbody>
+      <tr><td><code>/design-pipeline</code></td><td>"ออกแบบครบจบจาก Jira" / "full pipeline"</td><td>Jira → IA → UI → Copy → QA 6 steps อัตโนมัติ</td></tr>
+      <tr><td><code>/design-review</code></td><td>"review ครบทุกมิติ" / "full review"</td><td>Critique + A11y + Code Review สรุปรวม</td></tr>
+      <tr><td><code>/qa-pipeline</code></td><td>"ตรวจ HTML ครบ" / "full QA"</td><td>QA 2 ชั้น (code + design) อัตโนมัติ</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Utility Skills (เสริม)</h4>
+  <table>
+    <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
+    <tbody>
+      <tr><td><code>/token-validation</code></td><td>"ตรวจ token" / "เช็คสี" / "validate token"</td><td>ตรวจ Design Token compliance + แนะนำ token ถูกต้อง</td></tr>
+      <tr><td><code>/component-state-generator</code></td><td>"สร้าง states" / "hover state" / "variants"</td><td>สร้าง state variations อัตโนมัติจาก base component</td></tr>
     </tbody>
   </table>
   <p style="margin-top:8px;">Claude จะ trigger skill อัตโนมัติเมื่อเห็นคำที่เกี่ยวข้อง</p>
@@ -2283,7 +2625,16 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
     │   ├── figma-ux-writer.md           ← Skill 7: UX Writer (TH+EN)
     │   ├── jira-req-analysis.md         ← Skill 8: Jira Req Analysis
     │   ├── html-qa-gate.md              ← Skill 9: HTML QA Gate
-    │   └── html-presentation-slide.md   ← Skill 10: Presentation
+    │   ├── html-presentation-slide.md   ← Skill 10: Presentation
+    │   │
+    │   │   <span style="color:#c084fc;">── Workflow Skills (v2.4.0) ──</span>
+    │   ├── qa-pipeline.md               ← Workflow 1: QA 2 ชั้นอัตโนมัติ
+    │   ├── design-review.md             ← Workflow 2: Review ครบ 3 มิติ
+    │   ├── design-pipeline.md           ← Workflow 3: Jira→Design→QA ครบจบ
+    │   │
+    │   │   <span style="color:#4ade80;">── Utility Skills (v2.4.0) ──</span>
+    │   ├── token-validation.md          ← Utility 1: ตรวจ Design Token
+    │   └── component-state-generator.md ← Utility 2: สร้าง state variations
     │
     │   <span style="color:#4ade80;">── ติดตั้งแยก (Vercel Agent Skills) ──</span>
     │   ~/.agents/skills/web-design-guidelines/SKILL.md
@@ -11745,7 +12096,7 @@ round = 1, maxRounds = 3, issues = [], fixes = []
 <footer class="footer">
   <p>จัดทำสำหรับ <strong>Knowledge Sharing</strong> ภายในทีม</p>
   <p>หากมีคำถามหรือพบปัญหา สามารถถามในช่องทีมได้เลย</p>
-  <p style="margin-top:12px; opacity:0.6;">v2.3.0 — February 2026</p>
+  <p style="margin-top:12px; opacity:0.6;">v2.4.0 — February 2026</p>
 </footer>
 
 </body>
