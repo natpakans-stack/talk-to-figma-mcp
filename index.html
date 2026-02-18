@@ -785,9 +785,9 @@
     <span>Figma</span>
   </div>
   <!-- Version Badge -->
-  <div style="margin-top:28px; display:inline-flex; align-items:center; gap:10px;" role="status" aria-label="Current version: 2.2.0, released 14 February 2026">
-    <span style="display:inline-block; background:rgba(27,196,125,0.25); border:1px solid rgba(27,196,125,0.5); color:#4ade80; padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700; letter-spacing:0.5px;">v2.2.0</span>
-    <time datetime="2026-02-14" style="font-size:13px; color:rgba(255,255,255,0.7);">14 Feb 2026</time>
+  <div style="margin-top:28px; display:inline-flex; align-items:center; gap:10px;" role="status" aria-label="Current version: 2.2.1, released 18 February 2026">
+    <span style="display:inline-block; background:rgba(27,196,125,0.25); border:1px solid rgba(27,196,125,0.5); color:#4ade80; padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700; letter-spacing:0.5px;">v2.2.1</span>
+    <time datetime="2026-02-18" style="font-size:13px; color:rgba(255,255,255,0.7);">18 Feb 2026</time>
   </div>
 </header>
 
@@ -817,15 +817,25 @@
   <summary class="release-notes-toggle">
     <h2>Release Notes</h2>
     <span class="release-notes-latest">
-      <span class="release-tag release-tag--latest">v2.2.0</span>
-      <time datetime="2026-02-14">14 Feb 2026</time>
+      <span class="release-tag release-tag--latest">v2.2.1</span>
+      <time datetime="2026-02-18">18 Feb 2026</time>
     </span>
   </summary>
 
   <div class="release-notes-body">
     <div class="release-entry">
       <div class="release-header">
-        <span class="release-tag release-tag--latest">v2.2.0</span>
+        <span class="release-tag release-tag--latest">v2.2.1</span>
+        <time datetime="2026-02-18">18 Feb 2026</time>
+      </div>
+      <ul>
+        <li>แก้ไข <strong>Typography Tokens</strong> ให้ตรงกับ Figma — เพิ่ม Heading.4/5, Label.5, Caption.5 และแก้ line-height ที่ผิด</li>
+      </ul>
+    </div>
+
+    <div class="release-entry">
+      <div class="release-header">
+        <span class="release-tag">v2.2.0</span>
         <time datetime="2026-02-14">14 Feb 2026</time>
       </div>
       <ul>
@@ -4860,25 +4870,39 @@ For alpha colors, value is shown as <code>hex @ opacity%</code>.</p>
 </tr>
 </thead>
 <tbody><tr>
-<td>heading.1</td>
+<td>Heading.1</td>
 <td>48px</td>
 <td>58px</td>
 <td>Bold</td>
 <td>Page titles, hero text</td>
 </tr>
 <tr>
-<td>heading.2</td>
+<td>Heading.2</td>
 <td>40px</td>
-<td>48px</td>
+<td>52px</td>
 <td>Bold</td>
 <td>Section headers</td>
 </tr>
 <tr>
-<td>heading.3</td>
+<td>Heading.3</td>
 <td>32px</td>
 <td>40px</td>
 <td>Bold</td>
 <td>Sub-section headers</td>
+</tr>
+<tr>
+<td>Heading.4</td>
+<td>28px</td>
+<td>36px</td>
+<td>Bold</td>
+<td>Card titles, dialog headers</td>
+</tr>
+<tr>
+<td>Heading.5</td>
+<td>24px</td>
+<td>32px</td>
+<td>Bold</td>
+<td>Small headings, list titles</td>
 </tr>
 </tbody></table>
 <h4>Label</h4>
@@ -4893,32 +4917,39 @@ For alpha colors, value is shown as <code>hex @ opacity%</code>.</p>
 </tr>
 </thead>
 <tbody><tr>
-<td>label.1</td>
+<td>Label.1</td>
 <td>20px</td>
 <td>28px</td>
 <td>Bold</td>
 <td>Large labels, prominent UI text</td>
 </tr>
 <tr>
-<td>label.2</td>
+<td>Label.2</td>
 <td>18px</td>
 <td>26px</td>
 <td>Bold</td>
 <td>Medium labels</td>
 </tr>
 <tr>
-<td>label.3</td>
+<td>Label.3</td>
 <td>16px</td>
 <td>24px</td>
 <td>Bold</td>
 <td>Standard labels, button text</td>
 </tr>
 <tr>
-<td>label.4</td>
+<td>Label.4</td>
 <td>14px</td>
 <td>22px</td>
 <td>Bold</td>
 <td>Small labels, tags</td>
+</tr>
+<tr>
+<td>Label.5</td>
+<td>12px</td>
+<td>20px</td>
+<td>Bold</td>
+<td>Micro labels, badges</td>
 </tr>
 </tbody></table>
 <h4>Caption</h4>
@@ -4933,32 +4964,39 @@ For alpha colors, value is shown as <code>hex @ opacity%</code>.</p>
 </tr>
 </thead>
 <tbody><tr>
-<td>caption.1</td>
+<td>Caption.1</td>
 <td>20px</td>
-<td>28px</td>
+<td>36px</td>
 <td>Regular</td>
 <td>Large body text</td>
 </tr>
 <tr>
-<td>caption.2</td>
+<td>Caption.2</td>
 <td>18px</td>
 <td>26px</td>
 <td>Regular</td>
 <td>Medium body text</td>
 </tr>
 <tr>
-<td>caption.3</td>
+<td>Caption.3</td>
 <td>16px</td>
 <td>24px</td>
 <td>Regular</td>
 <td>Standard body text</td>
 </tr>
 <tr>
-<td>caption.4</td>
+<td>Caption.4</td>
 <td>14px</td>
 <td>22px</td>
 <td>Regular</td>
 <td>Small body text, captions</td>
+</tr>
+<tr>
+<td>Caption.5</td>
+<td>12px</td>
+<td>20px</td>
+<td>Regular</td>
+<td>Micro text, footnotes</td>
 </tr>
 </tbody></table>
 <h3>3. Spacing Tokens</h3>
@@ -6557,7 +6595,7 @@ get_screenshot(fileKey, nodeId)
 
   <!-- ─── slide-templates.md ─── -->
   <details>
-    <summary><span style="color:var(--accent);">🎬</span> slide-templates.md — Slide CSS/JS Templates</summary>
+    <summary><span style="color:var(--accent);">🎬</span> slide-templates.md — Slide CSS/JS Templates <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot ref"></span> ~/.claude/commands/references/slide-templates.md</div>
       <h1>Slide Templates Reference</h1>
@@ -7075,7 +7113,7 @@ updateNavBar();
 
   <!-- ─── qa-gate-criteria.md ─── -->
   <details>
-    <summary><span style="color:var(--green);">✅</span> qa-gate-criteria.md — QA Gate Audit Criteria</summary>
+    <summary><span style="color:var(--green);">✅</span> qa-gate-criteria.md — QA Gate Audit Criteria <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot ref"></span> ~/.claude/commands/references/qa-gate-criteria.md</div>
       <h1>QA Gate Audit Criteria Reference</h1>
@@ -7409,7 +7447,7 @@ Status:    --error-fg-high (#EA244F), --success-fg-high (#559652), --warning-fg-
 
   <!-- ─── ux-writing-spellcheck.md ─── -->
   <details>
-    <summary><span style="color:var(--accent);">✍️</span> ux-writing-spellcheck.md — UX Writing Spell Check Tables</summary>
+    <summary><span style="color:var(--accent);">✍️</span> ux-writing-spellcheck.md — UX Writing Spell Check Tables <span style="background:#1bc47d;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">NEW</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot ref"></span> ~/.claude/commands/references/ux-writing-spellcheck.md</div>
       <h1>UX Writing Spell Check Reference</h1>
@@ -8429,7 +8467,7 @@ With skill: 2 clarifying questions, 0 failures, 6,000 tokens
 
   <!-- ─── figma-ui-design-spec.md ─── -->
   <details>
-    <summary><span style="color:var(--accent);">⚡</span> figma-ui-design-spec.md — Skill File (ไฟล์หลัก)</summary>
+    <summary><span style="color:var(--accent);">⚡</span> figma-ui-design-spec.md — Skill File (ไฟล์หลัก) <span style="background:#7279FB;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">UPDATE</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-ui-design-spec.md</div>
       <div class="info-box warn">
@@ -9138,7 +9176,7 @@ references/design-tokens.md        → ถ้ามี custom design system
 
   <!-- ─── figma-user-flow.md ─── -->
   <details>
-    <summary><span style="color:var(--blue);">🔀</span> figma-user-flow.md — User Flow / IA Skill</summary>
+    <summary><span style="color:var(--blue);">🔀</span> figma-user-flow.md — User Flow / IA Skill <span style="background:#7279FB;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">UPDATE</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-user-flow.md</div>
       <div class="info-box warn">
@@ -10582,7 +10620,7 @@ Body text ไม่ค่อยเปลี่ยน ส่วน headings/displ
 
   <!-- ─── figma-ux-writer.md ─── -->
   <details>
-    <summary><span style="color:var(--accent);">✍️</span> figma-ux-writer.md — UX Writer Skill (TH + EN)</summary>
+    <summary><span style="color:var(--accent);">✍️</span> figma-ux-writer.md — UX Writer Skill (TH + EN) <span style="background:#7279FB;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">UPDATE</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/figma-ux-writer.md</div>
       <div class="info-box warn">
@@ -10849,7 +10887,7 @@ set_multiple_annotations({...})                → ใส่ annotation อธ�
 
   <!-- ─── jira-req-analysis.md ─── -->
   <details>
-    <summary><span style="color:var(--blue);">📋</span> jira-req-analysis.md — Jira Requirement Analysis</summary>
+    <summary><span style="color:var(--blue);">📋</span> jira-req-analysis.md — Jira Requirement Analysis <span style="background:#7279FB;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">UPDATE</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/jira-req-analysis.md</div>
       <div class="info-box warn">
@@ -11094,7 +11132,7 @@ Output เป็น structured summary:
 
   <!-- ─── html-presentation-slide.md ─── -->
   <details>
-    <summary><span style="color:var(--accent);">🎬</span> html-presentation-slide.md — HTML Presentation Slide (16:9)</summary>
+    <summary><span style="color:var(--accent);">🎬</span> html-presentation-slide.md — HTML Presentation Slide (16:9) <span style="background:#7279FB;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-left:8px;">UPDATE</span></summary>
     <div class="details-body">
       <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/html-presentation-slide.md</div>
       <div class="info-box warn">
@@ -11605,7 +11643,7 @@ round = 1, maxRounds = 3, issues = [], fixes = []
 <footer class="footer">
   <p>จัดทำสำหรับ <strong>Knowledge Sharing</strong> ภายในทีม</p>
   <p>หากมีคำถามหรือพบปัญหา สามารถถามในช่องทีมได้เลย</p>
-  <p style="margin-top:12px; opacity:0.6;">v2.2.0 — February 2026</p>
+  <p style="margin-top:12px; opacity:0.6;">v2.2.1 — February 2026</p>
 </footer>
 
 </body>

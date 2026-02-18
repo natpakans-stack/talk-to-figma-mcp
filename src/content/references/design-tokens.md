@@ -313,27 +313,31 @@ z-index-toast                            → 300
 
 | Token | Font Size | Line Height | Weight | Usage |
 |-------|-----------|-------------|--------|-------|
-| heading.1 | 48px | 58px | Bold | Page titles, hero text |
-| heading.2 | 40px | 48px | Bold | Section headers |
-| heading.3 | 32px | 40px | Bold | Sub-section headers |
+| Heading.1 | 48px | 58px | Bold | Page titles, hero text |
+| Heading.2 | 40px | 52px | Bold | Section headers |
+| Heading.3 | 32px | 40px | Bold | Sub-section headers |
+| Heading.4 | 28px | 36px | Bold | Card titles, dialog headers |
+| Heading.5 | 24px | 32px | Bold | Small headings, list titles |
 
 #### Label
 
 | Token | Font Size | Line Height | Weight | Usage |
 |-------|-----------|-------------|--------|-------|
-| label.1 | 20px | 28px | Bold | Large labels, prominent UI text |
-| label.2 | 18px | 26px | Bold | Medium labels |
-| label.3 | 16px | 24px | Bold | Standard labels, button text |
-| label.4 | 14px | 22px | Bold | Small labels, tags |
+| Label.1 | 20px | 28px | Bold | Large labels, prominent UI text |
+| Label.2 | 18px | 26px | Bold | Medium labels |
+| Label.3 | 16px | 24px | Bold | Standard labels, button text |
+| Label.4 | 14px | 22px | Bold | Small labels, tags |
+| Label.5 | 12px | 20px | Bold | Micro labels, badges |
 
 #### Caption
 
 | Token | Font Size | Line Height | Weight | Usage |
 |-------|-----------|-------------|--------|-------|
-| caption.1 | 20px | 28px | Regular | Large body text |
-| caption.2 | 18px | 26px | Regular | Medium body text |
-| caption.3 | 16px | 24px | Regular | Standard body text |
-| caption.4 | 14px | 22px | Regular | Small body text, captions |
+| Caption.1 | 20px | 36px | Regular | Large body text |
+| Caption.2 | 18px | 26px | Regular | Medium body text |
+| Caption.3 | 16px | 24px | Regular | Standard body text |
+| Caption.4 | 14px | 22px | Regular | Small body text, captions |
+| Caption.5 | 12px | 20px | Regular | Micro text, footnotes |
 
 ### 3. Spacing Tokens
 ใช้ 4px base unit (4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96)
