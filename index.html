@@ -785,8 +785,8 @@
     <span>Figma</span>
   </div>
   <!-- Version Badge -->
-  <div style="margin-top:28px; display:inline-flex; align-items:center; gap:10px;" role="status" aria-label="Current version: 2.2.1, released 18 February 2026">
-    <span style="display:inline-block; background:rgba(27,196,125,0.25); border:1px solid rgba(27,196,125,0.5); color:#4ade80; padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700; letter-spacing:0.5px;">v2.2.1</span>
+  <div style="margin-top:28px; display:inline-flex; align-items:center; gap:10px;" role="status" aria-label="Current version: 2.3.0, released 18 February 2026">
+    <span style="display:inline-block; background:rgba(27,196,125,0.25); border:1px solid rgba(27,196,125,0.5); color:#4ade80; padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700; letter-spacing:0.5px;">v2.3.0</span>
     <time datetime="2026-02-18" style="font-size:13px; color:rgba(255,255,255,0.7);">18 Feb 2026</time>
   </div>
 </header>
@@ -817,7 +817,7 @@
   <summary class="release-notes-toggle">
     <h2>Release Notes</h2>
     <span class="release-notes-latest">
-      <span class="release-tag release-tag--latest">v2.2.1</span>
+      <span class="release-tag release-tag--latest">v2.3.0</span>
       <time datetime="2026-02-18">18 Feb 2026</time>
     </span>
   </summary>
@@ -825,7 +825,19 @@
   <div class="release-notes-body">
     <div class="release-entry">
       <div class="release-header">
-        <span class="release-tag release-tag--latest">v2.2.1</span>
+        <span class="release-tag release-tag--latest">v2.3.0</span>
+        <time datetime="2026-02-18">18 Feb 2026</time>
+      </div>
+      <ul>
+        <li>เพิ่ม Skill 11: <strong>Web Design Guidelines</strong> — Vercel Web Interface Guidelines (100+ rules) สำหรับ code-level QA ของ HTML output</li>
+        <li>เพิ่ม <strong>QA Flow 2 ชั้น</strong> — <code>/web-design-guidelines</code> (code-level: accessibility, forms, typography, animation) → <code>/html-qa-gate</code> (design-level: visual, functional, handoff)</li>
+        <li>ปรับโครงสร้าง <strong>Design Workflow</strong> ใน CLAUDE.md — แยกเป็น Figma + HTML Output + QA Flow</li>
+      </ul>
+    </div>
+
+    <div class="release-entry">
+      <div class="release-header">
+        <span class="release-tag">v2.2.1</span>
         <time datetime="2026-02-18">18 Feb 2026</time>
       </div>
       <ul>
@@ -1485,7 +1497,7 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
 
 
 
-<!-- Version: 2.1.0 | Updated: 2026-02-13 -->
+<!-- Version: 2.3.0 | Updated: 2026-02-18 -->
 <!-- ════════════════════ 10. SKILL & INSTALL ════════════════════ -->
 <section class="section" id="sec10">
   <h2><span class="num" style="background:#0d99ff;">10</span> Skill &amp; วิธีติดตั้งให้ทีม</h2>
@@ -2047,6 +2059,84 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
     </div>
   </details>
 
+  <!-- ═══ Skill 11: Web Design Guidelines ═══ -->
+  <h3>Skill 11: <code>web-design-guidelines</code></h3>
+  <div class="file-badge"><span class="dot skill"></span> ~/.claude/commands/web-design-guidelines.md</div>
+  <p>ตรวจ HTML code ตาม <strong>Vercel Web Interface Guidelines</strong> — 100+ rules ครอบคลุม accessibility, forms, animation, typography, performance, touch, dark mode และ anti-patterns</p>
+
+  <div class="flow-row">
+    <div class="flow-step">1. Fetch Rules<br><small>ดึง guidelines ล่าสุด</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">2. Read Files<br><small>อ่าน HTML ที่ระบุ</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">3. Analyze<br><small>ตรวจ 100+ rules</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">4. Report<br><small>file:line findings</small></div>
+  </div>
+
+  <details>
+    <summary>📋 รายละเอียด Web Design Guidelines Skill</summary>
+    <div class="details-body">
+      <h4>ที่มา</h4>
+      <p>Skill นี้มาจาก <strong>Vercel Agent Skills</strong> (<code>vercel-labs/agent-skills</code>) — ติดตั้งผ่าน <code>npx skills add</code> แล้ว symlink เข้า Claude Code</p>
+
+      <h4>15 หมวดที่ตรวจ</h4>
+      <table>
+        <thead><tr><th>หมวด</th><th>ตัวอย่าง Rules</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Accessibility</strong></td><td>aria-label, semantic HTML, keyboard handlers, alt text, heading hierarchy, skip link</td></tr>
+          <tr><td><strong>Focus States</strong></td><td>focus-visible, ห้าม outline-none โดยไม่ทดแทน, focus-within</td></tr>
+          <tr><td><strong>Forms</strong></td><td>autocomplete, input type/inputmode, ห้ามบล็อก paste, inline errors, label association</td></tr>
+          <tr><td><strong>Animation</strong></td><td>prefers-reduced-motion, animate เฉพาะ transform/opacity, ห้าม transition: all</td></tr>
+          <tr><td><strong>Typography</strong></td><td>curly quotes, ellipsis, tabular-nums, text-wrap: balance</td></tr>
+          <tr><td><strong>Content Handling</strong></td><td>truncate, line-clamp, empty states, รองรับ text ยาว/สั้น</td></tr>
+          <tr><td><strong>Images</strong></td><td>width/height attributes, lazy loading, fetchpriority</td></tr>
+          <tr><td><strong>Performance</strong></td><td>virtualize lists &gt;50 items, preconnect, font preload</td></tr>
+          <tr><td><strong>Navigation &amp; State</strong></td><td>URL reflects state, deep-link, destructive confirmation</td></tr>
+          <tr><td><strong>Touch &amp; Interaction</strong></td><td>touch-action, tap-highlight, overscroll-behavior</td></tr>
+          <tr><td><strong>Safe Areas</strong></td><td>env(safe-area-inset-*), ไม่มี unwanted scrollbars</td></tr>
+          <tr><td><strong>Dark Mode</strong></td><td>color-scheme: dark, theme-color meta</td></tr>
+          <tr><td><strong>Locale &amp; i18n</strong></td><td>Intl.DateTimeFormat, Intl.NumberFormat</td></tr>
+          <tr><td><strong>Content &amp; Copy</strong></td><td>Active voice, title case headings, error messages มี fix</td></tr>
+          <tr><td><strong>Anti-patterns</strong></td><td>user-scalable=no, onPaste preventDefault, div onClick, images ไม่มี dimensions</td></tr>
+        </tbody>
+      </table>
+
+      <h4>วิธีใช้</h4>
+      <pre><code>/web-design-guidelines &lt;file-or-pattern&gt;</code></pre>
+      <p>ผลลัพธ์จะแสดงเป็น <code>file:line</code> ที่มีปัญหา พร้อมอธิบาย rule ที่ไม่ผ่าน</p>
+    </div>
+  </details>
+
+  <!-- ═══ QA Flow 2 ชั้น ═══ -->
+  <h3>QA Flow สำหรับ HTML (2 ชั้น)</h3>
+  <div class="info-box tip" style="margin-bottom:20px;">
+    <span class="icon">⚡</span>
+    <div>
+      <strong>ก่อนส่ง HTML ให้ dev ต้องผ่าน QA 2 ชั้น</strong> — ชั้นแรกตรวจ code quality ชั้นสองตรวจ design quality
+    </div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-step">สร้าง HTML<br><small>design spec / slide</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#0d99ff,#0066cc);">ชั้น 1: Code QA<br><small>/web-design-guidelines</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#1bc47d,#0a7a4a);">แก้ไข Code<br><small>fix findings</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#ff8c00,#cc6600);">ชั้น 2: Design QA<br><small>/html-qa-gate</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background:linear-gradient(135deg,#f24822,#c43020);">ส่งมอบ<br><small>Handoff / Import</small></div>
+  </div>
+
+  <table>
+    <thead><tr><th>ชั้น</th><th>Skill</th><th>ตรวจอะไร</th><th>Focus</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td><code>/web-design-guidelines</code></td><td>Accessibility, forms, typography, animation, touch, dark mode, performance, anti-patterns</td><td>Code quality — ตาม Vercel 100+ rules</td></tr>
+      <tr><td><strong>2</strong></td><td><code>/html-qa-gate</code></td><td>Functional intent, component readiness, handoff check</td><td>Design quality — visual + functional + handoff</td></tr>
+    </tbody>
+  </table>
+
   <!-- วิธีใช้ Skill -->
   <h3>วิธีใช้ Skill</h3>
   <p>เมื่อติดตั้งเสร็จแล้ว พิมพ์ชื่อ skill ใน Claude หรือพิมพ์ภาษาธรรมชาติ:</p>
@@ -2070,8 +2160,9 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
     <thead><tr><th>Skill Command</th><th>หรือพิมพ์</th><th>ทำอะไร</th></tr></thead>
     <tbody>
       <tr><td><code>/jira-req-analysis</code></td><td>"วิเคราะห์ Jira card นี้"</td><td>วิเคราะห์ Requirement จาก Jira Card</td></tr>
-      <tr><td><code>/html-qa-gate</code></td><td>"ตรวจ HTML ก่อนส่ง dev"</td><td>ตรวจคุณภาพ HTML + auto-fix (max 3 รอบ)</td></tr>
+      <tr><td><code>/html-qa-gate</code></td><td>"ตรวจ HTML ก่อนส่ง dev"</td><td>ตรวจคุณภาพ design-level + auto-fix (max 3 รอบ)</td></tr>
       <tr><td><code>/html-presentation-slide</code></td><td>"สร้าง slide weekly update"</td><td>HTML Presentation 16:9 + Navigation</td></tr>
+      <tr><td><code>/web-design-guidelines</code></td><td>"review UI code" / "check accessibility"</td><td>ตรวจ code-level ตาม Vercel 100+ rules</td></tr>
     </tbody>
   </table>
   <p style="margin-top:8px;">Claude จะ trigger skill อัตโนมัติเมื่อเห็นคำที่เกี่ยวข้อง</p>
@@ -2193,6 +2284,10 @@ https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
     │   ├── jira-req-analysis.md         ← Skill 8: Jira Req Analysis
     │   ├── html-qa-gate.md              ← Skill 9: HTML QA Gate
     │   └── html-presentation-slide.md   ← Skill 10: Presentation
+    │
+    │   <span style="color:#4ade80;">── ติดตั้งแยก (Vercel Agent Skills) ──</span>
+    │   ~/.agents/skills/web-design-guidelines/SKILL.md
+    │   └── symlink → ~/.claude/commands/web-design-guidelines.md  ← Skill 11
     └── references/
         ├── ux-principles.md             ← UX Principles
         ├── material-design.md           ← Material Design 3
@@ -11650,7 +11745,7 @@ round = 1, maxRounds = 3, issues = [], fixes = []
 <footer class="footer">
   <p>จัดทำสำหรับ <strong>Knowledge Sharing</strong> ภายในทีม</p>
   <p>หากมีคำถามหรือพบปัญหา สามารถถามในช่องทีมได้เลย</p>
-  <p style="margin-top:12px; opacity:0.6;">v2.2.1 — February 2026</p>
+  <p style="margin-top:12px; opacity:0.6;">v2.3.0 — February 2026</p>
 </footer>
 
 </body>
