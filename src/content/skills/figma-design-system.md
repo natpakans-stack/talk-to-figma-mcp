@@ -97,32 +97,32 @@ get_variable_defs(fileKey, nodeId) → ดู existing tokens
 
 ### 3.2 Typography Scale
 
-**กำหนด Type Scale:**
+**กำหนด Type Scale (ตรงกับ Figma Text Styles):**
 
 ```markdown
-| Token | Size | Weight | Line Height | Letter Spacing | Usage |
-|-------|------|--------|-------------|----------------|-------|
-| display-lg | 57px | 400 | 64px | -0.25px | Hero text |
-| display-md | 45px | 400 | 52px | 0 | Page hero |
-| display-sm | 36px | 400 | 44px | 0 | Section hero |
-| heading-lg | 32px | 700 | 40px | 0 | Page title |
-| heading-md | 24px | 700 | 32px | 0 | Section title |
-| heading-sm | 20px | 600 | 28px | 0 | Card title |
-| title-lg | 18px | 600 | 28px | 0 | Subtitle |
-| title-md | 16px | 500 | 24px | 0.15px | List title |
-| title-sm | 14px | 500 | 20px | 0.1px | Small title |
-| body-lg | 16px | 400 | 24px | 0.5px | Primary body |
-| body-md | 14px | 400 | 20px | 0.25px | Secondary body |
-| body-sm | 12px | 400 | 16px | 0.4px | Caption |
-| label-lg | 14px | 500 | 20px | 0.1px | Button label |
-| label-md | 12px | 500 | 16px | 0.5px | Tab label |
-| label-sm | 11px | 500 | 16px | 0.5px | Badge label |
+| Token | Size | Weight | Line Height | Usage |
+|-------|------|--------|-------------|-------|
+| Heading.1 | 48px | Bold (700) | 58px | Page titles, hero text |
+| Heading.2 | 40px | Bold (700) | 52px | Section headers |
+| Heading.3 | 32px | Bold (700) | 40px | Sub-section headers |
+| Heading.4 | 28px | Bold (700) | 36px | Card titles, dialog headers |
+| Heading.5 | 24px | Bold (700) | 32px | Small headings, list titles |
+| Label.1 | 20px | Bold (700) | 28px | Large labels |
+| Label.2 | 18px | Bold (700) | 26px | Medium labels |
+| Label.3 | 16px | Bold (700) | 24px | Buttons, standard labels |
+| Label.4 | 14px | Bold (700) | 22px | Small labels, tags |
+| Label.5 | 12px | Bold (700) | 20px | Micro labels, badges |
+| Caption.1 | 20px | Regular (400) | 36px | Large body text |
+| Caption.2 | 18px | Regular (400) | 26px | Medium body text |
+| Caption.3 | 16px | Regular (400) | 24px | Standard body text |
+| Caption.4 | 14px | Regular (400) | 22px | Small text, captions |
+| Caption.5 | 12px | Regular (400) | 20px | Micro text, footnotes |
 ```
 
 **Font Family:**
-- Primary: [brand font or system font]
-- Mono: [monospace font for code/data]
-- ระบุ fallback stack เสมอ
+- Primary: LINE Seed Sans TH
+- Weights: Regular (400), Bold (700), ExtraBold (800)
+- Fallback: sans-serif
 
 ### 3.3 Spacing System
 

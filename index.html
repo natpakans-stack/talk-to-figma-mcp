@@ -8608,19 +8608,23 @@ references/design-tokens.md        → สำหรับ Custom Design System t
       --info-fg-high: #0386B3;
       --info-bg-lowest: #E6F4F9;
 
-      /* Typography — LINE Seed Sans TH */
+      /* Typography — LINE Seed Sans TH (ตรงกับ Figma Text Styles) */
       --font-family: 'LINE Seed Sans TH', sans-serif;
-      --heading-1: 800 48px/56px var(--font-family);
-      --heading-2: 700 40px/48px var(--font-family);
-      --heading-3: 700 32px/40px var(--font-family);
-      --label-1: 700 20px/28px var(--font-family);
-      --label-2: 700 18px/24px var(--font-family);
-      --label-3: 700 16px/22px var(--font-family);
-      --label-4: 700 14px/20px var(--font-family);
-      --caption-1: 400 20px/28px var(--font-family);
-      --caption-2: 400 18px/24px var(--font-family);
-      --caption-3: 400 16px/22px var(--font-family);
-      --caption-4: 400 14px/20px var(--font-family);
+      --heading-1: 800 48px/58px var(--font-family);   /* Heading.1 */
+      --heading-2: 700 40px/52px var(--font-family);   /* Heading.2 */
+      --heading-3: 700 32px/40px var(--font-family);   /* Heading.3 */
+      --heading-4: 700 28px/36px var(--font-family);   /* Heading.4 */
+      --heading-5: 700 24px/32px var(--font-family);   /* Heading.5 */
+      --label-1: 700 20px/28px var(--font-family);     /* Label.1 */
+      --label-2: 700 18px/26px var(--font-family);     /* Label.2 */
+      --label-3: 700 16px/24px var(--font-family);     /* Label.3 */
+      --label-4: 700 14px/22px var(--font-family);     /* Label.4 */
+      --label-5: 700 12px/20px var(--font-family);     /* Label.5 */
+      --caption-1: 400 20px/36px var(--font-family);   /* Caption.1 */
+      --caption-2: 400 18px/26px var(--font-family);   /* Caption.2 */
+      --caption-3: 400 16px/24px var(--font-family);   /* Caption.3 */
+      --caption-4: 400 14px/22px var(--font-family);   /* Caption.4 */
+      --caption-5: 400 12px/20px var(--font-family);   /* Caption.5 */
 
       /* Spacing */
       --space-xs: 4px;
@@ -10011,32 +10015,32 @@ get_variable_defs(fileKey, nodeId) → ดู existing tokens
 
 ### 3.2 Typography Scale
 
-**กำหนด Type Scale:**
+**กำหนด Type Scale (ตรงกับ Figma Text Styles):**
 
 ```markdown
-| Token | Size | Weight | Line Height | Letter Spacing | Usage |
-|-------|------|--------|-------------|----------------|-------|
-| display-lg | 57px | 400 | 64px | -0.25px | Hero text |
-| display-md | 45px | 400 | 52px | 0 | Page hero |
-| display-sm | 36px | 400 | 44px | 0 | Section hero |
-| heading-lg | 32px | 700 | 40px | 0 | Page title |
-| heading-md | 24px | 700 | 32px | 0 | Section title |
-| heading-sm | 20px | 600 | 28px | 0 | Card title |
-| title-lg | 18px | 600 | 28px | 0 | Subtitle |
-| title-md | 16px | 500 | 24px | 0.15px | List title |
-| title-sm | 14px | 500 | 20px | 0.1px | Small title |
-| body-lg | 16px | 400 | 24px | 0.5px | Primary body |
-| body-md | 14px | 400 | 20px | 0.25px | Secondary body |
-| body-sm | 12px | 400 | 16px | 0.4px | Caption |
-| label-lg | 14px | 500 | 20px | 0.1px | Button label |
-| label-md | 12px | 500 | 16px | 0.5px | Tab label |
-| label-sm | 11px | 500 | 16px | 0.5px | Badge label |
+| Token | Size | Weight | Line Height | Usage |
+|-------|------|--------|-------------|-------|
+| Heading.1 | 48px | Bold (700) | 58px | Page titles, hero text |
+| Heading.2 | 40px | Bold (700) | 52px | Section headers |
+| Heading.3 | 32px | Bold (700) | 40px | Sub-section headers |
+| Heading.4 | 28px | Bold (700) | 36px | Card titles, dialog headers |
+| Heading.5 | 24px | Bold (700) | 32px | Small headings, list titles |
+| Label.1 | 20px | Bold (700) | 28px | Large labels |
+| Label.2 | 18px | Bold (700) | 26px | Medium labels |
+| Label.3 | 16px | Bold (700) | 24px | Buttons, standard labels |
+| Label.4 | 14px | Bold (700) | 22px | Small labels, tags |
+| Label.5 | 12px | Bold (700) | 20px | Micro labels, badges |
+| Caption.1 | 20px | Regular (400) | 36px | Large body text |
+| Caption.2 | 18px | Regular (400) | 26px | Medium body text |
+| Caption.3 | 16px | Regular (400) | 24px | Standard body text |
+| Caption.4 | 14px | Regular (400) | 22px | Small text, captions |
+| Caption.5 | 12px | Regular (400) | 20px | Micro text, footnotes |
 ```
 
 **Font Family:**
-- Primary: [brand font or system font]
-- Mono: [monospace font for code/data]
-- ระบุ fallback stack เสมอ
+- Primary: LINE Seed Sans TH
+- Weights: Regular (400), Bold (700), ExtraBold (800)
+- Fallback: sans-serif
 
 ### 3.3 Spacing System
 
@@ -10467,18 +10471,21 @@ Large Desktop: 1920 x 1080px
 ### 4.4 Typography Adaptation
 
 ```markdown
-## Typography Scale by Breakpoint
+## Typography Scale by Breakpoint (ตรงกับ Figma Text Styles)
 
 | Token | Mobile | Tablet | Desktop |
 |-------|--------|--------|---------|
-| display | 36px | 45px | 57px |
-| heading-lg | 24px | 28px | 32px |
-| heading-md | 20px | 22px | 24px |
-| body | 16px | 16px | 16px |
-| body-sm | 14px | 14px | 14px |
+| Heading.1 | 32px/40px | 40px/52px | 48px/58px |
+| Heading.2 | 28px/36px | 32px/40px | 40px/52px |
+| Heading.3 | 24px/32px | 28px/36px | 32px/40px |
+| Heading.4 | 20px/28px | 24px/32px | 28px/36px |
+| Heading.5 | 18px/26px | 20px/28px | 24px/32px |
+| Label.3 | 16px/24px | 16px/24px | 16px/24px |
+| Caption.3 | 16px/24px | 16px/24px | 16px/24px |
+| Caption.4 | 14px/22px | 14px/22px | 14px/22px |
 ```
 
-Body text ไม่ค่อยเปลี่ยน ส่วน headings/display scale ขึ้นตามหน้าจอ
+Headings scale ลงบน mobile, ส่วน body/label/caption คงที่ทุก breakpoint
 
 ### 4.5 Spacing Adaptation
 

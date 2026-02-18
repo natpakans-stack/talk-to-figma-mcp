@@ -147,18 +147,21 @@ Large Desktop: 1920 x 1080px
 ### 4.4 Typography Adaptation
 
 ```markdown
-## Typography Scale by Breakpoint
+## Typography Scale by Breakpoint (ตรงกับ Figma Text Styles)
 
 | Token | Mobile | Tablet | Desktop |
 |-------|--------|--------|---------|
-| display | 36px | 45px | 57px |
-| heading-lg | 24px | 28px | 32px |
-| heading-md | 20px | 22px | 24px |
-| body | 16px | 16px | 16px |
-| body-sm | 14px | 14px | 14px |
+| Heading.1 | 32px/40px | 40px/52px | 48px/58px |
+| Heading.2 | 28px/36px | 32px/40px | 40px/52px |
+| Heading.3 | 24px/32px | 28px/36px | 32px/40px |
+| Heading.4 | 20px/28px | 24px/32px | 28px/36px |
+| Heading.5 | 18px/26px | 20px/28px | 24px/32px |
+| Label.3 | 16px/24px | 16px/24px | 16px/24px |
+| Caption.3 | 16px/24px | 16px/24px | 16px/24px |
+| Caption.4 | 14px/22px | 14px/22px | 14px/22px |
 ```
 
-Body text ไม่ค่อยเปลี่ยน ส่วน headings/display scale ขึ้นตามหน้าจอ
+Headings scale ลงบน mobile, ส่วน body/label/caption คงที่ทุก breakpoint
 
 ### 4.5 Spacing Adaptation
 

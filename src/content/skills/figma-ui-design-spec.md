@@ -132,19 +132,23 @@ references/design-tokens.md        → สำหรับ Custom Design System t
       --info-fg-high: #0386B3;
       --info-bg-lowest: #E6F4F9;
 
-      /* Typography — LINE Seed Sans TH */
+      /* Typography — LINE Seed Sans TH (ตรงกับ Figma Text Styles) */
       --font-family: 'LINE Seed Sans TH', sans-serif;
-      --heading-1: 800 48px/56px var(--font-family);
-      --heading-2: 700 40px/48px var(--font-family);
-      --heading-3: 700 32px/40px var(--font-family);
-      --label-1: 700 20px/28px var(--font-family);
-      --label-2: 700 18px/24px var(--font-family);
-      --label-3: 700 16px/22px var(--font-family);
-      --label-4: 700 14px/20px var(--font-family);
-      --caption-1: 400 20px/28px var(--font-family);
-      --caption-2: 400 18px/24px var(--font-family);
-      --caption-3: 400 16px/22px var(--font-family);
-      --caption-4: 400 14px/20px var(--font-family);
+      --heading-1: 800 48px/58px var(--font-family);   /* Heading.1 */
+      --heading-2: 700 40px/52px var(--font-family);   /* Heading.2 */
+      --heading-3: 700 32px/40px var(--font-family);   /* Heading.3 */
+      --heading-4: 700 28px/36px var(--font-family);   /* Heading.4 */
+      --heading-5: 700 24px/32px var(--font-family);   /* Heading.5 */
+      --label-1: 700 20px/28px var(--font-family);     /* Label.1 */
+      --label-2: 700 18px/26px var(--font-family);     /* Label.2 */
+      --label-3: 700 16px/24px var(--font-family);     /* Label.3 */
+      --label-4: 700 14px/22px var(--font-family);     /* Label.4 */
+      --label-5: 700 12px/20px var(--font-family);     /* Label.5 */
+      --caption-1: 400 20px/36px var(--font-family);   /* Caption.1 */
+      --caption-2: 400 18px/26px var(--font-family);   /* Caption.2 */
+      --caption-3: 400 16px/24px var(--font-family);   /* Caption.3 */
+      --caption-4: 400 14px/22px var(--font-family);   /* Caption.4 */
+      --caption-5: 400 12px/20px var(--font-family);   /* Caption.5 */
 
       /* Spacing */
       --space-xs: 4px;
