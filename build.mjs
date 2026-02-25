@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, cpSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { marked } from 'marked';
@@ -144,6 +144,12 @@ function build() {
   // Write output
   mkdirSync(dist(), { recursive: true });
   writeFileSync(dist('index.html'), html, 'utf-8');
+
+  // Copy assets/ into dist/assets/
+  const assetsDir = join(__dirname, 'assets');
+  if (existsSync(assetsDir)) {
+    cpSync(assetsDir, dist('assets'), { recursive: true });
+  }
 
   const ms = Date.now() - t0;
   const kb = (Buffer.byteLength(html) / 1024).toFixed(1);
