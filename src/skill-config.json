@@ -89,6 +89,33 @@
       "installPath": "~/.claude/commands/references/skill-building-guide.md",
       "badge": "NEW",
       "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "visual-design-principles.md",
+      "icon": "\ud83c\udfa8",
+      "color": "var(--accent)",
+      "title": "Visual Design Principles (Hierarchy, Color, White Space)",
+      "installPath": "~/.claude/commands/references/visual-design-principles.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "ui-preview-quality-rules.md",
+      "icon": "\u2728",
+      "color": "var(--accent)",
+      "title": "UI Preview Quality Rules (Refactoring UI, Laws of UX, DMMT)",
+      "installPath": "~/.claude/commands/references/ui-preview-quality-rules.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "ux-writing-patterns.md",
+      "icon": "\u270d\ufe0f",
+      "color": "var(--blue)",
+      "title": "UX Writing Patterns (Voice Chart, 11 Patterns, 4-Phase Editing)",
+      "installPath": "~/.claude/commands/references/ux-writing-patterns.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
     }
   ],
   "skills": [
@@ -179,6 +206,51 @@
       "color": "var(--green)",
       "title": "HTML QA Gate (Auto-check & Fix)",
       "installPath": "~/.claude/commands/html-qa-gate.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "interaction-design-spec.md",
+      "icon": "\u2728",
+      "color": "var(--accent)",
+      "title": "Interaction Design Spec (Animation, Gesture, Micro-interaction)",
+      "installPath": "~/.claude/commands/interaction-design-spec.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "mobile-ux-audit.md",
+      "icon": "\ud83d\udcf1",
+      "color": "var(--orange)",
+      "title": "Mobile UX Audit (Thumb Zone, Gesture, Native Patterns)",
+      "installPath": "~/.claude/commands/mobile-ux-audit.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "conversion-ux-review.md",
+      "icon": "\ud83d\udcc8",
+      "color": "var(--green)",
+      "title": "Conversion UX Review (CRO, CTA, Form, Funnel)",
+      "installPath": "~/.claude/commands/conversion-ux-review.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "usability-testing-plan.md",
+      "icon": "\ud83e\uddea",
+      "color": "var(--blue)",
+      "title": "Usability Testing Plan (Research, Script, Metrics)",
+      "installPath": "~/.claude/commands/usability-testing-plan.md",
+      "badge": "NEW",
+      "badgeColor": "#1bc47d"
+    },
+    {
+      "filename": "design-handoff-spec.md",
+      "icon": "\ud83d\udce6",
+      "color": "var(--red)",
+      "title": "Design Handoff Spec (Dev Documentation)",
+      "installPath": "~/.claude/commands/design-handoff-spec.md",
       "badge": "NEW",
       "badgeColor": "#1bc47d"
     }

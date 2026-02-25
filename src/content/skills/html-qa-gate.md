@@ -59,9 +59,10 @@ Dev เปิด Figma แล้ว "เข้าใจทันที"
 ## Step 2: อ่าน References
 
 ```
-references/design-tokens.md    → สำหรับตรวจ color tokens, spacing tokens (อ่านเสมอ)
-references/ux-principles.md    → สำหรับตรวจ usability, heuristics (อ่านเสมอ)
-references/qa-gate-criteria.md → รายละเอียดการตรวจแต่ละจุด (อ่านเสมอ)
+references/design-tokens.md           → สำหรับตรวจ color tokens, spacing tokens (อ่านเสมอ)
+references/ux-principles.md           → สำหรับตรวจ usability, heuristics (อ่านเสมอ)
+references/qa-gate-criteria.md        → รายละเอียดการตรวจแต่ละจุด (อ่านเสมอ)
+references/ui-preview-quality-rules.md → กฎ Visual Design จาก Refactoring UI, Practical UI, Laws of UX (อ่านเสมอ)
 ```
 
 ---
@@ -90,9 +91,10 @@ round = 1, maxRounds = 3, issues = [], fixes = []
 | 5 | **Component Hygiene** | ปุ่ม/input/card ใช้ style consistent, ไม่มี duplicate hex |
 | 6 | **Naming & Structure** | Class names สื่อความหมาย, semantic HTML, heading hierarchy |
 | 7 | **Layout & Spacing** | ใช้ 4px/8px grid, sibling spacing consistent, alignment ตรง |
-| 8 | **Typography** | Text style system, heading/body แยกชัด, line-height อ่านสบาย |
-| 9 | **Color & Token** | ใช้ CSS variables, สีสถานะถูก, WCAG contrast ผ่าน |
-| 10 | **Responsive Intent** | Desktop layout + mobile intent, slide viewport 16:9 (ถ้าเป็น slide) |
+| 8 | **Typography** | Text style system, heading/body แยกชัด, line-height สัมพันธ์กับ size, line length 60-80 chars, ห้ามลด contrast เพื่อ de-emphasize |
+| 9 | **Color & Token** | ใช้ CSS variables, สีสถานะถูก, WCAG contrast ผ่าน, near-black/near-white (ไม่ใช่ pure #000/#FFF), 60-30-10 ratio, neutral มี hue shift |
+| 10 | **Visual Design Quality** | Shadow blur=2x distance, outer padding >= inner, button padding h=2x v, nested radius=outer-gap, ไม่มี adjacent hard divides, empty state มี content |
+| 11 | **Responsive Intent** | Desktop layout + mobile intent, slide viewport 16:9 (ถ้าเป็น slide) |
 
 ### PART 3: Ready to Handoff
 

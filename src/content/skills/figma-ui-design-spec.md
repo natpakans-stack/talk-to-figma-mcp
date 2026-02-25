@@ -63,6 +63,7 @@ references/design-tokens.md        → สำหรับ Custom Design System t
 ```
 
 อ่าน `references/ux-principles.md` **เสมอทุกครั้ง**
+อ่าน `references/ui-preview-quality-rules.md` **เสมอทุกครั้ง** — กฎ Visual Design จาก Refactoring UI, Practical UI, Laws of UX, Don't Make Me Think
 
 สำหรับ platform-specific:
 - Android / Material → อ่านเพิ่ม `references/material-design.md`
@@ -221,6 +222,50 @@ references/design-tokens.md        → สำหรับ Custom Design System t
 </body>
 </html>
 ```
+
+### Preview Quality Rules (บังคับ — จาก references/ui-preview-quality-rules.md):
+
+**Visual Hierarchy:**
+- De-emphasize ตัวรอง (ลด weight/color) สำคัญกว่า emphasize ตัวหลัก
+- 3 ระดับ hierarchy เพียงพอ — Primary, Secondary, Tertiary
+- CTA ต้อง pop ออกมาจากรอบข้าง (Von Restorff Effect)
+
+**Color:**
+- Near-black/near-white แทน pure #000/#FFF (เช่น #1B1D22 แทน #000)
+- 60-30-10 ratio: neutral 60%, secondary 30%, accent 10%
+- Neutral greys ควรมี subtle warm/cool hue shift
+
+**Typography:**
+- Line-height สัมพันธ์กับ size — text ใหญ่ = line-height ต่ำลง
+- ห้ามลด contrast เพื่อ de-emphasize — ใช้ size/weight เล็กลงแทน
+- Line length 60-80 chars (ใช้ max-width ช่วย)
+
+**Spacing:**
+- เริ่มจาก space มากไป แล้วค่อยลด
+- Outer padding >= Inner padding เสมอ
+- ห้ามมี ambiguous spacing — ต้องชัดว่า element ไหนกลุ่มเดียวกัน
+
+**Shadows:**
+- Shadow blur = 2x distance (offset-y: 4px → blur: 8px)
+- แสงมาทิศเดียวทั้งหน้า
+- ไม่ใช้ shadow ใน dark mode
+
+**Borders:**
+- ใช้ border น้อยลง — แทนด้วย shadow, background contrast, spacing
+- ห้าม adjacent hard divides ซ้อนกัน
+
+**Buttons:**
+- Horizontal padding = 2x Vertical padding (เช่น padding: 12px 24px)
+- Primary (solid) > Secondary (outlined) > Tertiary (text only)
+
+**Corner Radius:**
+- Nested radius = outer radius - gap (เช่น outer 16px, gap 8px → inner 8px)
+
+**Components:**
+- Empty state ห้ามปล่อยว่าง — ต้องมี status + learning cue + action
+- Form labels เห็นตลอด — ห้ามใช้ placeholder แทน label
+- Error = adjacent to input + icon + problem + solution
+- Toggle = immediate effect (ไม่ต้องกด Save)
 
 ### Guidelines สำหรับ HTML Preview:
 
