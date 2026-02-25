@@ -1,0 +1,59 @@
+<!-- Version: 3.0.0 | Updated: 2026-02-25 -->
+<section class="section" id="sec3">
+  <h2><span class="num">3</span> วิธีใช้งานจริง</h2>
+  <p class="section-subtitle">ตัวอย่างการสั่งงาน Claude ในสถานการณ์ต่างๆ</p>
+
+  <h3>3.1 — สร้าง Design จากคำอธิบาย</h3>
+  <p>สั่งด้วยภาษาธรรมชาติ — Claude สร้าง HTML preview ให้ดูก่อน:</p>
+  <pre style="background:#f0e6ff; color:#1a1a2e; border-left:4px solid #a259ff;"><code>ออกแบบหน้า Login สำหรับ iOS ประกอบด้วย:
+- Logo ด้านบน
+- Text field สำหรับ Email / Password
+- ปุ่ม Log In สีน้ำเงิน
+- ลิงก์ Forgot Password
+- ปุ่ม Sign Up ด้านล่าง</code></pre>
+  <p>Claude จะ:</p>
+  <ol>
+    <li>สร้าง <strong>HTML/CSS preview</strong> → เปิดดูใน browser</li>
+    <li>ให้ iterate → แก้จนพอใจ</li>
+    <li>ถาม "พร้อม import เข้า Figma ไหม?" → กด OK</li>
+  </ol>
+
+  <h3>3.2 — ใช้ Skill สั่งงาน</h3>
+  <p>พิมพ์ <code>/ชื่อ-skill</code> ตามด้วยคำอธิบาย:</p>
+  <table>
+    <thead><tr><th>พิมพ์</th><th>Claude จะทำ</th></tr></thead>
+    <tbody>
+      <tr><td><code>/figma-ui-design-spec</code> หน้า checkout สำหรับ e-commerce</td><td>ถาม requirement → อ่าน design principles → สร้าง HTML preview → iterate → import Figma</td></tr>
+      <tr><td><code>/figma-design-critique</code> [วาง Figma URL]</td><td>ถ่ายภาพ → วิเคราะห์ 8 มิติ → ให้คะแนน → เสนอ improvement</td></tr>
+      <tr><td><code>/figma-ux-writer</code> เขียน copy สำหรับหน้า error 404</td><td>เขียน UX Copy ไทย-อังกฤษ → ตรวจคำผิด → ส่ง output</td></tr>
+      <tr><td><code>/design-pipeline</code> [วาง Jira URL]</td><td>วิเคราะห์ Jira → ออกแบบ Flow → สร้าง UI → เขียน Copy → QA ครบจบ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 — อ่าน Design ที่มีอยู่</h3>
+  <p>ส่ง Figma URL ให้ Claude อ่าน design ได้:</p>
+  <pre style="background:#e6f9f0; color:#1a1a2e; border-left:4px solid #1bc47d;"><code>ดู design จากลิงก์นี้แล้วให้ feedback:
+https://figma.com/design/xxxxx/MyDesign?node-id=1-2</code></pre>
+  <p>Claude จะใช้ Figma MCP:</p>
+  <ul>
+    <li><code>get_screenshot</code> — ถ่ายภาพหน้าจอ design</li>
+    <li><code>get_design_context</code> — อ่านรายละเอียด (layout, colors, fonts)</li>
+    <li>วิเคราะห์แล้วให้ feedback / สร้าง variant ใหม่</li>
+  </ul>
+
+  <h3>3.4 — Iterate แล้ว Import</h3>
+  <p>จุดเด่นคือ <strong>iterate ใน HTML ก่อน</strong> แล้วค่อย import:</p>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>"เปลี่ยนสีปุ่มเป็นสีเขียว แล้วเพิ่ม border radius"</code></pre>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>"เพิ่ม dark mode toggle"</code></pre>
+  <pre style="background:#e5f4ff; color:#1a1a2e; border-left:4px solid #0d99ff;"><code>"ดีแล้ว import เข้า Figma เลย"</code></pre>
+
+  <h3>3.5 — สั่งงานพื้นฐาน (ไม่ใช้ Skill)</h3>
+  <table>
+    <thead><tr><th>พิมพ์</th><th>Claude จะทำ</th></tr></thead>
+    <tbody>
+      <tr><td>"สร้างปุ่ม Login สีน้ำเงิน แล้ว import เข้า Figma"</td><td>สร้าง HTML ปุ่ม → ส่ง import_html → Figma สร้าง frame</td></tr>
+      <tr><td>"ดู design จากลิงก์นี้ [URL]"</td><td>ใช้ get_screenshot ถ่ายภาพ → วิเคราะห์ design</td></tr>
+      <tr><td>"import เข้า Figma เลย"</td><td>ส่ง HTML ผ่าน import_html → Figma สร้าง layers</td></tr>
+    </tbody>
+  </table>
+</section>

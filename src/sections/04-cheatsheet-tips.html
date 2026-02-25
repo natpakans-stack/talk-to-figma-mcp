@@ -1,0 +1,82 @@
+<!-- Version: 3.0.0 | Updated: 2026-02-25 -->
+<section class="section" id="sec4">
+  <h2><span class="num">4</span> Cheat Sheet &amp; Tips</h2>
+  <p class="section-subtitle">คำสั่งที่ใช้บ่อย + เคล็ดลับสำหรับ Designer</p>
+
+  <div class="cheat-group">
+    <h4>🔍 ดูข้อมูลจาก Figma</h4>
+    <table>
+      <thead><tr><th>สิ่งที่อยากทำ</th><th>พิมพ์</th></tr></thead>
+      <tbody>
+        <tr><td>ดูข้อมูล document</td><td>"ดูข้อมูล document ใน Figma"</td></tr>
+        <tr><td>ดู element ที่เลือก</td><td>"ดู element ที่เลือกอยู่"</td></tr>
+        <tr><td>ดู styles ทั้งหมด</td><td>"แสดง styles ใน document"</td></tr>
+        <tr><td>ดู components ทั้งหมด</td><td>"แสดง local components"</td></tr>
+        <tr><td>ดู text ทั้งหมดใน frame</td><td>"scan text ทั้งหมดใน frame ที่เลือก"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cheat-group">
+    <h4>➕ สร้าง Element</h4>
+    <table>
+      <thead><tr><th>สิ่งที่อยากทำ</th><th>พิมพ์</th></tr></thead>
+      <tbody>
+        <tr><td>สร้าง frame</td><td>"สร้าง frame ชื่อ Header ขนาด 393×80"</td></tr>
+        <tr><td>สร้าง text</td><td>"สร้าง text 'Hello World' font size 24 bold"</td></tr>
+        <tr><td>สร้าง rectangle</td><td>"สร้างสี่เหลี่ยมขนาด 100×100 สีแดง"</td></tr>
+        <tr><td>Clone element</td><td>"clone element ที่เลือก"</td></tr>
+        <tr><td>สร้าง component instance</td><td>"สร้าง instance ของ component 'Button'"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cheat-group">
+    <h4>✏️ แก้ไข Element</h4>
+    <table>
+      <thead><tr><th>สิ่งที่อยากทำ</th><th>พิมพ์</th></tr></thead>
+      <tbody>
+        <tr><td>เปลี่ยนสี</td><td>"เปลี่ยนสีเป็น #FF0000"</td></tr>
+        <tr><td>เปลี่ยนขนาด</td><td>"ปรับขนาดเป็น 200×50"</td></tr>
+        <tr><td>เปลี่ยนตำแหน่ง</td><td>"ย้ายไปตำแหน่ง x=100 y=200"</td></tr>
+        <tr><td>เปลี่ยน text</td><td>"เปลี่ยน text เป็น 'สวัสดี'"</td></tr>
+        <tr><td>เพิ่ม corner radius</td><td>"ตั้ง corner radius เป็น 12"</td></tr>
+        <tr><td>ตั้ง auto layout</td><td>"ตั้ง auto layout แนวตั้ง spacing 8 padding 16"</td></tr>
+        <tr><td>ลบ element</td><td>"ลบ element ที่เลือก"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ Tips ═══ -->
+  <h3>Tips สำหรับ Designer</h3>
+  <ol>
+    <li><strong>บอก Claude ให้ละเอียด</strong> — ยิ่งบอกละเอียด ยิ่งได้ผลลัพธ์ตรงใจ</li>
+    <li><strong>ใช้ hex code สำหรับสี</strong> — บอก <code>#007AFF</code> ดีกว่า "สีน้ำเงิน"</li>
+    <li><strong>บอกขนาดเป็นตัวเลข</strong> — บอก "393×852" ดีกว่า "ขนาด iPhone"</li>
+    <li><strong>ทำทีละ step</strong> — สร้าง structure ก่อน → ใส่ content → จัด layout → ตั้งสี</li>
+    <li><strong>ใช้ Skill เมื่อทำได้</strong> — Skill ให้ผลลัพธ์ดีกว่าสั่งแบบ ad-hoc</li>
+  </ol>
+
+  <h3>Workflow แนะนำ</h3>
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin:16px 0;">
+    <span style="background:var(--accent-light); color:var(--accent-dark); padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">1. ร่าง concept</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--blue-light); color:#0066cc; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">2. Claude สร้าง structure</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--green-light); color:#0a7a4a; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">3. Claude ใส่ content</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--orange-light); color:#b35c00; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">4. Review & feedback</span>
+    <span style="color:var(--text-secondary); padding:8px 4px;">→</span>
+    <span style="background:var(--red-light); color:#c43020; padding:8px 16px; border-radius:20px; font-size:14px; font-weight:600;">5. Fine-tune ด้วยมือ</span>
+  </div>
+
+  <h3>สิ่งที่ควรทำเองใน Figma (MCP ทำไม่ได้ / ทำได้ไม่ดี)</h3>
+  <ul class="limit-list">
+    <li>วาง Image / Illustration</li>
+    <li>สร้าง Complex Vector / Icon</li>
+    <li>ตั้ง Prototype &amp; Interaction</li>
+    <li>Fine-tune pixel-perfect alignment</li>
+    <li>สร้าง Complex Gradient / Shadow / Blur</li>
+    <li>Group/Ungroup nodes</li>
+  </ul>
+</section>

@@ -1,0 +1,127 @@
+<!-- Version: 3.0.0 | Updated: 2026-02-25 -->
+<section class="section" id="sec6">
+  <h2><span class="num">6</span> ติดตั้ง</h2>
+  <p class="section-subtitle">ทำครั้งเดียว ไม่ต้องทำซ้ำ</p>
+
+  <h3>สิ่งที่ต้องเตรียม</h3>
+  <table>
+    <thead><tr><th>#</th><th>Software</th><th>ทำไมต้องใช้</th><th>ดาวน์โหลด</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>VS Code</strong></td><td>Editor สำหรับใช้งาน Claude</td><td><a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></td></tr>
+      <tr><td>2</td><td><strong>Node.js</strong> (v18+)</td><td>Runtime สำหรับรัน server</td><td><a href="https://nodejs.org" target="_blank">nodejs.org</a> (เลือก LTS)</td></tr>
+      <tr><td>3</td><td><strong>Figma Desktop</strong></td><td>ต้องใช้ Desktop app เท่านั้น</td><td><a href="https://www.figma.com/downloads" target="_blank">figma.com/downloads</a></td></tr>
+    </tbody>
+  </table>
+  <table>
+    <thead><tr><th>#</th><th>Account</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Anthropic Account</strong></td><td>สำหรับใช้ Claude (ต้อง subscribe plan)</td></tr>
+      <tr><td>2</td><td><strong>Figma Account</strong></td><td>Free plan ก็ใช้ได้</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Step 1 -->
+  <div class="step-card" data-step="STEP 1">
+    <h4>ติดตั้ง VS Code + Node.js</h4>
+    <ol>
+      <li>ดาวน์โหลด <a href="https://code.visualstudio.com" target="_blank">VS Code</a> → ติดตั้ง (macOS: ลาก .app เข้า Applications)</li>
+      <li>ดาวน์โหลด <a href="https://nodejs.org" target="_blank">Node.js LTS</a> → ติดตั้ง</li>
+      <li>เปิด Terminal → พิมพ์เช็ค:</li>
+    </ol>
+    <pre><code><span class="fn">node</span> <span class="flag">--version</span></code></pre>
+    <p>ต้องได้ผลลัพธ์: <code>v22.x.x</code> (เลข version อาจต่างกัน)</p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step-card blue" data-step="STEP 2">
+    <h4>ติดตั้ง Claude Code Extension ใน VS Code</h4>
+    <ol>
+      <li>เปิด VS Code → กด <code>Cmd + Shift + X</code> (Extensions)</li>
+      <li>ค้นหา <strong>"Claude Code"</strong> → กด <strong>Install</strong> (ของ Anthropic)</li>
+      <li>กดเปิด Claude panel → <strong>Login</strong> ด้วย Anthropic Account</li>
+    </ol>
+    <div class="info-box note">
+      <span class="icon">💡</span>
+      <div><strong>ทางเลือก: ติดตั้ง Claude Code CLI แทน</strong><br>
+      <code>npm install -g @anthropic-ai/claude-code</code> แล้วพิมพ์ <code>claude</code> ใน Terminal</div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step-card orange" data-step="STEP 3">
+    <h4>ติดตั้ง Figma Plugin "html.to.design"</h4>
+    <p style="margin-bottom:12px;">
+      <a href="https://www.figma.com/community/plugin/1159123024924461424" target="_blank" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:linear-gradient(135deg,#ff8c00,#e67700); color:white; text-decoration:none; border-radius:10px; font-weight:700; font-size:14px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        เปิดหน้า Plugin บน Figma Community
+      </a>
+    </p>
+    <ol>
+      <li>กดลิงก์ด้านบน → เลือก Figma Desktop → กด <strong>Install</strong></li>
+      <li>หรือใน Figma กด <code>Cmd + /</code> แล้วพิมพ์ "html.to.design"</li>
+    </ol>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step-card green" data-step="STEP 4">
+    <h4>ตั้งค่า Figma MCP (อ่าน Design)</h4>
+    <div class="info-box note">
+      <span class="icon">ℹ️</span>
+      <div><strong>Figma MCP</strong> ทำให้ Claude อ่าน Design จาก Figma URL ได้ (screenshot, design context, metadata)</div>
+    </div>
+    <ol>
+      <li>เปิด Terminal แล้วรัน:</li>
+    </ol>
+    <pre><code><span class="fn">claude</span> mcp add figma <span class="flag">--transport</span> sse <span class="flag">--url</span> <span class="str">https://modelcontextprotocol.servers.figma.com/sse</span></code></pre>
+    <ol start="2">
+      <li>Claude เปิด browser ให้ Login กับ Figma → กด <strong>Allow</strong></li>
+      <li>Login ครั้งเดียว ไม่ต้องทำซ้ำ</li>
+    </ol>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step-card" data-step="STEP 5">
+    <h4>ตั้งค่า html-to-design MCP (สร้าง Design)</h4>
+    <div class="info-box note">
+      <span class="icon">🔍</span>
+      <div><strong>html-to-design MCP</strong> ทำให้ Claude ส่ง HTML/CSS ไปสร้างเป็น Figma layers ได้<br>
+      ต้องใช้ร่วมกับ html.to.design plugin ที่ติดตั้งไว้ใน Step 3</div>
+    </div>
+    <ol>
+      <li>เปิด Figma → Plugins → <strong>html.to.design</strong></li>
+      <li>ไปที่ tab <strong>MCP</strong> → เปิด toggle <strong>"Enable MCP endpoint"</strong></li>
+      <li>ตรวจว่า STATUS: <strong>connected</strong> (จุดเขียว)</li>
+      <li>จดค่า <strong>Endpoint ID</strong> ที่แสดง</li>
+    </ol>
+    <p>5. เปิด Terminal แล้วรัน (แทนที่ <code>{your-endpoint-id}</code> ด้วยค่าจากข้อ 4):</p>
+    <pre><code><span class="fn">claude</span> mcp add html-to-design <span class="flag">--</span> uvx mcp-proxy <span class="flag">--transport</span> streamablehttp <span class="str">https://h2d-mcp.divriots.com/{your-endpoint-id}/mcp</span></code></pre>
+
+    <div class="info-box warn">
+      <span class="icon">⚠️</span>
+      <div><strong>ต้องติดตั้ง <code>uv</code> ก่อน:</strong> ถ้ายังไม่มี ให้รัน <code>curl -LsSf https://astral.sh/uv/install.sh | sh</code> แล้วเปิด Terminal ใหม่</div>
+    </div>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="step-card blue" data-step="STEP 6">
+    <h4>ติดตั้ง Skills</h4>
+    <ol>
+      <li>Clone repo:</li>
+    </ol>
+    <pre><code><span class="fn">git</span> clone [repo-url] && <span class="fn">cd</span> talk-to-figma-mcp</code></pre>
+    <ol start="2">
+      <li>รัน setup script:</li>
+    </ol>
+    <pre><code><span class="fn">bash</span> setup-symlinks.sh</code></pre>
+    <ol start="3">
+      <li>เช็คสถานะ:</li>
+    </ol>
+    <pre><code><span class="fn">bash</span> setup-symlinks.sh <span class="flag">--status</span></code></pre>
+    <p>เสร็จ! ตอนนี้พิมพ์ <code>/figma-ui-design-spec</code> ใน Claude ได้แล้ว</p>
+  </div>
+
+  <div class="info-box tip">
+    <span class="icon">⚡</span>
+    <div><strong>ติดตั้งเสร็จแล้ว?</strong> กลับไปที่ <a href="#sec1" style="color:#0a7a4a; font-weight:700;">Section 1: Quick Start</a> เพื่อเริ่มใช้งาน หรือดู <a href="#sec2" style="color:#0a7a4a; font-weight:700;">Section 2: Skills ทั้งหมด</a></div>
+  </div>
+</section>

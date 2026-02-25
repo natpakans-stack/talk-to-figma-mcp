@@ -76,10 +76,10 @@ function buildSkillCard(item) {
 `;
 }
 
-// ── Section 11 builder ───────────────────────────────────
+// ── Section 8 (Reference Files) builder ──────────────────
 
-function buildSection11(config) {
-  const intro = read(src('sections', '11-references-intro.html'));
+function buildSection8(config) {
+  const intro = read(src('sections', '08-references-intro.html'));
   const refCards = config.references.map(buildReferenceCard).join('\n');
   const skillCards = config.skills.map(buildSkillCard).join('\n');
 
@@ -107,23 +107,23 @@ function build() {
   const footer = read(src('template', 'footer.html'));
 
   // Read static section partials (order matters)
+  // v3.0.0: Restructured for 2 user journeys
+  //   Journey 2 (existing users): sec1-4 → Quick Start, Skills, Usage, Cheat Sheet
+  //   Journey 1 (new members): sec5-7 → Overview, Installation, Troubleshooting
   const sectionFiles = [
-    '01-overview.html',
-    '02-architecture.html',
-    '03-prerequisites.html',
-    '04-installation.html',
-    '05-daily-usage.html',
-    '06-real-usage.html',
-    '07-cheatsheet.html',
-    '08-troubleshooting.html',
-    '09-tips.html',
-    '10-skills.html',
+    '01-quick-start.html',
+    '02-skill-catalog.html',
+    '03-real-usage.html',
+    '04-cheatsheet-tips.html',
+    '05-overview-architecture.html',
+    '06-installation.html',
+    '07-troubleshooting.html',
   ];
 
   const sections = sectionFiles.map(f => read(src('sections', f)));
 
-  // Build section 11 from .md files
-  const section11 = buildSection11(config);
+  // Build section 8 (Reference Files) from .md files
+  const section8 = buildSection8(config);
 
   // Glossary
   const glossary = read(src('sections', 'glossary.html'));
@@ -135,7 +135,7 @@ function build() {
     hero,
     '',
     ...sections.map(s => s + '\n'),
-    section11,
+    section8,
     glossary,
     '',
     footer,

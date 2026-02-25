@@ -2,9 +2,9 @@
 
 <!-- ════════════════════ FOOTER ════════════════════ -->
 <footer class="footer">
-  <p>จัดทำสำหรับ <strong>Knowledge Sharing</strong> ภายในทีม</p>
+  <p><strong>Talk To Figma MCP</strong> — Team Handbook สำหรับทีม UX/UI</p>
   <p>หากมีคำถามหรือพบปัญหา สามารถถามในช่องทีมได้เลย</p>
-  <p style="margin-top:12px; opacity:0.6;">v2.4.0 — February 2026</p>
+  <p style="margin-top:12px; opacity:0.6;">v3.0.0 — February 2026</p>
 </footer>
 
 <!-- ════════════════════ BACK TO TOP ════════════════════ -->
@@ -32,6 +32,7 @@
 </style>
 <script>
 (function(){
+  // Back to top
   var btn=document.getElementById('backToTop');
   var threshold=400;
   window.addEventListener('scroll',function(){
@@ -40,6 +41,28 @@
   },{passive:true});
   btn.addEventListener('click',function(){
     window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // Copy buttons on <pre> blocks
+  document.querySelectorAll('pre').forEach(function(pre){
+    // Skip if inside details that are collapsed or if content is too short
+    var text = pre.textContent.trim();
+    if(!text || text.length < 5) return;
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+    copyBtn.addEventListener('click', function(){
+      navigator.clipboard.writeText(text).then(function(){
+        copyBtn.classList.add('copied');
+        copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+        setTimeout(function(){
+          copyBtn.classList.remove('copied');
+          copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+        }, 2000);
+      });
+    });
+    pre.appendChild(copyBtn);
   });
 })();
 </script>

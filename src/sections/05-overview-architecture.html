@@ -1,0 +1,97 @@
+<!-- Version: 3.0.0 | Updated: 2026-02-25 -->
+<section class="section" id="sec5">
+  <h2><span class="num">5</span> ภาพรวม &amp; สถาปัตยกรรม</h2>
+  <p class="section-subtitle">สำหรับคนใหม่ — มันคืออะไร? ชิ้นส่วนเชื่อมกันยังไง?</p>
+
+  <div class="info-box note">
+    <span class="icon">📦</span>
+    <div><strong>คนใหม่เริ่มที่นี่</strong> — อ่าน section นี้ก่อน แล้วไป <a href="#sec6" style="color:#0d99ff; font-weight:700;">Section 6: ติดตั้ง</a></div>
+  </div>
+
+  <h3>มันคืออะไร?</h3>
+  <p><strong>HTML-to-Figma Workflow</strong> คือระบบที่ทำให้ <strong>Claude AI</strong> สามารถ:</p>
+  <ul class="cap-list">
+    <li>สร้าง HTML/CSS preview แล้ว import เข้า Figma เป็น layers อัตโนมัติ</li>
+    <li>อ่าน design ที่มีอยู่แล้ว — ถ่ายภาพหน้าจอ, ดู design context, อ่าน metadata</li>
+    <li>Iterate เร็ว — แก้ HTML ใน Claude → refresh browser → เห็นผลทันที</li>
+    <li>สร้างทั้งหน้าจอพร้อมกัน — ไม่ต้องสร้างทีละ element</li>
+    <li>ได้ layout ที่แม่นยำ — CSS → Figma Auto Layout mapping</li>
+  </ul>
+
+  <h3>ใช้ MCP 2 ตัว</h3>
+  <table>
+    <thead><tr><th>MCP Server</th><th>หน้าที่</th><th>ตัวอย่าง</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Figma MCP</strong> (อ่าน)</td><td>อ่าน design จาก Figma</td><td>ถ่ายภาพหน้าจอ, ดู specs, อ่าน metadata</td></tr>
+      <tr><td><strong>html-to-design MCP</strong> (เขียน)</td><td>ส่ง HTML ไปสร้างใน Figma</td><td>import_html, import_url</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Architecture Diagram -->
+  <h3>แผนผังการเชื่อมต่อ</h3>
+  <div class="arch-diagram">
+    <div class="arch-grid">
+      <div class="arch-box">
+        <div class="arch-icon">💻</div>
+        <div class="arch-title">VS Code + Claude</div>
+        <div class="arch-desc">เราพิมพ์คำสั่ง<br>AI คิดแล้วสั่งงาน</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="arch-icon">🔍</div>
+        <div class="arch-title">Figma MCP (อ่าน)</div>
+        <div class="arch-desc">ดู screenshot<br>อ่าน design context</div>
+      </div>
+    </div>
+    <div class="arch-grid" style="margin-top:16px;">
+      <div class="arch-box">
+        <div class="arch-icon">💻</div>
+        <div class="arch-title">VS Code + Claude</div>
+        <div class="arch-desc">สร้าง HTML/CSS<br>preview ใน browser</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="arch-icon">📡</div>
+        <div class="arch-title">html-to-design MCP (เขียน)</div>
+        <div class="arch-desc">ส่ง HTML ไป<br>สร้างใน Figma</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <div class="arch-icon">🎨</div>
+        <div class="arch-title">Figma + html.to.design</div>
+        <div class="arch-desc">แปลง HTML<br>เป็น Figma layers</div>
+      </div>
+    </div>
+    <div class="arch-subtitle">ใช้ 2 MCP Servers: Figma MCP (อ่าน) + html-to-design MCP (เขียน)</div>
+  </div>
+
+  <h3>แต่ละชิ้นทำหน้าที่อะไร</h3>
+  <table>
+    <thead><tr><th>ชิ้นส่วน</th><th>คืออะไร</th><th>ทำหน้าที่อะไร</th></tr></thead>
+    <tbody>
+      <tr><td><strong>VS Code + Claude Code</strong></td><td>Editor + AI</td><td>เราพิมพ์คำสั่ง, AI สร้าง HTML/CSS preview แล้วส่งเข้า Figma</td></tr>
+      <tr><td><strong>Figma MCP (อ่าน)</strong></td><td>ตัวอ่าน design</td><td>ถ่ายภาพหน้าจอ, อ่าน design context, ดู metadata จาก Figma</td></tr>
+      <tr><td><strong>html-to-design MCP (เขียน)</strong></td><td>ตัวส่ง HTML → Figma</td><td>ส่ง HTML/CSS ไปแปลงเป็น Figma layers ผ่าน html.to.design plugin</td></tr>
+      <tr><td><strong>html.to.design Plugin</strong></td><td>Plugin ใน Figma</td><td>รับ HTML แล้วแปลงเป็น Figma layers อัตโนมัติ (Auto Layout, สี, text ครบ)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ทำไมถึงน่าใช้?</h3>
+  <table>
+    <thead><tr><th>สิ่งที่ทำได้</th><th>ตัวอย่าง</th></tr></thead>
+    <tbody>
+      <tr><td>สร้าง UI จากคำอธิบาย</td><td>"ออกแบบหน้า Login แบบ iOS แล้ว import เข้า Figma"</td></tr>
+      <tr><td>ดู design ที่มีแล้วแก้</td><td>"ดู design จาก URL นี้ แล้วสร้าง variant ใหม่"</td></tr>
+      <tr><td>Preview ก่อน import</td><td>ดู HTML ใน browser ก่อน → iterate จนพอใจ → แล้วค่อย import</td></tr>
+      <tr><td>ใช้ 21 Skills สำเร็จรูป</td><td>พิมพ์ <code>/figma-ui-design-spec</code> แล้ว Claude ทำงานตาม workflow ที่กำหนด</td></tr>
+    </tbody>
+  </table>
+
+  <h3>ข้อจำกัด</h3>
+  <ul class="limit-list">
+    <li>ต้องเปิด Figma Desktop + html.to.design plugin ค้างไว้ตอน import</li>
+    <li>Font อาจ map ไม่ตรง 100% — ต้อง fine-tune ใน Figma หลัง import</li>
+    <li>ไม่สามารถสร้าง Prototype/Interaction ได้</li>
+    <li>HTML ที่ใช้ absolute positioning อาจแปลงไม่ตรง — ใช้ flexbox จะดีกว่า</li>
+  </ul>
+</section>
