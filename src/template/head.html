@@ -634,12 +634,31 @@
       color: var(--text-secondary);
     }
 
+    /* ─── Footer Mascot ─── */
+    .footer-mascot {
+      text-align: center;
+      margin-bottom: 0;
+      line-height: 0;
+      height: 200px;
+      overflow: hidden;
+    }
+    .footer-mascot-img {
+      width: 320px;
+      height: auto;
+      display: inline-block;
+    }
+    @media (max-width: 640px) {
+      .footer-mascot { height: 120px; }
+      .footer-mascot-img { width: 240px; }
+    }
+
     /* ─── Footer ─── */
     .footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 24px 20px 40px;
       color: var(--text-secondary);
       font-size: 14px;
+      border-top: 1px solid var(--border);
     }
     .footer a { color: var(--accent); text-decoration: none; }
 

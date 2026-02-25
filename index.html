@@ -634,12 +634,31 @@
       color: var(--text-secondary);
     }
 
+    /* ─── Footer Mascot ─── */
+    .footer-mascot {
+      text-align: center;
+      margin-bottom: 0;
+      line-height: 0;
+      height: 200px;
+      overflow: hidden;
+    }
+    .footer-mascot-img {
+      width: 320px;
+      height: auto;
+      display: inline-block;
+    }
+    @media (max-width: 640px) {
+      .footer-mascot { height: 120px; }
+      .footer-mascot-img { width: 240px; }
+    }
+
     /* ─── Footer ─── */
     .footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 24px 20px 40px;
       color: var(--text-secondary);
       font-size: 14px;
+      border-top: 1px solid var(--border);
     }
     .footer a { color: var(--accent); text-decoration: none; }
 
@@ -14707,9 +14726,16 @@ handoff-doc.html
 </div><!-- /.container -->
 
 <!-- ════════════════════ FOOTER ════════════════════ -->
+<div class="footer-mascot">
+  <img src="assets/aw-mascot.avif" alt="Aw mascot" class="footer-mascot-img">
+</div>
 <footer class="footer">
   <p><strong>Talk To Figma MCP</strong> — Team Handbook สำหรับทีม UX/UI</p>
-  <p>หากมีคำถามหรือพบปัญหา สามารถถามในช่องทีมได้เลย</p>
+  <p style="margin-top:12px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+    <a href="https://natpakans-stack.github.io/parking-reminder-portfolio">parking-reminder-portfolio</a>
+    <a href="https://natpakans-stack.github.io/carpark_live_dashboard">carpark_live_dashboard</a>
+    <a href="https://natpakans-stack.github.io/line-messaging-portfolio">line-messaging-portfolio</a>
+  </p>
   <p style="margin-top:12px; opacity:0.6;">v3.0.0 — February 2026</p>
 </footer>
 
